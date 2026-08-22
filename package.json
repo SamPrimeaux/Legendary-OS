@@ -7,8 +7,10 @@
     "dev": "pnpm --parallel --filter ./frontend --filter ./backend dev",
     "dev:frontend": "pnpm --dir frontend dev",
     "dev:backend": "pnpm --dir backend dev",
-    "build": "pnpm --dir iaminfra/cms build && pnpm --dir frontend build && pnpm --dir backend build",
+    "build": "pnpm --dir iaminfra/cms build && pnpm --dir frontend build && node scripts/sync-auth-portal.mjs && pnpm --dir backend build",
     "check": "pnpm -r check",
-    "deploy": "pnpm --dir frontend build && pnpm --dir backend deploy"
+    "deploy": "pnpm --dir frontend build && node scripts/sync-auth-portal.mjs && pnpm --dir backend deploy",
+    "db:migrate:identity": "npx wrangler d1 execute legendary-os-cms --remote --file=migrations/0001_identity_core.sql -c wrangler.jsonc",
+    "db:migrate:identity:local": "npx wrangler d1 execute legendary-os-cms --local --file=migrations/0001_identity_core.sql -c wrangler.jsonc"
   }
 }

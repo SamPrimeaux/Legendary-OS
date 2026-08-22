@@ -10,6 +10,9 @@ importers:
 
   backend:
     dependencies:
+      '@inneranimalmedia/agentsam-sdk':
+        specifier: ^2.0.0-alpha.identity.5
+        version: 2.0.0-alpha.identity.5
       '@legendary-os/iam-cms':
         specifier: workspace:*
         version: link:../iaminfra/cms
@@ -686,6 +689,11 @@ packages:
 
   '@inneranimalmedia/agentsam-sdk@1.9.0':
     resolution: {integrity: sha512-Tian3iv2577yj6bLHFmCLaomHbZ7n6VVw7CyPgUKYgBFy/mxlT61bRsN1QTqdCtFRH9bAs71fwaSQfjU4lkNjg==}
+    engines: {node: '>=20'}
+    hasBin: true
+
+  '@inneranimalmedia/agentsam-sdk@2.0.0-alpha.identity.5':
+    resolution: {integrity: sha512-VGjkqbzLFi9TQN0I/fOAr7laf0xGUVJTHPy5urPZNDOjzjIryJZW8xpmyzxUJaP/CIqJ3Chdrko27EC0GMyXIA==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -1627,6 +1635,16 @@ snapshots:
     optional: true
 
   '@inneranimalmedia/agentsam-sdk@1.9.0':
+    dependencies:
+      '@clack/prompts': 1.7.0
+      node-pty: 1.1.0
+      picocolors: 1.1.1
+      ws: 8.21.3
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
+  '@inneranimalmedia/agentsam-sdk@2.0.0-alpha.identity.5':
     dependencies:
       '@clack/prompts': 1.7.0
       node-pty: 1.1.0
