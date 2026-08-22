@@ -1,0 +1,157 @@
+:root {
+  --los-bg: #f6f6f3;
+  --los-surface: #ffffff;
+  --los-surface-soft: #f0f1ed;
+  --los-border: #e3e5df;
+  --los-text: #161817;
+  --los-muted: #6d726f;
+  --los-accent: #0f8f83;
+  --los-accent-soft: #e1f2ef;
+  --los-shadow: 0 1px 2px rgba(20, 25, 22, .05), 0 8px 30px rgba(20, 25, 22, .06);
+  --los-sidebar: 232px;
+  --los-topbar: 60px;
+  --los-mobile-nav: 66px;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { margin: 0; min-height: 100%; }
+body { background: var(--los-bg); color: var(--los-text); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+button, input, select, textarea { font: inherit; }
+button { -webkit-tap-highlight-color: transparent; }
+
+.los-shell { min-height: 100vh; background: var(--los-bg); }
+.los-sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: var(--los-sidebar);
+  display: flex;
+  flex-direction: column;
+  padding: 14px 12px;
+  background: #eef0ec;
+  border-right: 1px solid var(--los-border);
+  z-index: 50;
+}
+.los-brand, .los-user, .los-agent-card, .los-nav-item, .los-search, .los-agent-pill, .los-icon-button, .los-top-avatar, .los-mobile-nav button, .los-sheet-action {
+  border: 0;
+  cursor: pointer;
+}
+.los-brand { display: flex; align-items: center; gap: 10px; padding: 8px; background: transparent; text-align: left; color: var(--los-text); }
+.los-brand-mark, .los-mobile-mark { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px; background: #111715; color: #fff; font-weight: 850; }
+.los-brand-copy, .los-user span:not(.los-avatar), .los-agent-card > span:last-child { display: flex; flex-direction: column; min-width: 0; }
+.los-brand-copy strong { font-size: 14px; line-height: 1.1; }
+.los-brand-copy small, .los-user small, .los-agent-card small { margin-top: 2px; color: var(--los-muted); font-size: 10px; }
+
+.los-sidebar-nav { margin-top: 18px; display: grid; gap: 3px; }
+.los-nav-label { margin: 0 8px 6px; color: #858a86; font-size: 10px; font-weight: 750; text-transform: uppercase; letter-spacing: .09em; }
+.los-nav-item { width: 100%; height: 40px; display: flex; align-items: center; gap: 10px; padding: 0 10px; border-radius: 9px; background: transparent; color: #4f5552; text-align: left; font-size: 13px; font-weight: 600; }
+.los-nav-item svg { width: 18px; height: 18px; }
+.los-nav-item:hover { background: rgba(255,255,255,.65); color: var(--los-text); }
+.los-nav-item.is-active { background: #fff; color: var(--los-text); box-shadow: 0 1px 1px rgba(15,20,18,.06); }
+.los-sidebar-bottom { margin-top: auto; display: grid; gap: 8px; }
+.los-agent-card { display: flex; align-items: center; gap: 9px; padding: 10px; border: 1px solid #d6e9e5; border-radius: 11px; background: var(--los-accent-soft); color: var(--los-text); text-align: left; }
+.los-agent-card strong { font-size: 12px; }
+.los-agent-icon { color: var(--los-accent); display: grid; place-items: center; }
+.los-user { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px; padding: 8px; background: transparent; border-radius: 10px; text-align: left; color: var(--los-text); }
+.los-user:hover { background: rgba(255,255,255,.65); }
+.los-avatar, .los-top-avatar { display: grid; place-items: center; border-radius: 999px; background: #d9ddd8; color: #303532; font-size: 10px; font-weight: 800; }
+.los-avatar { width: 30px; height: 30px; }
+.los-user strong { font-size: 11px; }
+.los-user svg { width: 16px; color: var(--los-muted); }
+
+.los-stage { min-height: 100vh; margin-left: var(--los-sidebar); }
+.los-topbar {
+  position: sticky;
+  top: 0;
+  height: var(--los-topbar);
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(260px, 560px) minmax(180px, 1fr);
+  align-items: center;
+  gap: 18px;
+  padding: 0 20px;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--los-border);
+  z-index: 40;
+}
+.los-topbar-title { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.los-topbar-title > div { display: flex; flex-direction: column; min-width: 0; }
+.los-topbar-title small { color: var(--los-muted); font-size: 10px; }
+.los-topbar-title strong { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.los-mobile-mark { display: none; }
+.los-search { height: 36px; display: flex; align-items: center; gap: 9px; padding: 0 10px; border: 1px solid var(--los-border); border-radius: 9px; background: #f6f7f4; color: #8b908c; text-align: left; }
+.los-search span { flex: 1; }
+.los-search svg { width: 17px; }
+.los-search kbd { padding: 2px 6px; border: 1px solid #dadcd7; border-radius: 5px; background: #fff; font-size: 10px; color: #777d79; }
+.los-topbar-actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+.los-agent-pill { height: 34px; display: inline-flex; align-items: center; gap: 6px; padding: 0 11px; border-radius: 9px; background: var(--los-accent-soft); color: #0b766d; font-size: 11px; font-weight: 750; }
+.los-agent-pill svg { width: 15px; }
+.los-icon-button { position: relative; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 9px; background: transparent; color: #555b57; }
+.los-icon-button:hover { background: var(--los-surface-soft); }
+.los-icon-button svg { width: 17px; }
+.los-icon-button i { position: absolute; right: 7px; top: 6px; width: 5px; height: 5px; border-radius: 999px; background: #d55f50; border: 1px solid #fff; }
+.los-top-avatar { width: 32px; height: 32px; }
+
+.los-content { min-width: 0; min-height: calc(100vh - var(--los-topbar)); }
+.los-mobile-nav, .los-mobile-sheet-backdrop { display: none; }
+
+@media (max-width: 900px) {
+  :root { --los-topbar: 56px; }
+  .los-sidebar { display: none; }
+  .los-stage { margin-left: 0; padding-bottom: calc(var(--los-mobile-nav) + env(safe-area-inset-bottom, 0px)); }
+  .los-topbar {
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 0 12px;
+    gap: 10px;
+  }
+  .los-mobile-mark { display: grid; width: 30px; height: 30px; border-radius: 9px; font-size: 13px; }
+  .los-topbar-title small { display: none; }
+  .los-topbar-title strong { font-size: 15px; }
+  .los-search { display: none; }
+  .los-agent-pill { width: 34px; padding: 0; justify-content: center; }
+  .los-agent-pill span { display: none; }
+  .los-top-avatar { display: none; }
+  .los-topbar-actions { gap: 3px; }
+
+  .los-mobile-nav {
+    position: fixed;
+    left: 8px;
+    right: 8px;
+    bottom: max(8px, env(safe-area-inset-bottom, 0px));
+    height: var(--los-mobile-nav);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 5px;
+    border: 1px solid rgba(213,216,210,.9);
+    border-radius: 18px;
+    background: rgba(255,255,255,.94);
+    box-shadow: 0 10px 35px rgba(24,30,26,.14);
+    backdrop-filter: blur(22px);
+    z-index: 80;
+  }
+  .los-mobile-nav button { min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; border-radius: 13px; background: transparent; color: #777d79; font-size: 9px; font-weight: 650; }
+  .los-mobile-nav button svg { width: 19px; height: 19px; }
+  .los-mobile-nav button.is-active { color: #0c766e; background: var(--los-accent-soft); }
+
+  .los-mobile-sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    background: rgba(13,16,14,.28);
+    z-index: 100;
+  }
+  .los-mobile-sheet { width: 100%; padding: 8px 14px calc(18px + env(safe-area-inset-bottom, 0px)); border-radius: 22px 22px 0 0; background: #fff; box-shadow: 0 -20px 50px rgba(10,15,12,.18); }
+  .los-sheet-handle { width: 36px; height: 4px; margin: 2px auto 10px; border-radius: 99px; background: #d5d8d3; }
+  .los-sheet-head { display: flex; justify-content: space-between; align-items: center; padding: 5px 2px 12px; }
+  .los-sheet-head strong { font-size: 16px; }
+  .los-sheet-head button { border: 0; background: transparent; color: var(--los-accent); font-weight: 700; }
+  .los-sheet-action { width: 100%; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 12px; padding: 12px 6px; background: transparent; border-top: 1px solid #eceee9; text-align: left; color: var(--los-text); }
+  .los-sheet-action > span { display: flex; flex-direction: column; }
+  .los-sheet-action strong { font-size: 13px; }
+  .los-sheet-action small { margin-top: 2px; color: var(--los-muted); font-size: 11px; }
+}
+
+@media (max-width: 520px) {
+  .los-topbar { padding-left: max(10px, env(safe-area-inset-left, 0px)); padding-right: max(10px, env(safe-area-inset-right, 0px)); }
+  .los-content { min-height: calc(100dvh - var(--los-topbar)); }
+}
