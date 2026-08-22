@@ -8,5 +8,5 @@
     "noEmit": true,
     "allowImportingTsExtensions": true
   },
-  "include": ["src/**/*.ts", "editor/**/*.ts", "contracts/**/*.ts"]
+  "include": ["src/**/*.ts", "editor/**/*.ts", "contracts/**/*.ts", "adapters/**/*.ts"]
 }
