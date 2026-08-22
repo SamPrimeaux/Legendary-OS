@@ -1,0 +1,409 @@
+{
+  "target": "legendary-scapes",
+  "seed": "https://legendary-scapes.com/",
+  "crawl_mode": "domain",
+  "pages_scraped": 7,
+  "unique_images_found": 54,
+  "pages": [
+    {
+      "url": "https://legendary-scapes.com/",
+      "title": "Legendary Scapes l Innovative landscape design company serving the greater Lafayette, LA metro area",
+      "json": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/pages/legendary-scapes.com_home-acbfcd2a.json",
+      "images": 11
+    },
+    {
+      "url": "https://legendary-scapes.com/services-1",
+      "title": "Landscape Design Services",
+      "json": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/pages/legendary-scapes.com_services-1-f16da1da.json",
+      "images": 47
+    },
+    {
+      "url": "https://legendary-scapes.com/recent-projects",
+      "title": "Recent Projects",
+      "json": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/pages/legendary-scapes.com_recent-projects-6bb7d7b3.json",
+      "images": 15
+    },
+    {
+      "url": "https://legendary-scapes.com/reviews",
+      "title": "Landscape Design Reviews",
+      "json": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/pages/legendary-scapes.com_reviews-380ee5be.json",
+      "images": 15
+    },
+    {
+      "url": "https://legendary-scapes.com/about-us",
+      "title": "About Legendary Scapes",
+      "json": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/pages/legendary-scapes.com_about-us-4bf901cb.json",
+      "images": 22
+    },
+    {
+      "url": "https://legendary-scapes.com/contact",
+      "title": "Free landscape design consultation",
+      "json": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/pages/legendary-scapes.com_contact-60e91f21.json",
+      "images": 18
+    },
+    {
+      "url": "https://legendary-scapes.com/services",
+      "title": "Landscape Design Services",
+      "json": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/pages/legendary-scapes.com_services-5c0dc1a7.json",
+      "images": 41
+    }
+  ],
+  "images": [
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/lengendaryscapeslogo.jpeg/:/rs=h:114,cg:true,m/qt=q:95",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/0d0c1c80ed41234fabbd.jpg",
+      "bytes": 12006,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/lengendaryscapeslogo.jpeg/:/rs=w:92",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/5e4c6dd92f6774c6d64a.jpg",
+      "bytes": 3984,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://legendary-scapes.com/m/cr=w:92",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://legendary-scapes.com/m/cr=w:92"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/lengendaryscapeslogo.jpeg/:/rs=w:184",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/4a7b5e8973742e465168.jpg",
+      "bytes": 9121,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://legendary-scapes.com/m/cr=w:184",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://legendary-scapes.com/m/cr=w:184"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/lengendaryscapeslogo.jpeg/:/rs=w:276",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/e3ad981dff836522823e.jpg",
+      "bytes": 15735,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://legendary-scapes.com/m/cr=w:276",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://legendary-scapes.com/m/cr=w:276"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/static/transparent_placeholder.png/:/rs=w:451",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/37d086d6bd251e24f66d.png",
+      "bytes": 90,
+      "content_type": "image/png"
+    },
+    {
+      "url": "https://legendary-scapes.com/m",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://legendary-scapes.com/m"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/static/transparent_placeholder.png/:/rs=w:600",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/3837e6642d0f63dcd19a.png",
+      "bytes": 90,
+      "content_type": "image/png"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/Angie.jpg",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/8436f4e53ff579faea08.jpg",
+      "bytes": 371632,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/lengendaryscapeslogo.jpeg/:/rs=h:104,cg:true,m/qt=q:95",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/6c952fcbaa75fe59e1de.jpg",
+      "bytes": 5348,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/lengendaryscapeslogo.jpeg/:/rs=w:84",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/d2c8054ac3c068e22a42.jpg",
+      "bytes": 3798,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://legendary-scapes.com/m/cr=w:84",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://legendary-scapes.com/m/cr=w:84"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/lengendaryscapeslogo.jpeg/:/rs=w:168",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/21f5ac6faeb49d4d7967.jpg",
+      "bytes": 8499,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://legendary-scapes.com/m/cr=w:168",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://legendary-scapes.com/m/cr=w:168"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/lengendaryscapeslogo.jpeg/:/rs=w:251",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/3a29bd4343d7045c1069.jpg",
+      "bytes": 13928,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://legendary-scapes.com/m/cr=w:251",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://legendary-scapes.com/m/cr=w:251"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/Reservoir%204.jpg/:/cr=t:0%25",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/eecb81c52cfd156736fa.jpg",
+      "bytes": 579534,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/Reservoir%204.jpg/:/cr=t:0%25,l:5.65%25,w:88.71%25,h:100%25/rs=w:600,h:451.12781954887214,cg:true",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/51c0e98ea48df45e43f3.jpg",
+      "bytes": 90597,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/%40fresh-plantings-white-house_edited.jpg/:/cr=t:0%25",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/251bc04d521bb1601953.jpg",
+      "bytes": 278341,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/%40fresh-plantings-white-house_edited.jpg/:/cr=t:0%25,l:21.88%25,w:56.24%25,h:100%25/rs=w:600,h:451.12781954887214,cg:true",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/db5bb067c8bd5cfc0b0b.jpg",
+      "bytes": 67801,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/113%20Amberjack%20Terrace%201.jpg/:/cr=t:0%25",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/90242c083952a6574687.jpg",
+      "bytes": 548705,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/113%20Amberjack%20Terrace%201.jpg/:/cr=t:0%25,l:5.65%25,w:88.71%25,h:100%25/rs=w:600,h:451.12781954887214,cg:true",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/6e8dc761a156f1d08c1a.jpg",
+      "bytes": 71829,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/Calalina%20Dr.jpg/:/cr=t:27.44%25",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/44bbe9e0b40a29bdb8c9.jpg",
+      "bytes": 758413,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/Calalina%20Dr.jpg/:/cr=t:27.44%25,l:0%25,w:100%25,h:45.11%25/rs=w:600,h:451.12781954887214,cg:true",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/23666ef7a6394a7ebcff.jpg",
+      "bytes": 101983,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/Drainage%20and%20Grade.jpg/:/cr=t:23.79%25,l:0%25,w:100%25,h:52.41%25/rs=w:600,h:451.12781954887214,cg:true",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/a4a069d1d47097f11cbc.jpg",
+      "bytes": 88798,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/stock/7837/:/cr=t:0%25",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/3a30d02f10ea7935755b.jpg",
+      "bytes": 809527,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/stock/7837/:/cr=t:0%25,l:16.75%25,w:66.5%25,h:100%25/rs=w:600,h:451.12781954887214,cg:true",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/1ffedab4281442330028.jpg",
+      "bytes": 95195,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/115%20Reservoir%20night%20lighting%204.jpg/:/cr=t:0%25",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/20981c9faf0ade6819c9.jpg",
+      "bytes": 358343,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/115%20Reservoir%20night%20lighting%204.jpg/:/cr=t:0%25,l:5.65%25,w:88.71%25,h:100%25/rs=w:600,h:451.12781954887214,cg:true",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/28ae3c5e6d1da683ca5c.jpg",
+      "bytes": 53814,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/Parade%20of%20homes%20hardscape%204.jpg/:/cr=t:0%25",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/45f026238d69ca46cb25.jpg",
+      "bytes": 728850,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/Parade%20of%20homes%20hardscape%204.jpg/:/cr=t:0%25,l:5.65%25,w:88.71%25,h:100%25/rs=w:600,h:451.12781954887214,cg:true",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/528cc2a2380517e30356.jpg",
+      "bytes": 80557,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/stock/28327/:/cr=t:0%25",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/ca6126a4c073bf93b07f.jpg",
+      "bytes": 829843,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/stock/28327/:/cr=t:0%25,l:5.95%25,w:88.1%25,h:100%25/rs=w:600,h:451.12781954887214,cg:true",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/dd6f1ee6250334cf3091.jpg",
+      "bytes": 111994,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/%40brick-wood-aluminum-fence-tall_edited.jpg/:/cr=t:14.99%25",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/e0e3b40d51a16a0eff0c.jpg",
+      "bytes": 321757,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/%40brick-wood-aluminum-fence-tall_edited.jpg/:/cr=t:14.99%25,l:0%25,w:100%25,h:70.03%25/rs=w:600,h:451.12781954887214,cg:true",
+      "ok": false,
+      "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/%40brick-wood-aluminum-fence-tall_edited.jpg/:/cr=t:14.99%25,l:0%25,w:100%25,h:70.03%25/rs=w:600,h:451.12781954887214,cg:true"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/landscape%20consult.jpg/:/rs=w:403",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/71694d88a8f863bca8a3.jpg",
+      "bytes": 27585,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://legendary-scapes.com/m/cr=w:403",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://legendary-scapes.com/m/cr=w:403"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/landscape%20consult.jpg/:/rs=w:806",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/0609364f4253b06677ae.jpg",
+      "bytes": 80218,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://legendary-scapes.com/m/cr=w:806",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://legendary-scapes.com/m/cr=w:806"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/landscape%20consult.jpg/:/rs=w:1209",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/f561e40358664845662f.jpg",
+      "bytes": 152532,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://legendary-scapes.com/m/cr=w:1209",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://legendary-scapes.com/m/cr=w:1209"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/landscape%20consult.jpg/:/rs=w:600",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/b71749c920a523d3f327.jpg",
+      "bytes": 50213,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://legendary-scapes.com/m/cr=w:600",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://legendary-scapes.com/m/cr=w:600"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/landscape%20consult.jpg/:/rs=w:1200",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/f7d0f03b7082bbaaa648.jpg",
+      "bytes": 150446,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://legendary-scapes.com/m/cr=w:1200",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://legendary-scapes.com/m/cr=w:1200"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/landscape%20consult.jpg/:/rs=w:1290",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/a8b0bcba5a4c1b0c0e90.jpg",
+      "bytes": 189607,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://legendary-scapes.com/m/cr=w:1290",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://legendary-scapes.com/m/cr=w:1290"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/55740286-3963-491e-8e86-53813651f1ae/landscape%20consult.jpg/:/rs=w:600,h:451.12781954887214,cg:true,m/cr=w:600,h:451.12781954887214",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/800c5a0cffdd22072906.jpg",
+      "bytes": 56938,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/stock/46444/:/cr=t:12.5%25",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/d264e596b50d36412e7d.jpg",
+      "bytes": 536356,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/stock/46444/:/cr=t:12.5%25,l:0%25,w:100%25,h:75%25/rs=w:1240,h:620,cg:true",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/408ed10c8b71f2bd0dc4.jpg",
+      "bytes": 164870,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/static/transparent_placeholder.png/:/rs=w:100",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/05219348933abd1a38c6.png",
+      "bytes": 90,
+      "content_type": "image/png"
+    },
+    {
+      "url": "https://img1.wsimg.com/isteam/ip/static/transparent_placeholder.png/:/rs=w:133.33333333333331",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-scapes/images/84edfb821041bd05811e.png",
+      "bytes": 90,
+      "content_type": "image/png"
+    }
+  ],
+  "errors": [
+    {
+      "url": "https://legendary-scapes.com/contact-us",
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://legendary-scapes.com/contact-us"
+    }
+  ]
+}

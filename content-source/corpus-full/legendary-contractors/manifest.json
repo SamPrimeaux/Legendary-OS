@@ -1,0 +1,1168 @@
+{
+  "target": "legendary-contractors",
+  "seed": "https://www.legendarycontractors.com/portfolio",
+  "crawl_mode": "domain",
+  "pages_scraped": 5,
+  "unique_images_found": 206,
+  "pages": [
+    {
+      "url": "https://www.legendarycontractors.com/portfolio",
+      "title": "Legendary Contractors | Residential & Commercial Contractors in Lafayette, LA",
+      "json": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/pages/www.legendarycontractors.com_portfolio-20969ba8.json",
+      "images": 81
+    },
+    {
+      "url": "https://www.legendarycontractors.com/",
+      "title": "Legendary Contractors | Residential & Commercial Contractors in Lafayette, LA",
+      "json": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/pages/www.legendarycontractors.com_home-bbddfc89.json",
+      "images": 74
+    },
+    {
+      "url": "https://www.legendarycontractors.com/theprocess",
+      "title": "Legendary Contractors | Residential & Commercial Contractors in Lafayette, LA",
+      "json": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/pages/www.legendarycontractors.com_theprocess-0817c3d4.json",
+      "images": 17
+    },
+    {
+      "url": "https://www.legendarycontractors.com/available-homes",
+      "title": "Legendary Contractors | Residential & Commercial Contractors in Lafayette, LA",
+      "json": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/pages/www.legendarycontractors.com_available-homes-0dd19cce.json",
+      "images": 70
+    },
+    {
+      "url": "https://www.legendarycontractors.com/contact",
+      "title": "Legendary Contractors | Residential & Commercial Contractors in Lafayette, LA",
+      "json": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/pages/www.legendarycontractors.com_contact-4b1901ac.json",
+      "images": 13
+    }
+  ],
+  "images": [
+    {
+      "url": "https://static.wixstatic.com/media/11062b_92cba8036d8a45fdb1669fdc2fd26536~mv2.jpg/v1/fill/w_288,h_192,al_c,q_80,usm_0.66_1.00_0.01,blur_2,enc_avif,quality_auto/11062b_92cba8036d8a45fdb1669fdc2fd26536~mv2.jpg",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/7cf16018a37140c7edfd.jpg",
+      "bytes": 5036,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_ae656011aceb44ccac40327afa52ebc3~mv2.png/v1/fill/w_184,h_61,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/706848_ae656011aceb44ccac40327afa52ebc3~mv2.png",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/97b0c3f9b5934413ff50.png",
+      "bytes": 11145,
+      "content_type": "image/png"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_ae656011aceb44ccac40327afa52ebc3~mv2.png/v1/fill/w_184",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_ae656011aceb44ccac40327afa52ebc3~mv2.png/v1/fill/w_184"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_61",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_61"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/al_c",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/al_c"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/q_85",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/q_85"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/usm_0.66_1.00_0.01",
+      "ok": false,
+      "error": "HTTPError: 400 Client Error: Bad Request for url: https://www.legendarycontractors.com/usm_0.66_1.00_0.01"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/enc_avif",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/enc_avif"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/706848_ae656011aceb44ccac40327afa52ebc3~mv2.png",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/706848_ae656011aceb44ccac40327afa52ebc3~mv2.png"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_ae656011aceb44ccac40327afa52ebc3~mv2.png/v1/fill/w_368",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_ae656011aceb44ccac40327afa52ebc3~mv2.png/v1/fill/w_368"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_122",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_122"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_bb3570a433e2436f86802fd203fbf610~mv2.webp/v1/fit/w_480",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_bb3570a433e2436f86802fd203fbf610~mv2.webp/v1/fit/w_480"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_360",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_360"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/q_90",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/q_90"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/706848_bb3570a433e2436f86802fd203fbf610~mv2.webp",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/706848_bb3570a433e2436f86802fd203fbf610~mv2.webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_bb3570a433e2436f86802fd203fbf610~mv2.webp/v1/fit/w_960",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_bb3570a433e2436f86802fd203fbf610~mv2.webp/v1/fit/w_960"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_720",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_720"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_bb3570a433e2436f86802fd203fbf610~mv2.webp/v1/fit/w_1355",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_bb3570a433e2436f86802fd203fbf610~mv2.webp/v1/fit/w_1355"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_1016",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_1016"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_bb3570a433e2436f86802fd203fbf610~mv2.webp/v1/fit/w_480,h_360,q_90,enc_avif,quality_auto/706848_bb3570a433e2436f86802fd203fbf610~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/14058c5ec590716e847b.webp",
+      "bytes": 24548,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_1f9ff288bd144ddca9be5b984fc1118a~mv2.webp/v1/fit/w_480",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_1f9ff288bd144ddca9be5b984fc1118a~mv2.webp/v1/fit/w_480"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/706848_1f9ff288bd144ddca9be5b984fc1118a~mv2.webp",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/706848_1f9ff288bd144ddca9be5b984fc1118a~mv2.webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_1f9ff288bd144ddca9be5b984fc1118a~mv2.webp/v1/fit/w_960",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_1f9ff288bd144ddca9be5b984fc1118a~mv2.webp/v1/fit/w_960"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_1f9ff288bd144ddca9be5b984fc1118a~mv2.webp/v1/fit/w_1355",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_1f9ff288bd144ddca9be5b984fc1118a~mv2.webp/v1/fit/w_1355"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_1f9ff288bd144ddca9be5b984fc1118a~mv2.webp/v1/fit/w_480,h_360,q_90,enc_avif,quality_auto/706848_1f9ff288bd144ddca9be5b984fc1118a~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/b6f9b09d7b44109a990a.webp",
+      "bytes": 23108,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_7e46c655037547c1855a3e0a11c1bb50~mv2.webp/v1/fit/w_480",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_7e46c655037547c1855a3e0a11c1bb50~mv2.webp/v1/fit/w_480"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/706848_7e46c655037547c1855a3e0a11c1bb50~mv2.webp",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/706848_7e46c655037547c1855a3e0a11c1bb50~mv2.webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_7e46c655037547c1855a3e0a11c1bb50~mv2.webp/v1/fit/w_960",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_7e46c655037547c1855a3e0a11c1bb50~mv2.webp/v1/fit/w_960"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_7e46c655037547c1855a3e0a11c1bb50~mv2.webp/v1/fit/w_1440",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_7e46c655037547c1855a3e0a11c1bb50~mv2.webp/v1/fit/w_1440"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_1080",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_1080"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_7e46c655037547c1855a3e0a11c1bb50~mv2.webp/v1/fit/w_1920",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_7e46c655037547c1855a3e0a11c1bb50~mv2.webp/v1/fit/w_1920"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_1440",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_1440"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_7e46c655037547c1855a3e0a11c1bb50~mv2.webp/v1/fit/w_2009",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_7e46c655037547c1855a3e0a11c1bb50~mv2.webp/v1/fit/w_2009"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_1506",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_1506"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_7e46c655037547c1855a3e0a11c1bb50~mv2.webp/v1/fit/w_480,h_360,q_90,enc_avif,quality_auto/706848_7e46c655037547c1855a3e0a11c1bb50~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/57735884111ac5136af2.webp",
+      "bytes": 20186,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_c87948520a224eb5ae37988f250433e7~mv2.webp/v1/fit/w_480",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_c87948520a224eb5ae37988f250433e7~mv2.webp/v1/fit/w_480"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/706848_c87948520a224eb5ae37988f250433e7~mv2.webp",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/706848_c87948520a224eb5ae37988f250433e7~mv2.webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_c87948520a224eb5ae37988f250433e7~mv2.webp/v1/fit/w_960",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_c87948520a224eb5ae37988f250433e7~mv2.webp/v1/fit/w_960"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_c87948520a224eb5ae37988f250433e7~mv2.webp/v1/fit/w_1355",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_c87948520a224eb5ae37988f250433e7~mv2.webp/v1/fit/w_1355"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_c87948520a224eb5ae37988f250433e7~mv2.webp/v1/fit/w_480,h_360,q_90,enc_avif,quality_auto/706848_c87948520a224eb5ae37988f250433e7~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/dd53db83d53e7dcdd5d7.webp",
+      "bytes": 23986,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_d1dfb22052ba4208bc8f84d60b9f3b04~mv2.webp/v1/fit/w_480",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_d1dfb22052ba4208bc8f84d60b9f3b04~mv2.webp/v1/fit/w_480"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/706848_d1dfb22052ba4208bc8f84d60b9f3b04~mv2.webp",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/706848_d1dfb22052ba4208bc8f84d60b9f3b04~mv2.webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_d1dfb22052ba4208bc8f84d60b9f3b04~mv2.webp/v1/fit/w_960",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_d1dfb22052ba4208bc8f84d60b9f3b04~mv2.webp/v1/fit/w_960"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_d1dfb22052ba4208bc8f84d60b9f3b04~mv2.webp/v1/fit/w_1355",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_d1dfb22052ba4208bc8f84d60b9f3b04~mv2.webp/v1/fit/w_1355"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_d1dfb22052ba4208bc8f84d60b9f3b04~mv2.webp/v1/fit/w_480,h_360,q_90,enc_avif,quality_auto/706848_d1dfb22052ba4208bc8f84d60b9f3b04~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/a6d3e3cc89c35c6d0c3d.webp",
+      "bytes": 28312,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_e6eb4b0477254da999e95f0c171a00bd~mv2.webp/v1/fit/w_480",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_e6eb4b0477254da999e95f0c171a00bd~mv2.webp/v1/fit/w_480"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/706848_e6eb4b0477254da999e95f0c171a00bd~mv2.webp",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/706848_e6eb4b0477254da999e95f0c171a00bd~mv2.webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_e6eb4b0477254da999e95f0c171a00bd~mv2.webp/v1/fit/w_960",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_e6eb4b0477254da999e95f0c171a00bd~mv2.webp/v1/fit/w_960"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_e6eb4b0477254da999e95f0c171a00bd~mv2.webp/v1/fit/w_1355",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_e6eb4b0477254da999e95f0c171a00bd~mv2.webp/v1/fit/w_1355"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_e6eb4b0477254da999e95f0c171a00bd~mv2.webp/v1/fit/w_480,h_360,q_90,enc_avif,quality_auto/706848_e6eb4b0477254da999e95f0c171a00bd~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/7977bcec5328d75661bf.webp",
+      "bytes": 17846,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_9ea2ff63170f4563a922121cf97d9708~mv2.webp/v1/fit/w_480",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_9ea2ff63170f4563a922121cf97d9708~mv2.webp/v1/fit/w_480"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/706848_9ea2ff63170f4563a922121cf97d9708~mv2.webp",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/706848_9ea2ff63170f4563a922121cf97d9708~mv2.webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_9ea2ff63170f4563a922121cf97d9708~mv2.webp/v1/fit/w_960",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_9ea2ff63170f4563a922121cf97d9708~mv2.webp/v1/fit/w_960"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_9ea2ff63170f4563a922121cf97d9708~mv2.webp/v1/fit/w_1355",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_9ea2ff63170f4563a922121cf97d9708~mv2.webp/v1/fit/w_1355"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_9ea2ff63170f4563a922121cf97d9708~mv2.webp/v1/fit/w_480,h_360,q_90,enc_avif,quality_auto/706848_9ea2ff63170f4563a922121cf97d9708~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/9d1340cb8e2769bd7d3e.webp",
+      "bytes": 25966,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_543bd26e93af425f82b6d75334260f18~mv2.webp/v1/fit/w_480",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_543bd26e93af425f82b6d75334260f18~mv2.webp/v1/fit/w_480"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/706848_543bd26e93af425f82b6d75334260f18~mv2.webp",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/706848_543bd26e93af425f82b6d75334260f18~mv2.webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_543bd26e93af425f82b6d75334260f18~mv2.webp/v1/fit/w_960",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_543bd26e93af425f82b6d75334260f18~mv2.webp/v1/fit/w_960"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_543bd26e93af425f82b6d75334260f18~mv2.webp/v1/fit/w_1355",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_543bd26e93af425f82b6d75334260f18~mv2.webp/v1/fit/w_1355"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_543bd26e93af425f82b6d75334260f18~mv2.webp/v1/fit/w_480,h_360,q_90,enc_avif,quality_auto/706848_543bd26e93af425f82b6d75334260f18~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/84f4a92feeb85db57f56.webp",
+      "bytes": 14720,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_e5d20d011ed042038160ee200b62a55e~mv2.webp/v1/fit/w_480",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_e5d20d011ed042038160ee200b62a55e~mv2.webp/v1/fit/w_480"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/706848_e5d20d011ed042038160ee200b62a55e~mv2.webp",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/706848_e5d20d011ed042038160ee200b62a55e~mv2.webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_e5d20d011ed042038160ee200b62a55e~mv2.webp/v1/fit/w_960",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_e5d20d011ed042038160ee200b62a55e~mv2.webp/v1/fit/w_960"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_e5d20d011ed042038160ee200b62a55e~mv2.webp/v1/fit/w_1355",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_e5d20d011ed042038160ee200b62a55e~mv2.webp/v1/fit/w_1355"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_e5d20d011ed042038160ee200b62a55e~mv2.webp/v1/fit/w_480,h_360,q_90,enc_avif,quality_auto/706848_e5d20d011ed042038160ee200b62a55e~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/e53756c2ff96bbd65081.webp",
+      "bytes": 29244,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_c520839f4a4f411ea117e7fb10876efa~mv2.webp/v1/fit/w_480",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_c520839f4a4f411ea117e7fb10876efa~mv2.webp/v1/fit/w_480"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/706848_c520839f4a4f411ea117e7fb10876efa~mv2.webp",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/706848_c520839f4a4f411ea117e7fb10876efa~mv2.webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_c520839f4a4f411ea117e7fb10876efa~mv2.webp/v1/fit/w_960",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_c520839f4a4f411ea117e7fb10876efa~mv2.webp/v1/fit/w_960"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_c520839f4a4f411ea117e7fb10876efa~mv2.webp/v1/fit/w_1355",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_c520839f4a4f411ea117e7fb10876efa~mv2.webp/v1/fit/w_1355"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_c520839f4a4f411ea117e7fb10876efa~mv2.webp/v1/fit/w_480,h_360,q_90,enc_avif,quality_auto/706848_c520839f4a4f411ea117e7fb10876efa~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/b187a1f95b2fba544a5b.webp",
+      "bytes": 28258,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_adf11be6fa094294a28f9ce38786d66a~mv2.webp/v1/fit/w_480",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_adf11be6fa094294a28f9ce38786d66a~mv2.webp/v1/fit/w_480"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/706848_adf11be6fa094294a28f9ce38786d66a~mv2.webp",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/706848_adf11be6fa094294a28f9ce38786d66a~mv2.webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_adf11be6fa094294a28f9ce38786d66a~mv2.webp/v1/fit/w_960",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_adf11be6fa094294a28f9ce38786d66a~mv2.webp/v1/fit/w_960"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_adf11be6fa094294a28f9ce38786d66a~mv2.webp/v1/fit/w_1355",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_adf11be6fa094294a28f9ce38786d66a~mv2.webp/v1/fit/w_1355"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_adf11be6fa094294a28f9ce38786d66a~mv2.webp/v1/fit/w_480,h_360,q_90,enc_avif,quality_auto/706848_adf11be6fa094294a28f9ce38786d66a~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/5c161bc55b5b7efe83ce.webp",
+      "bytes": 18456,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_63afa8b57683432c8b28a247495633ca~mv2.webp/v1/fit/w_480",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_63afa8b57683432c8b28a247495633ca~mv2.webp/v1/fit/w_480"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/706848_63afa8b57683432c8b28a247495633ca~mv2.webp",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/706848_63afa8b57683432c8b28a247495633ca~mv2.webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_63afa8b57683432c8b28a247495633ca~mv2.webp/v1/fit/w_960",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_63afa8b57683432c8b28a247495633ca~mv2.webp/v1/fit/w_960"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_63afa8b57683432c8b28a247495633ca~mv2.webp/v1/fit/w_1355",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_63afa8b57683432c8b28a247495633ca~mv2.webp/v1/fit/w_1355"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_63afa8b57683432c8b28a247495633ca~mv2.webp/v1/fit/w_480,h_360,q_90,enc_avif,quality_auto/706848_63afa8b57683432c8b28a247495633ca~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/c1c59a616ec0408f0ae6.webp",
+      "bytes": 18830,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_f5c9d755cc1a40248a24d798df98c1c4%7Emv2.png/v1/fit/w_2500,h_1330,al_c/706848_f5c9d755cc1a40248a24d798df98c1c4%7Emv2.png",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/7e4354f966087006ada6.png",
+      "bytes": 38776,
+      "content_type": "image/png"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_0f42255a4a91419e83a73870f5dcabaa~mv2.jpg/v1/fill/w_133,h_89,al_c,q_80,usm_0.66_1.00_0.01,blur_2,enc_avif,quality_auto/706848_0f42255a4a91419e83a73870f5dcabaa~mv2.jpg",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/549b454a4e72763de93b.jpg",
+      "bytes": 2796,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_f5c9d755cc1a40248a24d798df98c1c4~mv2.png/v1/fill/w_338,h_112,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Legendary%20Contractors%20Logo%20PUNGENT%20GOLD.png",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/5df7181f5c616a3879b4.png",
+      "bytes": 31139,
+      "content_type": "image/png"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_f5c9d755cc1a40248a24d798df98c1c4~mv2.png/v1/fill/w_338",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_f5c9d755cc1a40248a24d798df98c1c4~mv2.png/v1/fill/w_338"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_112",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_112"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/Legendary%20Contractors%20Logo%20PUNGENT%20GOLD.png",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/Legendary-Contractors-Logo-PUNGENT-GOLD.png"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_f5c9d755cc1a40248a24d798df98c1c4~mv2.png/v1/fill/w_676",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_f5c9d755cc1a40248a24d798df98c1c4~mv2.png/v1/fill/w_676"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_224",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_224"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_5759d53ba48945488e5d7d9b4b77a8c0~mv2.webp/v1/fill/w_641,h_318,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Beautiful%20Kitchen.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/ccf986d533199608c7a0.webp",
+      "bytes": 18862,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_5759d53ba48945488e5d7d9b4b77a8c0~mv2.webp/v1/fill/w_641",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_5759d53ba48945488e5d7d9b4b77a8c0~mv2.webp/v1/fill/w_641"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_318",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_318"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/q_80",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/q_80"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/Beautiful%20Kitchen.webp",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/Beautiful-Kitchen.webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_5759d53ba48945488e5d7d9b4b77a8c0~mv2.webp/v1/fill/w_1200",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_5759d53ba48945488e5d7d9b4b77a8c0~mv2.webp/v1/fill/w_1200"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_595",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_595"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_85a525b7e4ca4e9795704a69e9b636aa~mv2.jpg/v1/fill/w_115,h_38,al_c,q_80,usm_0.66_1.00_0.01,blur_2,enc_avif,quality_auto/706848_85a525b7e4ca4e9795704a69e9b636aa~mv2.jpg",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/c556ef45f9c249ee95e1.jpg",
+      "bytes": 1339,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_7e23c9804dfa4344860e9591929912e2~mv2.jpg/v1/fill/w_115,h_57,al_c,q_80,usm_0.66_1.00_0.01,blur_2,enc_avif,quality_auto/706848_7e23c9804dfa4344860e9591929912e2~mv2.jpg",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/c58818b5656afd7133e9.jpg",
+      "bytes": 1580,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_f5c9d755cc1a40248a24d798df98c1c4~mv2.png/v1/fill/w_230,h_76,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Legendary%20Contractors%20Logo%20PUNGENT%20GOLD.png",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/b0511d0412d25e0ff293.png",
+      "bytes": 12437,
+      "content_type": "image/png"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_f5c9d755cc1a40248a24d798df98c1c4~mv2.png/v1/fill/w_230",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_f5c9d755cc1a40248a24d798df98c1c4~mv2.png/v1/fill/w_230"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_76",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_76"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_f5c9d755cc1a40248a24d798df98c1c4~mv2.png/v1/fill/w_460",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_f5c9d755cc1a40248a24d798df98c1c4~mv2.png/v1/fill/w_460"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_152",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_152"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_c7e3de0e86314c93b2149899ae3dfaa6~mv2.png/v1/fill/w_179,h_70,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/AHBA-White-Logo%20EGG%20WHITE%20108%20height.png",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/61085a2c31c6233463a4.png",
+      "bytes": 10158,
+      "content_type": "image/png"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_c7e3de0e86314c93b2149899ae3dfaa6~mv2.png/v1/fill/w_179",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_c7e3de0e86314c93b2149899ae3dfaa6~mv2.png/v1/fill/w_179"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_70",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_70"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/AHBA-White-Logo%20EGG%20WHITE%20108%20height.png",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/AHBA-White-Logo-EGG-WHITE-108-height.png"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_c7e3de0e86314c93b2149899ae3dfaa6~mv2.png/v1/fill/w_358",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_c7e3de0e86314c93b2149899ae3dfaa6~mv2.png/v1/fill/w_358"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_140",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_140"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/lg_1",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/lg_1"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_3ed6c190501c48efbb6038255657cd6d~mv2.png/v1/fill/w_179,h_70,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/NHA-White-Logo%20EGG%20WHITE%20108%20height.png",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/7e377c004cfffe94227a.png",
+      "bytes": 9038,
+      "content_type": "image/png"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_3ed6c190501c48efbb6038255657cd6d~mv2.png/v1/fill/w_179",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_3ed6c190501c48efbb6038255657cd6d~mv2.png/v1/fill/w_179"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/NHA-White-Logo%20EGG%20WHITE%20108%20height.png",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/NHA-White-Logo-EGG-WHITE-108-height.png"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_3ed6c190501c48efbb6038255657cd6d~mv2.png/v1/fill/w_358",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_3ed6c190501c48efbb6038255657cd6d~mv2.png/v1/fill/w_358"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_2bd772e50a75467abbd9d0ac7f8cb8d3~mv2.png/v1/fill/w_291,h_70,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/LHBA-White-Logo%20EGG%20WHITE%20108%20Height.png",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/8f4d6c1791b9aa8918b8.png",
+      "bytes": 16304,
+      "content_type": "image/png"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_2bd772e50a75467abbd9d0ac7f8cb8d3~mv2.png/v1/fill/w_291",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_2bd772e50a75467abbd9d0ac7f8cb8d3~mv2.png/v1/fill/w_291"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/LHBA-White-Logo%20EGG%20WHITE%20108%20Height.png",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/LHBA-White-Logo-EGG-WHITE-108-Height.png"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_2bd772e50a75467abbd9d0ac7f8cb8d3~mv2.png/v1/fill/w_582",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_2bd772e50a75467abbd9d0ac7f8cb8d3~mv2.png/v1/fill/w_582"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_5d3122bd398c412c9a81866da46ba19d~mv2.jpg/v1/crop/x_369,y_410,w_4743,h_3158/fill/w_271,h_224,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/_79A0638.jpg",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/de360bf826c2e92f1e6f.jpg",
+      "bytes": 19447,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_5d3122bd398c412c9a81866da46ba19d~mv2.jpg/v1/crop/x_369",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_5d3122bd398c412c9a81866da46ba19d~mv2.jpg/v1/crop/x_369"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/y_410",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/y_410"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/w_4743",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/w_4743"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_3158/fill/w_271",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_3158/fill/w_271"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/_79A0638.jpg",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/_79A0638.jpg"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_3158/fill/w_542",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_3158/fill/w_542"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_448",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_448"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_6068a742bb804c94ac2e7754bce14555~mv2.png/v1/crop/x_46,y_291,w_1450,h_1847/fill/w_224,h_270,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_2123_heic.png",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/2a96cec84b6de04f8c3a.png",
+      "bytes": 139854,
+      "content_type": "image/png"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_6068a742bb804c94ac2e7754bce14555~mv2.png/v1/crop/x_46",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_6068a742bb804c94ac2e7754bce14555~mv2.png/v1/crop/x_46"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/y_291",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/y_291"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/w_1450",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/w_1450"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_1847/fill/w_224",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_1847/fill/w_224"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_270",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_270"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/IMG_2123_heic.png",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/IMG_2123_heic.png"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_1847/fill/w_448",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_1847/fill/w_448"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_540",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_540"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/11062b_f4e3e7f537ff4762a1914aa14e3e36b9~mv2.png/v1/fill/w_60,h_60,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/11062b_f4e3e7f537ff4762a1914aa14e3e36b9~mv2.png",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/9c29ab6d204552c4fd39.png",
+      "bytes": 2463,
+      "content_type": "image/png"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/11062b_f4e3e7f537ff4762a1914aa14e3e36b9~mv2.png/v1/fill/w_60",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/11062b_f4e3e7f537ff4762a1914aa14e3e36b9~mv2.png/v1/fill/w_60"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_60",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_60"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/11062b_f4e3e7f537ff4762a1914aa14e3e36b9~mv2.png",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/11062b_f4e3e7f537ff4762a1914aa14e3e36b9~mv2.png"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/11062b_f4e3e7f537ff4762a1914aa14e3e36b9~mv2.png/v1/fill/w_120",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/11062b_f4e3e7f537ff4762a1914aa14e3e36b9~mv2.png/v1/fill/w_120"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_120",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_120"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/11062b_603340b7bcb14e7785c7b65b233cd9f9~mv2.png/v1/fill/w_60,h_60,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/11062b_603340b7bcb14e7785c7b65b233cd9f9~mv2.png",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/17e1502b99e8a74b0cda.png",
+      "bytes": 3215,
+      "content_type": "image/png"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/11062b_603340b7bcb14e7785c7b65b233cd9f9~mv2.png/v1/fill/w_60",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/11062b_603340b7bcb14e7785c7b65b233cd9f9~mv2.png/v1/fill/w_60"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/11062b_603340b7bcb14e7785c7b65b233cd9f9~mv2.png",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/11062b_603340b7bcb14e7785c7b65b233cd9f9~mv2.png"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/11062b_603340b7bcb14e7785c7b65b233cd9f9~mv2.png/v1/fill/w_120",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/11062b_603340b7bcb14e7785c7b65b233cd9f9~mv2.png/v1/fill/w_120"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_9f9879c14a634664a5e8632494cee3ea~mv2.jpg/v1/fill/w_77,h_38,al_c,q_80,usm_0.66_1.00_0.01,blur_2,enc_avif,quality_auto/706848_9f9879c14a634664a5e8632494cee3ea~mv2.jpg",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/c80c47303151d2378083.jpg",
+      "bytes": 978,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_69a1c322cd8b450bb871cf67bc6113e3~mv2.jpg/v1/fill/w_77,h_38,al_c,q_80,usm_0.66_1.00_0.01,blur_2,enc_avif,quality_auto/706848_69a1c322cd8b450bb871cf67bc6113e3~mv2.jpg",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/93d009a41c7d0d111696.jpg",
+      "bytes": 1103,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_89658766381946b6a85481ee9df487d2~mv2.jpg/v1/fill/w_77,h_38,al_c,q_80,usm_0.66_1.00_0.01,blur_2,enc_avif,quality_auto/706848_89658766381946b6a85481ee9df487d2~mv2.jpg",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/0d3042d3d544e54bb222.jpg",
+      "bytes": 1054,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_4d89e02f50344c0ebb36dd3bdc02ce5f~mv2.jpg/v1/fill/w_77,h_38,al_c,q_80,usm_0.66_1.00_0.01,blur_2,enc_avif,quality_auto/706848_4d89e02f50344c0ebb36dd3bdc02ce5f~mv2.jpg",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/cd92a3519533e6d29ecf.jpg",
+      "bytes": 1103,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_83909cfb8e8044efb3bdaee6ddd91e42~mv2.jpg/v1/fill/w_77,h_38,al_c,q_80,usm_0.66_1.00_0.01,blur_2,enc_avif,quality_auto/706848_83909cfb8e8044efb3bdaee6ddd91e42~mv2.jpg",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/59a82aa9249b12b0c4d6.jpg",
+      "bytes": 1155,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_c94220e8e9f946baae39bb0af98400f3~mv2.webp/v1/fill/w_454",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_c94220e8e9f946baae39bb0af98400f3~mv2.webp/v1/fill/w_454"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_235",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_235"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/706848_c94220e8e9f946baae39bb0af98400f3~mv2.webp",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/706848_c94220e8e9f946baae39bb0af98400f3~mv2.webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_c94220e8e9f946baae39bb0af98400f3~mv2.webp/v1/fill/w_908",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_c94220e8e9f946baae39bb0af98400f3~mv2.webp/v1/fill/w_908"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_470",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_470"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_c94220e8e9f946baae39bb0af98400f3~mv2.webp/v1/fill/w_1362",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_c94220e8e9f946baae39bb0af98400f3~mv2.webp/v1/fill/w_1362"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_705",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_705"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_c94220e8e9f946baae39bb0af98400f3~mv2.webp/v1/fill/w_1816",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_c94220e8e9f946baae39bb0af98400f3~mv2.webp/v1/fill/w_1816"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_940",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_940"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_c94220e8e9f946baae39bb0af98400f3~mv2.webp/v1/fill/w_1848",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_c94220e8e9f946baae39bb0af98400f3~mv2.webp/v1/fill/w_1848"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_956",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_956"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_c94220e8e9f946baae39bb0af98400f3~mv2.webp/v1/fill/w_454,h_235,q_90,enc_avif,quality_auto/706848_c94220e8e9f946baae39bb0af98400f3~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/26a2f64f81c5d52416d3.webp",
+      "bytes": 15990,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_e33c5dc3a840489e9d9e769004bf6ceb~mv2.webp/v1/fill/w_454",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_e33c5dc3a840489e9d9e769004bf6ceb~mv2.webp/v1/fill/w_454"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/706848_e33c5dc3a840489e9d9e769004bf6ceb~mv2.webp",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/706848_e33c5dc3a840489e9d9e769004bf6ceb~mv2.webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_e33c5dc3a840489e9d9e769004bf6ceb~mv2.webp/v1/fill/w_908",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_e33c5dc3a840489e9d9e769004bf6ceb~mv2.webp/v1/fill/w_908"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_e33c5dc3a840489e9d9e769004bf6ceb~mv2.webp/v1/fill/w_1362",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_e33c5dc3a840489e9d9e769004bf6ceb~mv2.webp/v1/fill/w_1362"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_e33c5dc3a840489e9d9e769004bf6ceb~mv2.webp/v1/fill/w_1743",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_e33c5dc3a840489e9d9e769004bf6ceb~mv2.webp/v1/fill/w_1743"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_902",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_902"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_e33c5dc3a840489e9d9e769004bf6ceb~mv2.webp/v1/fill/w_454,h_235,q_90,enc_avif,quality_auto/706848_e33c5dc3a840489e9d9e769004bf6ceb~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/515eadf6444137c1ef3b.webp",
+      "bytes": 17308,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_ec8ecc4ec5364b8ab984f30414d513e8~mv2.jpg/v1/fill/w_514,h_312,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/201%20Ivy%20Cottage%20Drive-Rendering.jpg",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/6d2ffb41ce853cfd48cb.jpg",
+      "bytes": 40510,
+      "content_type": "image/jpeg"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_ec8ecc4ec5364b8ab984f30414d513e8~mv2.jpg/v1/fill/w_514",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_ec8ecc4ec5364b8ab984f30414d513e8~mv2.jpg/v1/fill/w_514"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_312",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_312"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/201%20Ivy%20Cottage%20Drive-Rendering.jpg",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/201-Ivy-Cottage-Drive-Rendering.jpg"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_ec8ecc4ec5364b8ab984f30414d513e8~mv2.jpg/v1/fill/w_1028",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_ec8ecc4ec5364b8ab984f30414d513e8~mv2.jpg/v1/fill/w_1028"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_624",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_624"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_343f8c59986c4a2d9f474605b8c6d1f5~mv2.png/v1/fill/w_796,h_312,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/207%20Sabal%20Bend%20Rendering.png",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/b46975f1abef6194bae7.png",
+      "bytes": 391182,
+      "content_type": "image/png"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_343f8c59986c4a2d9f474605b8c6d1f5~mv2.png/v1/fill/w_796",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_343f8c59986c4a2d9f474605b8c6d1f5~mv2.png/v1/fill/w_796"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/207%20Sabal%20Bend%20Rendering.png",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/207-Sabal-Bend-Rendering.png"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_343f8c59986c4a2d9f474605b8c6d1f5~mv2.png/v1/fill/w_1485",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_343f8c59986c4a2d9f474605b8c6d1f5~mv2.png/v1/fill/w_1485"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_582",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_582"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_7371c592ace4460bbf7bbb449b22a5d7~mv2.webp/v1/fill/w_573",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_7371c592ace4460bbf7bbb449b22a5d7~mv2.webp/v1/fill/w_573"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_300",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_300"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/706848_7371c592ace4460bbf7bbb449b22a5d7~mv2.webp",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/706848_7371c592ace4460bbf7bbb449b22a5d7~mv2.webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_7371c592ace4460bbf7bbb449b22a5d7~mv2.webp/v1/fill/w_1146",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_7371c592ace4460bbf7bbb449b22a5d7~mv2.webp/v1/fill/w_1146"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_600",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_600"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_7371c592ace4460bbf7bbb449b22a5d7~mv2.webp/v1/fill/w_1719",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_7371c592ace4460bbf7bbb449b22a5d7~mv2.webp/v1/fill/w_1719"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_900",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_900"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_7371c592ace4460bbf7bbb449b22a5d7~mv2.webp/v1/fill/w_2292",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_7371c592ace4460bbf7bbb449b22a5d7~mv2.webp/v1/fill/w_2292"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_1200",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_1200"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_7371c592ace4460bbf7bbb449b22a5d7~mv2.webp/v1/fill/w_2818",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_7371c592ace4460bbf7bbb449b22a5d7~mv2.webp/v1/fill/w_2818"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_1475",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_1475"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_7371c592ace4460bbf7bbb449b22a5d7~mv2.webp/v1/fill/w_573,h_300,q_90,enc_avif,quality_auto/706848_7371c592ace4460bbf7bbb449b22a5d7~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/84aa2d9cbe39b345da45.webp",
+      "bytes": 24002,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_6630f4d67ef84b1e9a7345d5aa219650~mv2.webp/v1/fill/w_573",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_6630f4d67ef84b1e9a7345d5aa219650~mv2.webp/v1/fill/w_573"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/quality_auto/706848_6630f4d67ef84b1e9a7345d5aa219650~mv2.webp",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/quality_auto/706848_6630f4d67ef84b1e9a7345d5aa219650~mv2.webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_6630f4d67ef84b1e9a7345d5aa219650~mv2.webp/v1/fill/w_1146",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_6630f4d67ef84b1e9a7345d5aa219650~mv2.webp/v1/fill/w_1146"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_6630f4d67ef84b1e9a7345d5aa219650~mv2.webp/v1/fill/w_1202",
+      "ok": false,
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://static.wixstatic.com/media/706848_6630f4d67ef84b1e9a7345d5aa219650~mv2.webp/v1/fill/w_1202"
+    },
+    {
+      "url": "https://www.legendarycontractors.com/h_629",
+      "ok": false,
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.legendarycontractors.com/h_629"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_6630f4d67ef84b1e9a7345d5aa219650~mv2.webp/v1/fill/w_573,h_300,q_90,enc_avif,quality_auto/706848_6630f4d67ef84b1e9a7345d5aa219650~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/1db2e38aba6339228bf6.webp",
+      "bytes": 15838,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_c94220e8e9f946baae39bb0af98400f3~mv2.webp/v1/fill/w_120,h_120,q_70,enc_avif,quality_auto/706848_c94220e8e9f946baae39bb0af98400f3~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/445791249bae300758f1.webp",
+      "bytes": 2704,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_e33c5dc3a840489e9d9e769004bf6ceb~mv2.webp/v1/fill/w_120,h_120,q_70,enc_avif,quality_auto/706848_e33c5dc3a840489e9d9e769004bf6ceb~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/ea36d9a74334fda471ad.webp",
+      "bytes": 3130,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_56a00abd370f4896805c0086e4757399~mv2.webp/v1/fill/w_120,h_120,q_70,enc_avif,quality_auto/706848_56a00abd370f4896805c0086e4757399~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/3cf001179605358e41d1.webp",
+      "bytes": 2852,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_678b25504b4444d7aed2c692b712ccd5~mv2.webp/v1/fill/w_120,h_120,q_70,enc_avif,quality_auto/706848_678b25504b4444d7aed2c692b712ccd5~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/a93a63a53e6f6872a1cf.webp",
+      "bytes": 1582,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_81fd24db693640fe981bdde2c72e67f3~mv2.webp/v1/fill/w_120,h_120,q_70,enc_avif,quality_auto/706848_81fd24db693640fe981bdde2c72e67f3~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/89a36a8311e70531f0f8.webp",
+      "bytes": 2598,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_7371c592ace4460bbf7bbb449b22a5d7~mv2.webp/v1/fill/w_120,h_120,q_70,enc_avif,quality_auto/706848_7371c592ace4460bbf7bbb449b22a5d7~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/d32e35e6cd59d47d0c72.webp",
+      "bytes": 2228,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_6630f4d67ef84b1e9a7345d5aa219650~mv2.webp/v1/fill/w_120,h_120,q_70,enc_avif,quality_auto/706848_6630f4d67ef84b1e9a7345d5aa219650~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/c67ee096431ca779030e.webp",
+      "bytes": 2256,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_2c5c604273804314b10577876ad778d2~mv2.webp/v1/fill/w_120,h_120,q_70,enc_avif,quality_auto/706848_2c5c604273804314b10577876ad778d2~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/755352c0964deb1bc6af.webp",
+      "bytes": 1918,
+      "content_type": "image/webp"
+    },
+    {
+      "url": "https://static.wixstatic.com/media/706848_7f9c71bb6bd045cb98353241a36d1680~mv2.webp/v1/fill/w_123,h_61,al_c,q_80,usm_0.66_1.00_0.01,blur_2,enc_avif,quality_auto/706848_7f9c71bb6bd045cb98353241a36d1680~mv2.webp",
+      "ok": true,
+      "file": "/Users/samprimeaux/Legendary-OS/content-source/corpus-full/legendary-contractors/images/88f81669f5fe16d53380.webp",
+      "bytes": 1124,
+      "content_type": "image/webp"
+    }
+  ],
+  "errors": []
+}
