@@ -1,0 +1,14 @@
+{
+  "name": "legendary-os",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.9.0",
+  "scripts": {
+    "dev": "pnpm --parallel --filter ./frontend --filter ./backend dev",
+    "dev:frontend": "pnpm --dir frontend dev",
+    "dev:backend": "pnpm --dir backend dev",
+    "build": "pnpm -r build",
+    "check": "pnpm -r check",
+    "deploy": "pnpm --dir frontend build && pnpm --dir backend deploy"
+  }
+}
