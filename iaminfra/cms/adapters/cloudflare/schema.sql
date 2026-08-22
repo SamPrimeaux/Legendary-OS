@@ -37,7 +37,8 @@ CREATE TABLE IF NOT EXISTS cms_sections (
   zone TEXT NOT NULL CHECK(zone IN ('HEADER','BODY','FOOTER','TEMPLATE')) DEFAULT 'BODY',
   visible INTEGER NOT NULL DEFAULT 1,
   sort_order INTEGER NOT NULL DEFAULT 0,
-  data_json TEXT NOT NULL DEFAULT '{}'
+  data_json TEXT NOT NULL DEFAULT '{}',
+  r2_url TEXT
 );
 CREATE INDEX IF NOT EXISTS idx_cms_sections_page_order ON cms_sections(page_id, sort_order);
 
