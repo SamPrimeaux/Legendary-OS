@@ -221,7 +221,7 @@ export class CmsPublishedStore {
       await this.env.CMS_DB.prepare('UPDATE cms_publish_artifacts SET is_current=1 WHERE id=?').bind(artifact.id).run();
       if (artifact.artifactType === 'section' && artifact.sectionId) {
         await this.env.CMS_DB.prepare('UPDATE cms_sections SET r2_url=? WHERE id=?')
-          .bind(`r2://legendary-os/${artifact.r2Key}`, artifact.sectionId).run();
+          .bind(`https://pub-5ff6b022740e456caeb635cb82d9e301.r2.dev/${artifact.r2Key}`, artifact.sectionId).run();
       }
     }
     await this.env.CMS_DB.prepare(
