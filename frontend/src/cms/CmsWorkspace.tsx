@@ -18,7 +18,7 @@ type Preview = {
   theme: { tokens: Record<string, string | number> } | null;
 };
 
-type View = 'overview' | 'content' | 'theme' | 'media' | 'templates';
+type View = 'overview' | 'content' | 'navigation' | 'theme' | 'media' | 'templates';
 
 export function CmsWorkspace() {
   const [sites, setSites] = useState<CmsSite[]>([]);
