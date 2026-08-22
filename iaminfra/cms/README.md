@@ -1,83 +1,85 @@
-# IAM CMS transplant
+# Legendary CMS infrastructure
 
-This directory stages the strongest reusable pieces of the InnerAnimal Media CMS for Legendary OS.
+This package is the isolated refinement of the strongest CMS work from InnerAnimal Media.
 
-## Source
+Source reference during extraction: `SamPrimeaux/inneranimalmedia@2488d96513482dceffa97477cd829910e13a3cea`.
 
-Primary IAM source observed during transplant:
+## Product law
 
-- `src/core/agentsam/cms/`
-- `src/dashboard/cms/`
-- source commit: `2488d96513482dceffa97477cd829910e13a3cea`
+- One content tree: `Site → Page → Section → Block`.
+- CMS core owns meaning, validation, lifecycle, preview, revision, and publish behavior.
+- Frontend, Worker routes, D1, R2, and Agent Sam are hosts/adapters — never second CMS implementations.
+- Human UI and Agent Sam use the same capability vocabulary.
+- Normal CMS work must remain possible without AI.
+- Provider and Cloudflare details stop at adapter boundaries.
 
-The IAM CMS already converged on several useful product laws:
-
-1. **One canonical content tree:** `Site → Page → Section → Block`.
-2. **Core owns CMS meaning/lifecycle; hosts only expose it.** UI, Worker routes, and Cloudflare storage should not become second CMS implementations.
-3. **Provider/runtime adapters stay outside portable CMS behavior.**
-4. **Human and Agent Sam actions share one capability vocabulary.**
-5. **AI is proposal/acceleration, not the only mutation path.**
-6. **Preview, publish, revisions, theme, assets, routing, and lifecycle are separate concerns.**
-
-## Transplanted now
+## Package shape
 
 ```text
 iaminfra/cms/
+├── src/
+│   ├── domain.ts          canonical entities
+│   ├── registry.ts        section/block field registry + validation
+│   ├── store.ts           persistence contracts + request context
+│   ├── service.ts         permission-aware CMS operations
+│   ├── preview.ts         portable preview model
+│   ├── memory-store.ts    zero-infra demo/test adapter
+│   └── index.ts           public package surface
 ├── contracts/
-│   └── capabilities.ts
+│   └── capabilities.ts    shared human/Agent Sam capabilities
 ├── editor/
-│   ├── model.ts
-│   └── types.ts
-└── README.md
+│   ├── model.ts           IAM bootstrap normalization + selection helpers
+│   └── types.ts           editor-facing types
+├── adapters/cloudflare/
+│   ├── d1-store.ts        D1 implementation of CmsStore
+│   └── schema.sql         focused CMS relational schema
+├── package.json
+└── tsconfig.json
 ```
 
-These are intentionally small, portable seams.
+## Current vertical slice
 
-## Not copied
+Legendary OS backend consumes this package and currently exposes a seeded demo API:
 
-The IAM `CmsEditor.tsx` is currently ~80 KB and carries substantial dashboard composition/UI behavior. It is useful reference material, but copying it wholesale would start Legendary with a monolith we would immediately need to peel apart.
+- `GET /api/cms/sites`
+- `GET /api/cms/sites/:siteId/pages`
+- `GET /api/cms/pages/:pageId/preview`
+- `GET /api/cms/registry`
 
-Also excluded:
+The frontend exposes a focused CMS workspace at `/cms` with:
 
-- IAM-specific dashboard routing and compatibility facades
-- IAM workspace/site resolution
-- IAM D1 table names and migrations
-- Agent Sam spawn/model-routing persistence
-- legacy CMS mega-file compatibility
-- client-worker bridge assumptions
-- storefront/customer-specific adapters
-- deployment/operator tooling
+- Legendary Contractors / Legendary Scapes site switching
+- page selection
+- structural section outline
+- portable page preview
+- schema-derived property surface starter
+- responsive/mobile fallback
 
-## Promotion plan
+The current runtime uses `MemoryCmsStore` intentionally. This proves the product/domain loop without prematurely locking a database. `D1CmsStore` + `schema.sql` are ready as the Cloudflare persistence path once the Legendary D1 binding is intentionally created.
 
-`/iaminfra` is not intended to become a fourth production architecture layer.
+## Capability law
 
-As Legendary CMS work begins:
+Reads/writes/destructive/publish actions are named capabilities. Destructive and publish capabilities require explicit approval at the canonical service boundary. The same rules apply whether an action came from the CMS UI or Agent Sam.
 
-- editor types/model → promote into `/frontend/src/cms/` or a shared package when consumed;
-- capability manifest → promote into backend-owned CMS contracts and Agent Sam authorization;
-- Cloudflare persistence → implement under `/backend` or `/services` using Legendary data contracts;
-- reusable UI concepts from IAM → rewrite as focused Legendary components instead of copying the monolithic editor.
+## What was deliberately not copied
 
-## Legendary CMS target
+- the ~80 KB IAM `CmsEditor.tsx` monolith
+- IAM dashboard routing and compatibility facades
+- IAM-specific D1 table names
+- IAM workspace/customer inference
+- Agent Sam model/spawn persistence
+- client-worker bridge compatibility
+- legacy mega-file imports
+- IAM deployment/operator machinery
 
-The customer-facing CMS should stay simple:
+We keep the learned architecture and useful primitives; Legendary gets the clean implementation.
 
-```text
-Websites
-  ├── Legendary Contractors
-  └── Legendary Scapes
+## Next promotion steps
 
-Site
-  └── Pages
-       └── Sections
-            └── Blocks
-
-Assets
-Theme
-Preview
-Revisions
-Publish
-```
-
-An authorized user should be able to edit normal content, preview it, and publish it without code, Git, deployment knowledge, or Agent Sam. Agent Sam can use the same capability contract to assist safely.
+1. Create/bind Legendary D1 and apply `adapters/cloudflare/schema.sql`.
+2. Replace the demo request context with real organization/brand membership + capabilities.
+3. Add mutation HTTP routes using `CmsService` rather than route-owned business logic.
+4. Make the inspector fully registry-driven and editable.
+5. Add R2 asset storage behind an asset adapter.
+6. Add draft autosave, revision UI, preview/publish confirmation, and public-site rendering.
+7. Expose the same CMS capabilities to Agent Sam through `@inneranimalmedia/agentsam-sdk`.
