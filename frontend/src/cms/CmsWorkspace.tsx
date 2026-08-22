@@ -203,6 +203,10 @@ export function CmsWorkspace() {
           <div className="iam-cms-editor__body">
             <aside className="iam-cms-card iam-cms-editor__pages">
               <div className="iam-cms-editor__section-title">Pages</div>
+              <div style={{ display: 'flex', gap: 6, marginBottom: 8 }}>
+                <button className="iam-cms-btn" style={{ height: 30, padding: '0 9px' }} onClick={createPage}>+ New page</button>
+                <button className="iam-cms-btn" style={{ height: 30, padding: '0 9px' }} onClick={archivePage} disabled={!pageId}>Archive</button>
+              </div>
               {pages.map((item) => (
                 <button key={item.id} className={`iam-cms-page-row${item.id === pageId ? ' active' : ''}`} onClick={() => setPageId(item.id)}>
                   <strong>{item.title}</strong><small>{item.route}</small>
