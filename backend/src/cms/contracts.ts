@@ -73,6 +73,7 @@ export type CmsPublishedPageDto = {
   page: CmsPageSummaryDto;
   sections: CmsSectionDto[];
   theme: CmsThemeDto | null;
+  globalCmsNav?: GlobalCmsNavDto | null;
 };
 
 export type CmsEditorPageDto = CmsPublishedPageDto & {
