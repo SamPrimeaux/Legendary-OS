@@ -144,6 +144,8 @@ export function CmsWorkspace() {
           <MediaWorkspace embedded siteId={siteId} />
         ) : view === 'navigation' ? (
           <GlobalNavEditor siteId={siteId} />
+        ) : view === 'theme' ? (
+          <ThemeEditor siteId={siteId} />
         ) : view === 'content' ? (
           <div className="iam-cms-editor__body">
             <aside className="iam-cms-card iam-cms-editor__pages">
