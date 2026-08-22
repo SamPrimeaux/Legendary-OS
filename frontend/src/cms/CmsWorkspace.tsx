@@ -265,9 +265,10 @@ export function CmsWorkspace() {
                 <EditableField label="SEO description" value={page.seoDescription ?? ''} onSave={(next) => savePageField('seoDescription', next)} />
               </> : null}
               <div className="iam-cms-editor__section-title" style={{ marginTop: 16 }}>Section properties</div>
-              {selectedSection ? Object.entries(selectedSection.data).map(([key, value]) => (
-                <EditableField key={`${selectedSection.id}:${key}`} label={humanize(key)} value={typeof value === 'string' ? value : JSON.stringify(value)} onSave={(next) => saveField(selectedSection.id, key, next)} />
-              )) : <p style={{ color: '#6b6560', fontSize: 12 }}>Select a section to edit it.</p>}
+              {selectedSection ? Object.entries(selectedSection.data).map(([key, value]) => {
+                const structured = typeof value !== 'string';
+                return <EditableField key={`${selectedSection.id}:${key}`} label={humanize(key)} value={structured ? JSON.stringify(value, null, 2) : value} onSave={(next) => saveField(selectedSection.id, key, structured ? parseStructuredEditorValue(next, value) : next)} />;
+              }) : <p style={{ color: '#6b6560', fontSize: 12 }}>Select a section to edit it.</p>}
             </aside>
           </div>
         ) : (
