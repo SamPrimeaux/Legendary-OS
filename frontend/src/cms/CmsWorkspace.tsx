@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import type { CmsPage, CmsSite } from '@legendary-os/iam-cms';
+import { MediaWorkspace } from '../media';
 import './iamShell.css';
 
 type PreviewSection = {
