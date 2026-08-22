@@ -116,6 +116,32 @@ export class CmsApplication {
     };
   }
 
+  async getGlobalCmsNav(siteId: string): Promise<GlobalCmsNavDto | null> {
+    const row = await this.db
+      .prepare('SELECT id,site_id,data_json,updated_at FROM cms_global_nav WHERE site_id=? LIMIT 1')
+      .bind(siteId)
+      .first<Record<string, unknown>>();
+    if (!row) return null;
+    const data = JSON.parse(String(row.data_json || '{}')) as Omit<GlobalCmsNavDto, 'id' | 'siteId' | 'updatedAt'>;
+    return {
+      id: String(row.id),
+      siteId: String(row.site_id),
+      ...data,
+      updatedAt: Number(row.updated_at || 0),
+    };
+  }
+
+  async saveGlobalCmsNav(siteId: string, data: Omit<GlobalCmsNavDto, 'id' | 'siteId' | 'updatedAt'>): Promise<GlobalCmsNavDto> {
+    const id = `global_nav_${siteId}`;
+    const updatedAt = Date.now();
+    await this.db
+      .prepare(`INSERT INTO cms_global_nav(id,site_id,data_json,updated_at) VALUES(?,?,?,?)
+                ON CONFLICT(site_id) DO UPDATE SET data_json=excluded.data_json,updated_at=excluded.updated_at`)
+      .bind(id, siteId, JSON.stringify(data), updatedAt)
+      .run();
+    return { id, siteId, ...data, updatedAt };
+  }
+
   async getEditorPage(pageId: string, capabilities: string[]): Promise<CmsEditorPageDto | null> {
     const tree = await this.store.getPageTree(pageId);
     if (!tree) return null;
