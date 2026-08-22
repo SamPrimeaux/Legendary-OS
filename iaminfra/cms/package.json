@@ -7,7 +7,9 @@
     ".": "./src/index.ts",
     "./editor": "./editor/model.ts",
     "./editor-types": "./editor/types.ts",
-    "./capabilities": "./contracts/capabilities.ts"
+    "./capabilities": "./contracts/capabilities.ts",
+    "./cloudflare/d1-store": "./adapters/cloudflare/d1-store.ts",
+    "./cloudflare/schema.sql": "./adapters/cloudflare/schema.sql"
   },
   "scripts": {
     "check": "tsc --noEmit -p tsconfig.json",
