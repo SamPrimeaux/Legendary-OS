@@ -7,6 +7,7 @@ import type {
   CmsSectionDto,
   CmsSiteSummaryDto,
   CmsThemeDto,
+  GlobalCmsNavDto,
 } from './contracts';
 
 function siteDto(site: CmsSite): CmsSiteSummaryDto {
