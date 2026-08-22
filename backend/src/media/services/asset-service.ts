@@ -14,7 +14,9 @@ function canonicalSourceIdentity(url?: string | null) {
   try {
     const parsed = new URL(url);
     parsed.hash = '';
-    for (const key of [...parsed.searchParams.keys()]) {
+    const queryKeys: string[] = [];
+    parsed.searchParams.forEach((_value, key) => queryKeys.push(key));
+    for (const key of queryKeys) {
       if (/^(utm_|fbclid|gclid|msclkid)/i.test(key)) parsed.searchParams.delete(key);
     }
     const host = parsed.hostname.toLowerCase();
