@@ -14,7 +14,7 @@ type AppShellProps = {
   section?: string;
 };
 
-const Icon = ({ name }: { name: 'home' | 'leads' | 'projects' | 'sites' | 'team' | 'more' | 'search' | 'bell' | 'sparkles' }) => {
+const Icon = ({ name }: { name: 'home' | 'leads' | 'projects' | 'media' | 'sites' | 'team' | 'more' | 'search' | 'bell' | 'sparkles' }) => {
   const common = { width: 20, height: 20, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const, 'aria-hidden': true };
   if (name === 'home') return <svg {...common}><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-7h6v7"/></svg>;
   if (name === 'leads') return <svg {...common}><circle cx="12" cy="8" r="3"/><path d="M5.5 20c.7-4 3-6 6.5-6s5.8 2 6.5 6"/><path d="M18 4v4M16 6h4"/></svg>;
