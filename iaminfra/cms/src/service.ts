@@ -112,6 +112,12 @@ export class CmsService {
     return this.store.updateBlock(block);
   }
 
+  async removeBlock(ctx: CmsRequestContext, section: CmsSection, blockId: string, approved = false) {
+    this.require(ctx, 'block.remove', approved);
+    await this.authorizedPage(ctx, section.pageId);
+    await this.store.deleteBlock(blockId);
+  }
+
   async publishPage(ctx: CmsRequestContext, pageId: string, approved = false): Promise<CmsPageTree> {
     this.require(ctx, 'publish.page', approved);
     const page = await this.authorizedPage(ctx, pageId);
