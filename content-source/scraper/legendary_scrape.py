@@ -261,6 +261,14 @@ def image_extension(content_type: str, url: str) -> str:
     return suffix if re.fullmatch(r"\.[a-z0-9]{2,5}", suffix) else ".bin"
 
 
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
 def download_image(session: requests.Session, url: str, image_dir: Path) -> dict:
     image_dir.mkdir(parents=True, exist_ok=True)
     digest = hashlib.sha256(url.encode("utf-8")).hexdigest()[:20]
