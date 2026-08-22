@@ -83,8 +83,58 @@ export function createLegendaryCmsRegistry() {
     })
     .registerSection({
       type: 'gallery', label: 'Gallery', fields: [
+        { key: 'eyebrow', label: 'Eyebrow', type: 'text' },
         { key: 'heading', label: 'Heading', type: 'text' },
-        { key: 'images', label: 'Images', type: 'images', required: true },
+        { key: 'body', label: 'Body', type: 'textarea' },
+        { key: 'images', label: 'Images', type: 'images' },
+        { key: 'items', label: 'Gallery items', type: 'json' },
+        { key: 'ctaLabel', label: 'CTA label', type: 'text' },
+        { key: 'ctaHref', label: 'CTA link', type: 'link' },
+      ],
+    })
+    .registerSection({
+      type: 'intro', label: 'Intro / value', fields: [
+        { key: 'eyebrow', label: 'Eyebrow', type: 'text' },
+        { key: 'heading', label: 'Heading', type: 'text', required: true },
+        { key: 'body', label: 'Body', type: 'textarea' },
+        { key: 'points', label: 'Value points', type: 'json' },
+      ],
+    })
+    .registerSection({
+      type: 'services', label: 'Services', fields: [
+        { key: 'eyebrow', label: 'Eyebrow', type: 'text' },
+        { key: 'heading', label: 'Heading', type: 'text', required: true },
+        { key: 'body', label: 'Body', type: 'textarea' },
+        { key: 'items', label: 'Services', type: 'json', required: true },
+      ],
+    })
+    .registerSection({
+      type: 'process', label: 'Process', fields: [
+        { key: 'eyebrow', label: 'Eyebrow', type: 'text' },
+        { key: 'heading', label: 'Heading', type: 'text', required: true },
+        { key: 'body', label: 'Body', type: 'textarea' },
+        { key: 'items', label: 'Steps', type: 'json', required: true },
+      ],
+    })
+    .registerSection({
+      type: 'listings', label: 'Listings', fields: [
+        { key: 'eyebrow', label: 'Eyebrow', type: 'text' },
+        { key: 'heading', label: 'Heading', type: 'text', required: true },
+        { key: 'body', label: 'Body', type: 'textarea' },
+        { key: 'items', label: 'Listings', type: 'json', required: true },
+        { key: 'ctaLabel', label: 'CTA label', type: 'text' },
+        { key: 'ctaHref', label: 'CTA link', type: 'link' },
+      ],
+    })
+    .registerSection({
+      type: 'cta', label: 'Call to action', fields: [
+        { key: 'eyebrow', label: 'Eyebrow', type: 'text' },
+        { key: 'heading', label: 'Heading', type: 'text', required: true },
+        { key: 'body', label: 'Body', type: 'textarea' },
+        { key: 'ctaLabel', label: 'CTA label', type: 'text', required: true },
+        { key: 'ctaHref', label: 'CTA link', type: 'link', required: true },
+        { key: 'secondaryLabel', label: 'Secondary label', type: 'text' },
+        { key: 'secondaryHref', label: 'Secondary link', type: 'link' },
       ],
     })
     .registerBlock({
