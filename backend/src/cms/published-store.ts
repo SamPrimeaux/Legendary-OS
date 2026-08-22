@@ -3,7 +3,7 @@ import { normalizePublicRoute } from './application';
 import type { CmsPublishedPageDto, CmsThemeDto, GlobalCmsNavDto } from './contracts';
 
 export type CmsPublishedEnv = {
-  CMS_DB: CmsD1Database;
+  DB: CmsD1Database;
   ASSETS_BUCKET: R2Bucket;
   CMS_CACHE: KVNamespace;
 };
@@ -176,7 +176,7 @@ export class CmsPublishedStore {
   private async startJob(siteId: string, pageId: string | null, jobType: 'page' | 'global_nav' | 'theme', r2Prefix: string) {
     const id = `pubjob_${crypto.randomUUID().replaceAll('-', '')}`;
     const now = Date.now();
-    await this.env.CMS_DB.prepare(
+    await this.env.DB.prepare(
       `INSERT INTO cms_publish_jobs(id,site_id,page_id,job_type,status,r2_prefix,artifacts_json,created_at,started_at)
        VALUES(?,?,?,?,? ,?,'[]',?,?)`,
     ).bind(id, siteId, pageId, jobType, 'running', r2Prefix, now, now).run();
@@ -195,7 +195,7 @@ export class CmsPublishedStore {
     const id = `pubart_${crypto.randomUUID().replaceAll('-', '')}`;
     const contentHash = await sha256(body);
     const sizeBytes = byteLength(body);
-    await this.env.CMS_DB.prepare(
+    await this.env.DB.prepare(
       `INSERT INTO cms_publish_artifacts(id,job_id,site_id,page_id,section_id,artifact_type,r2_key,r2_bucket,content_hash,size_bytes,is_current,created_at)
        VALUES(?,?,?,?,?,?,?,?,?,?,0,?)`,
     ).bind(id, jobId, siteId, pageId, sectionId, artifactType, r2Key, 'legendary-os', contentHash, sizeBytes, Date.now()).run();
@@ -205,33 +205,33 @@ export class CmsPublishedStore {
   private async finishJob(jobId: string, artifacts: ArtifactReceipt[]) {
     for (const artifact of artifacts) {
       if (artifact.sectionId) {
-        await this.env.CMS_DB.prepare(
+        await this.env.DB.prepare(
           'UPDATE cms_publish_artifacts SET is_current=0 WHERE artifact_type=? AND section_id=? AND is_current=1',
         ).bind(artifact.artifactType, artifact.sectionId).run();
       } else if (artifact.pageId) {
-        await this.env.CMS_DB.prepare(
+        await this.env.DB.prepare(
           'UPDATE cms_publish_artifacts SET is_current=0 WHERE artifact_type=? AND page_id=? AND section_id IS NULL AND is_current=1',
         ).bind(artifact.artifactType, artifact.pageId).run();
       } else {
-        const row = await this.env.CMS_DB.prepare('SELECT site_id FROM cms_publish_jobs WHERE id=?').bind(jobId).first<{ site_id?: string }>();
-        await this.env.CMS_DB.prepare(
+        const row = await this.env.DB.prepare('SELECT site_id FROM cms_publish_jobs WHERE id=?').bind(jobId).first<{ site_id?: string }>();
+        await this.env.DB.prepare(
           'UPDATE cms_publish_artifacts SET is_current=0 WHERE artifact_type=? AND site_id=? AND page_id IS NULL AND is_current=1',
         ).bind(artifact.artifactType, String(row?.site_id || '')).run();
       }
-      await this.env.CMS_DB.prepare('UPDATE cms_publish_artifacts SET is_current=1 WHERE id=?').bind(artifact.id).run();
+      await this.env.DB.prepare('UPDATE cms_publish_artifacts SET is_current=1 WHERE id=?').bind(artifact.id).run();
       if (artifact.artifactType === 'section' && artifact.sectionId) {
-        await this.env.CMS_DB.prepare('UPDATE cms_sections SET r2_url=? WHERE id=?')
+        await this.env.DB.prepare('UPDATE cms_sections SET r2_url=? WHERE id=?')
           .bind(`https://pub-5ff6b022740e456caeb635cb82d9e301.r2.dev/${artifact.r2Key}`, artifact.sectionId).run();
       }
     }
-    await this.env.CMS_DB.prepare(
+    await this.env.DB.prepare(
       `UPDATE cms_publish_jobs SET status='done',artifacts_json=?,completed_at=? WHERE id=?`,
     ).bind(JSON.stringify(artifacts), Date.now(), jobId).run();
   }
 
   private async failJob(jobId: string, error: unknown) {
     const message = error instanceof Error ? error.message : String(error || 'Unknown publish error');
-    await this.env.CMS_DB.prepare(
+    await this.env.DB.prepare(
       `UPDATE cms_publish_jobs SET status='failed',error_message=?,completed_at=? WHERE id=?`,
     ).bind(message.slice(0, 2000), Date.now(), jobId).run().catch(() => undefined);
   }

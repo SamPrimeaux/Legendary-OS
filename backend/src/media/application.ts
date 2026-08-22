@@ -6,7 +6,7 @@ import { ImportService } from './services/import-service';
 import { DeliveryService } from './services/delivery-service';
 
 export interface MediaEnv {
-  CMS_DB: MediaD1Database;
+  DB: MediaD1Database;
   ASSETS_BUCKET: R2Bucket;
   IMAGES?: unknown;
 }
@@ -20,7 +20,7 @@ export class MediaApplication {
   readonly delivery: DeliveryService;
 
   constructor(env: MediaEnv) {
-    this.store = new D1MediaStore(env.CMS_DB);
+    this.store = new D1MediaStore(env.DB);
     this.objects = new R2MediaObjectStore(env.ASSETS_BUCKET, 'legendary-os');
     this.assets = new AssetService(this.store, this.objects, env.IMAGES);
     this.usages = new UsageService(this.store);
