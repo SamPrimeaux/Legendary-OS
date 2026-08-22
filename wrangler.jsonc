@@ -12,6 +12,10 @@
     "enabled": true
   },
 
+  "vars": {
+    "CMS_AUTH_MODE": "open-shell"
+  },
+
   "d1_databases": [
     {
       "binding": "DB",
