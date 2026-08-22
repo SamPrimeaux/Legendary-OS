@@ -257,9 +257,16 @@ export function CmsWorkspace() {
             </section>
 
             <aside className="iam-cms-card iam-cms-editor__properties">
-              <div className="iam-cms-editor__section-title">Properties</div>
+              <div className="iam-cms-editor__section-title">Page</div>
+              {page ? <>
+                <EditableField label="Title" value={page.title} onSave={(next) => savePageField('title', next)} />
+                <EditableField label="Route" value={page.route} onSave={(next) => savePageField('route', next)} />
+                <EditableField label="SEO title" value={page.seoTitle ?? ''} onSave={(next) => savePageField('seoTitle', next)} />
+                <EditableField label="SEO description" value={page.seoDescription ?? ''} onSave={(next) => savePageField('seoDescription', next)} />
+              </> : null}
+              <div className="iam-cms-editor__section-title" style={{ marginTop: 16 }}>Section properties</div>
               {selectedSection ? Object.entries(selectedSection.data).map(([key, value]) => (
-                <EditableField key={`${selectedSection.id}:${key}`} label={humanize(key)} value={String(value)} onSave={(next) => saveField(selectedSection.id, key, next)} />
+                <EditableField key={`${selectedSection.id}:${key}`} label={humanize(key)} value={typeof value === 'string' ? value : JSON.stringify(value)} onSave={(next) => saveField(selectedSection.id, key, next)} />
               )) : <p style={{ color: '#6b6560', fontSize: 12 }}>Select a section to edit it.</p>}
             </aside>
           </div>
