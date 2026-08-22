@@ -321,6 +321,7 @@ def scrape_target(target: Target, root: Path, session: requests.Session, robots:
             json_path.write_text(json.dumps(page, indent=2, ensure_ascii=False), encoding="utf-8")
             pages.append({"url": final_url, "title": page["title"], "json": str(json_path), "images": len(page["images"])})
             for image in page["images"]:
+                image_usages.append({"page_url": final_url, **image})
                 all_images.setdefault(image["url"], image)
             if target.crawl_mode == "domain":
                 for link in page["links"]:
