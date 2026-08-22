@@ -31,7 +31,7 @@ export default {
 
     if (url.pathname.startsWith('/api/public/')) {
       try {
-        const response = await handlePublicCmsApi(request, env.CMS_DB);
+        const response = await handlePublicCmsApi(request, env);
         if (response) return response;
       } catch (error) {
         console.error('public_cms_request_failed', error);
