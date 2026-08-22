@@ -9,6 +9,24 @@ export interface Env {
   CMS_CACHE: KVNamespace;
   IMAGES?: unknown;
   DB: CmsD1Database;
+  AGENTSAM_BRIDGE_KEY?: string;
+}
+
+/**
+ * Inbound machine-to-machine gate for /api/cms/* — mirrors the platform's
+ * canonical verifyBridgeKey (src/core/bridge-key-auth.js in inneranimalmedia).
+ * Accepts the Authorization bearer (primary) or X-IAM-Service-Key alias
+ * (matches proxyCmsBridgeRequest's outbound header shape). /api/public/* and
+ * /api/media/* are intentionally NOT gated — see docs/platform/cms-federated-hub-architecture.md.
+ */
+function verifyBridgeKey(request: Request, env: Env): boolean {
+  const key = (env.AGENTSAM_BRIDGE_KEY ?? '').trim();
+  if (!key) return false;
+  const auth = request.headers.get('Authorization') || '';
+  const bearer = auth.startsWith('Bearer ') ? auth.slice(7).trim() : '';
+  if (bearer && bearer === key) return true;
+  const serviceKeyHeader = (request.headers.get('X-IAM-Service-Key') || '').trim();
+  return !!serviceKeyHeader && serviceKeyHeader === key;
 }
 
 export default {
@@ -40,6 +58,9 @@ export default {
     }
 
     if (url.pathname.startsWith('/api/cms/')) {
+      if (!verifyBridgeKey(request, env)) {
+        return Response.json({ error: 'bridge_key_required' }, { status: 401 });
+      }
       try {
         const response = await handleCmsApi(request, env);
         if (response) return response;
