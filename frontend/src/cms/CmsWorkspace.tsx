@@ -213,6 +213,10 @@ export function CmsWorkspace() {
                 </button>
               ))}
               <div className="iam-cms-editor__section-title" style={{ marginTop: 14 }}>Sections</div>
+              <div style={{ display: 'flex', gap: 6, marginBottom: 8 }}>
+                <button className="iam-cms-btn" style={{ height: 30, padding: '0 9px' }} onClick={addSection} disabled={!pageId}>+ Add section</button>
+                <button className="iam-cms-btn" style={{ height: 30, padding: '0 9px' }} onClick={removeSection} disabled={!selectedSectionId}>Remove</button>
+              </div>
               <div className="iam-cms-editor__section-list">
                 {sections.map((section) => (
                   <button key={section.id} className={`iam-cms-section-row${section.id === selectedSectionId ? ' active' : ''}`} onClick={() => setSelectedSectionId(section.id)}>
