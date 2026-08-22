@@ -1,13 +1,14 @@
 {
-  "name": "@legendary-os/iam-cms",
+  "name": "@inneranimalmedia-client/backend",
   "private": true,
   "version": "0.1.0",
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./editor": "./editor/model.ts",
-    "./editor-types": "./editor/types.ts",
-    "./capabilities": "./contracts/capabilities.ts",
+    "./cms": "./src/index.ts",
+    "./cms/editor": "./editor/model.ts",
+    "./cms/editor-types": "./editor/types.ts",
+    "./cms/capabilities": "./contracts/capabilities.ts",
     "./cloudflare/d1-store": "./adapters/cloudflare/d1-store.ts",
     "./cloudflare/schema.sql": "./adapters/cloudflare/schema.sql"
   },
