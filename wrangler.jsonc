@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "legendary-os",
+  "main": "backend/src/index.ts",
+  "compatibility_date": "2026-08-01",
+  "assets": {
+    "directory": "./frontend/dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application"
+  },
+  "observability": {
+    "enabled": true
+  }
+
+  // Add durable bindings only when their owning domain is implemented.
+  // Prefer service bindings for independently deployed capability workers.
+  // Keep secrets out of this file; install them with Wrangler secrets.
+}
