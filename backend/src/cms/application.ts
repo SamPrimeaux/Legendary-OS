@@ -1,5 +1,5 @@
-import type { CmsPageTree, CmsSite, CmsTheme } from '@legendary-os/iam-cms';
-import { D1CmsStore, type CmsD1Database } from '@legendary-os/iam-cms/cloudflare/d1-store';
+import type { CmsPageTree, CmsSite, CmsTheme } from '@inneranimalmedia-client/backend';
+import { D1CmsStore, type CmsD1Database } from '@inneranimalmedia-client/backend/cloudflare/d1-store';
 import type {
   CmsEditorPageDto,
   CmsPageSummaryDto,
