@@ -6,6 +6,7 @@ import type { CmsD1Database } from '@legendary-os/iam-cms/cloudflare/d1-store';
 export interface Env {
   ASSETS: Fetcher;
   ASSETS_BUCKET: R2Bucket;
+  CMS_CACHE: KVNamespace;
   IMAGES?: unknown;
   CMS_DB: CmsD1Database;
 }
