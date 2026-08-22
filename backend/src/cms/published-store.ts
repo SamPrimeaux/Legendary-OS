@@ -219,6 +219,10 @@ export class CmsPublishedStore {
         ).bind(artifact.artifactType, String(row?.site_id || '')).run();
       }
       await this.env.CMS_DB.prepare('UPDATE cms_publish_artifacts SET is_current=1 WHERE id=?').bind(artifact.id).run();
+      if (artifact.artifactType === 'section' && artifact.sectionId) {
+        await this.env.CMS_DB.prepare('UPDATE cms_sections SET r2_url=? WHERE id=?')
+          .bind(`r2://legendary-os/${artifact.r2Key}`, artifact.sectionId).run();
+      }
     }
     await this.env.CMS_DB.prepare(
       `UPDATE cms_publish_jobs SET status='done',artifacts_json=?,completed_at=? WHERE id=?`,
