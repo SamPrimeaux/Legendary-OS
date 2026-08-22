@@ -365,7 +365,7 @@ async function recordDraftRevision(store: D1CmsStore, pageId: string, ctx: CmsRe
 async function restoreRevision(db: CmsD1Database, store: D1CmsStore, cms: CmsService, ctx: CmsRequestContext, revisionId: string) {
   const row = await db.prepare('SELECT * FROM cms_revisions WHERE id=?').bind(revisionId).first<Record<string, unknown>>();
   if (!row?.snapshot_json) throw new Error('Revision has no restorable snapshot');
-  const snapshot = safeJson<CmsPageTree>(row.snapshot_json, null);
+  const snapshot = safeJson<CmsPageTree | null>(row.snapshot_json, null);
   if (!snapshot) throw new Error('Revision snapshot is invalid');
   await cms.listPages(ctx, snapshot.siteId);
 
