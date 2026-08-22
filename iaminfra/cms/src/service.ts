@@ -66,6 +66,12 @@ export class CmsService {
     return this.store.updatePage(next);
   }
 
+  async archivePage(ctx: CmsRequestContext, pageId: string, approved = false) {
+    this.require(ctx, 'page.archive', approved);
+    const current = await this.authorizedPage(ctx, pageId);
+    return this.store.updatePage({ ...current, status: 'archived', updatedAt: this.clock.now() });
+  }
+
   async createSection(ctx: CmsRequestContext, pageId: string, input: Pick<CmsSection, 'type' | 'name' | 'zone' | 'data'>) {
     this.require(ctx, 'section.create');
     await this.authorizedPage(ctx, pageId);
