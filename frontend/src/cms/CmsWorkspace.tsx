@@ -88,6 +88,22 @@ export function CmsWorkspace() {
   const sections = preview?.page.sections ?? [];
   const drafts = pages.filter((p) => String(p.status).toLowerCase() !== 'published').length;
 
+  async function savePageField(key: 'title' | 'route' | 'seoTitle' | 'seoDescription', value: string) {
+    if (!pageId) return;
+    setSaveState('saving');
+    try {
+      const res = await fetch(`/api/cms/pages/${pageId}`, {
+        method: 'PATCH', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ [key]: value }),
+      });
+      if (!res.ok) throw new Error(await res.text());
+      setSaveState('saved');
+      loadPages();
+      loadPreview();
+    } catch {
+      setSaveState('error');
+    }
+  }
+
   async function saveField(sectionId: string, key: string, value: string) {
     setSaveState('saving');
     try {
