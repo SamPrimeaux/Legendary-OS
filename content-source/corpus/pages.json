@@ -1,0 +1,216 @@
+{
+  "captured_at": "2026-08-22",
+  "capture_mode": "web-retrieval fallback after direct scraper runtime DNS failure",
+  "sites": [
+    {
+      "site": "legendary-scapes",
+      "base_url": "https://legendary-scapes.com/",
+      "pages": [
+        {
+          "url": "https://legendary-scapes.com/",
+          "type": "home",
+          "title": "Legendary Scapes",
+          "content_inventory": {
+            "positioning": "Exceptional and innovative landscape design serving greater Lafayette and beyond.",
+            "primary_promise": "Bring the client's outdoor vision to life across residential and commercial spaces.",
+            "sections": ["hero", "book consultation", "client gallery", "recent work and reviews", "company positioning", "final consultation CTA"],
+            "notable_relationships": ["Legendary Contractors is referenced as a partner/home builder"]
+          }
+        },
+        {
+          "url": "https://legendary-scapes.com/services",
+          "type": "services",
+          "title": "Services",
+          "content_inventory": {
+            "services": [
+              "Landscaping Installations",
+              "Hardscapes",
+              "Retaining Walls",
+              "Turf & Putting Greens",
+              "Pools",
+              "Landscape Lighting",
+              "Drainage & Grade Work",
+              "Irrigation & Water Features",
+              "Design Services"
+            ],
+            "faq_topics": ["team experience", "insurance/licensing", "Louisiana-native/non-native planting approach"],
+            "quality_flags": [
+              "Retaining Walls contains placeholder copy",
+              "Turf & Putting Greens contains placeholder copy",
+              "Pools contains placeholder copy"
+            ]
+          }
+        },
+        {
+          "url": "https://legendary-scapes.com/services-1",
+          "type": "legacy-services",
+          "title": "Landscape Design Services",
+          "content_inventory": {
+            "services": [
+              "Landscape Design Services",
+              "Property Maintenance",
+              "Full Service Bed Maintenance",
+              "Planting & Recommendations",
+              "Drainage and Grade Work",
+              "Irrigation & Water Features",
+              "Landscape Lighting",
+              "Hardscapes",
+              "Sod and Lawn Installations",
+              "Fencing Services",
+              "Free Consultation Services"
+            ],
+            "quality_flags": ["Competing service taxonomy exists alongside /services and should be reconciled during migration"]
+          }
+        },
+        {
+          "url": "https://legendary-scapes.com/about-us",
+          "type": "about",
+          "title": "About Legendary Scapes",
+          "content_inventory": {
+            "company_scope": "Full-service professional landscape contractor spanning design/install, hardscapes, irrigation, lighting, drainage, sod, grading, bed maintenance and custom fencing.",
+            "company_claims": ["licensed and insured", "experienced employees", "work/satisfaction commitment"],
+            "team": [
+              {"name": "Blake Romero", "role_context": "Founder; project management, operations and sales background"},
+              {"name": "Bobby Vannoy", "role_context": "Co-owner/head of engineering; civil-engineering study background"},
+              {"name": "Richard Buswell", "role_context": "Horticulture, landscape maintenance/gardener, construction and heavy-equipment credentials; extensive dirt-work/excavation experience"},
+              {"name": "Julie Buswell", "role_context": "Leads the maintenance division and customer relationships"}
+            ]
+          }
+        },
+        {
+          "url": "https://legendary-scapes.com/contact",
+          "type": "contact",
+          "title": "Get a free quote",
+          "content_inventory": {
+            "primary_action": "Free quote / consultation",
+            "phone": "337-210-1210",
+            "sections": ["quote/contact intake", "partners"]
+          }
+        },
+        {
+          "url": "https://legendary-scapes.com/recent-projects",
+          "type": "projects",
+          "title": "Recent Projects",
+          "content_inventory": {
+            "quality_flags": ["Current crawl exposes almost no useful project content"]
+          }
+        },
+        {
+          "url": "https://legendary-scapes.com/reviews",
+          "type": "reviews",
+          "title": "Reviews",
+          "content_inventory": {
+            "quality_flags": ["Current crawl exposes a reviews heading but little/no review content"]
+          }
+        },
+        {
+          "url": "https://legendary-scapes.com/blog/f/embrace-the-beauty-of-sw-la-top-15-suitable-shrubs-flowers",
+          "type": "blog",
+          "title": "Embrace the Beauty of SW LA: Top 15 Suitable Shrubs & Flowers",
+          "content_inventory": {
+            "published": "2023-06-24",
+            "topic": "Southwest Louisiana plant selection",
+            "summary": "Educational local-landscaping article covering fifteen shrubs, trees, grasses, palms, vines and flowering plants suited to Southwest Louisiana climate conditions.",
+            "migration_note": "Preserve the article as a legacy SEO/content asset, but import the original body from an authorized source rather than duplicating it into this repo corpus."
+          }
+        },
+        {
+          "url": "https://legendary-scapes.com/blog/f/top-sun-loving-flowering-shrubs-and-trees-in-sw-louisiana",
+          "type": "blog",
+          "title": "Top Sun Loving Flowering Shrubs and Trees in SW Louisiana",
+          "content_inventory": {
+            "topic": "Southwest Louisiana landscaping education",
+            "migration_note": "Indexed article exists; preserve URL/content mapping during CMS migration."
+          }
+        }
+      ]
+    },
+    {
+      "site": "legendary-contractors",
+      "base_url": "https://www.legendarycontractors.com/",
+      "pages": [
+        {
+          "url": "https://www.legendarycontractors.com/",
+          "type": "home/about",
+          "title": "Legendary Contractors",
+          "content_inventory": {
+            "positioning": "Premier custom home builder in Lafayette, Louisiana.",
+            "tagline": "Your dream. Our priority. That's Legendary.",
+            "services": ["New Home Construction", "Home Renovations"],
+            "value_points": ["innovative concepts", "attention to detail", "cost-conscious delivery", "Southern Louisiana roots", "design-build approach"],
+            "team": [
+              {"name": "Blake", "role_context": "Builder; engineering and MBA background"},
+              {"name": "Bobby", "role_context": "Builder; land-surveying expertise"},
+              {"name": "Heather", "role_context": "Designer; co-owner of Inspire by Legendary"},
+              {"name": "Nicole", "role_context": "Designer; co-owner of Inspire by Legendary"}
+            ]
+          }
+        },
+        {
+          "url": "https://www.legendarycontractors.com/theprocess",
+          "type": "process",
+          "title": "Our Construction Process",
+          "content_inventory": {
+            "stages": [
+              "Land / Lot Acquisition",
+              "Layout & Design",
+              "Selections & Budget",
+              "Construction",
+              "Service beyond completion"
+            ],
+            "warranty": ["1-year full coverage", "5-year structural/foundation"],
+            "quality_flags": [
+              "Stage 2 contains a grammar error",
+              "Stage 4 repeats essentially the same explanation as Stage 2 and needs real construction-stage content"
+            ]
+          }
+        },
+        {
+          "url": "https://www.legendarycontractors.com/available-homes",
+          "type": "inventory",
+          "title": "Available Legendary Listings",
+          "content_inventory": {
+            "homes": [
+              {"address": "110 Abercrombie Way", "location": "Broussard, LA", "neighborhood": "Langlinais Estates", "living_sq_ft": 2609, "beds": "4 Bed + Office", "baths": "3", "status": "AVAILABLE NOW"},
+              {"address": "201 Ivy Cottage Drive", "location": "Youngsville, LA", "living_sq_ft": 3627, "beds": "4 Bed + Scullery", "baths": "4.5", "status": "AVAILABLE NOW"},
+              {"address": "207 Sabal Bend Drive", "location": "Youngsville, LA", "living_sq_ft": 3338, "beds": "4 Bed + Study", "baths": "3", "status": "AVAILABLE NOW"}
+            ],
+            "additional_section": "Lot Availability"
+          }
+        },
+        {
+          "url": "https://www.legendarycontractors.com/portfolio",
+          "type": "portfolio",
+          "title": "Legendary Portfolio",
+          "content_inventory": {
+            "projects": [
+              "2023 Home for the Holidays — 109 Peaceful Hollow, Lafayette, LA",
+              "108 Queen Palm Circle, Broussard, LA",
+              "302 Abercrombie Way, Youngsville, LA — 2024 Parade of Homes",
+              "137 Grandview Terrace Drive, Youngsville, LA",
+              "102 Queen Palm Circle, Broussard, LA",
+              "2023 Parade of Homes — 113 Amberjack Terrace, Broussard, LA",
+              "Hebert Residence, Youngsville, LA",
+              "2023 Parade of Homes — 113 Abercrombie Way, Broussard, LA",
+              "Dore Residence, Breaux Bridge, LA",
+              "Hebert Residence, Breaux Bridge, LA",
+              "2022 Parade of Homes — 401 Sunshine Rise Drive, Broussard, LA",
+              "311 Buenos Aires Ave, Youngsville, LA"
+            ],
+            "quality_flags": ["302 Abercrombie Way still carries a COMING SOON marker in current portfolio copy"]
+          }
+        },
+        {
+          "url": "https://www.legendarycontractors.com/contact",
+          "type": "contact",
+          "title": "Contact Legendary Contractors",
+          "content_inventory": {
+            "primary_action": "Discuss new construction or renovation",
+            "phone": "337-552-5207",
+            "current_fields": ["First Name", "Last Name", "Email", "Subject", "Phone", "Message"]
+          }
+        }
+      ]
+    }
+  ]
+}
