@@ -58,7 +58,7 @@ export function AppShell({ children, title = 'Websites', section = 'Legendary OS
   return (
     <div className="los-shell">
       <aside className="los-sidebar" aria-label="Legendary OS navigation">
-        <button className="los-brand" type="button" onClick={() => navigate('/')}>
+        <button className="los-brand" type="button" onClick={() => navigate('/dashboard')}>
           <span className="los-brand-mark">L</span>
           <span className="los-brand-copy"><strong>Legendary</strong><small>Operating System</small></span>
         </button>
