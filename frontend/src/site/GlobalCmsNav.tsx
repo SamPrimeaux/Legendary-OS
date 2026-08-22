@@ -30,9 +30,15 @@ export type GlobalCmsNavModel = {
 
 function Brand({ nav, footer = false }: { nav: GlobalCmsNavModel; footer?: boolean }) {
   return (
-    <a className={`lc-brand${footer ? ' lc-brand--footer' : ''}`} href={nav.brand.homeHref}>
-      <span className="lc-brand__mark">{nav.brand.mark || nav.brand.name.slice(0, 1)}</span>
-      <span><strong>{nav.brand.name}</strong>{nav.brand.sublabel ? <small>{nav.brand.sublabel}</small> : null}</span>
+    <a className={`lc-brand${nav.brand.logoUrl ? ' lc-brand--image' : ''}${footer ? ' lc-brand--footer' : ''}`} href={nav.brand.homeHref}>
+      {nav.brand.logoUrl ? (
+        <img className="lc-brand__logo" src={nav.brand.logoUrl} alt={nav.brand.logoAlt || `${nav.brand.name}${nav.brand.sublabel ? ` ${nav.brand.sublabel}` : ''}`} />
+      ) : (
+        <>
+          <span className="lc-brand__mark">{nav.brand.mark || nav.brand.name.slice(0, 1)}</span>
+          <span><strong>{nav.brand.name}</strong>{nav.brand.sublabel ? <small>{nav.brand.sublabel}</small> : null}</span>
+        </>
+      )}
     </a>
   );
 }
