@@ -33,14 +33,16 @@ export function GlobalNavEditor({ siteId }: { siteId: string }) {
       });
       if (!response.ok) throw new Error(await response.text());
       setState('Saved to D1');
+      return true;
     } catch (error) {
       setState(error instanceof SyntaxError ? 'Invalid JSON' : 'Save failed');
+      return false;
     }
   }
 
   async function publish() {
     try {
-      await save();
+      if (!await save()) return;
       setState('Publishing to R2 + CMS_CACHE…');
       const response = await fetch(`/api/cms/sites/${encodeURIComponent(siteId)}/global-nav/publish`, { method: 'POST' });
       if (!response.ok) throw new Error(await response.text());
