@@ -1,12 +1,22 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import type { CmsPage, CmsSite } from '@legendary-os/iam-cms';
-import './cms.css';
+import './iamShell.css';
 
-type PreviewSection = { id: string; name: string; type: string; visible: boolean; data: Record<string, unknown>; blocks: unknown[] };
+type PreviewSection = {
+  id: string;
+  name: string;
+  type: string;
+  visible: boolean;
+  data: Record<string, unknown>;
+  blocks: unknown[];
+};
+
 type Preview = {
   page: CmsPage & { sections: PreviewSection[] };
   theme: { tokens: Record<string, string | number> } | null;
 };
+
+type View = 'overview' | 'content' | 'theme' | 'media' | 'templates';
 
 export function CmsWorkspace() {
   const [sites, setSites] = useState<CmsSite[]>([]);
@@ -14,38 +24,52 @@ export function CmsWorkspace() {
   const [pages, setPages] = useState<CmsPage[]>([]);
   const [pageId, setPageId] = useState('');
   const [preview, setPreview] = useState<Preview | null>(null);
-  const [status, setStatus] = useState('Loading CMS…');
   const [selectedSectionId, setSelectedSectionId] = useState('');
+  const [view, setView] = useState<View>('overview');
+  const [status, setStatus] = useState('Loading CMS…');
   const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const [publishState, setPublishState] = useState<'idle' | 'publishing' | 'published' | 'error'>('idle');
+  const [agentDraft, setAgentDraft] = useState('');
 
-  useEffect(() => {
-    fetch('/api/cms/sites').then((r) => r.json()).then((data) => {
-      const next = data.sites ?? [];
-      setSites(next);
-      setSiteId(next[0]?.id ?? '');
-      setStatus(next.length ? 'Ready' : 'No sites configured');
-    }).catch(() => setStatus('CMS unavailable'));
+  const loadSites = useCallback(() => {
+    setStatus('Loading CMS…');
+    fetch('/api/cms/sites')
+      .then((r) => r.json())
+      .then((data) => {
+        const next: CmsSite[] = data.sites ?? [];
+        setSites(next);
+        setSiteId((current) => current || next[0]?.id || '');
+        setStatus(next.length ? 'Connected · Cloudflare' : 'No sites configured');
+      })
+      .catch(() => setStatus('CMS unavailable'));
   }, []);
+
+  useEffect(() => { loadSites(); }, [loadSites]);
 
   useEffect(() => {
     if (!siteId) return;
     setPreview(null);
-    fetch(`/api/cms/sites/${siteId}/pages`).then((r) => r.json()).then((data) => {
-      const next = data.pages ?? [];
-      setPages(next);
-      setPageId(next[0]?.id ?? '');
-    });
+    fetch(`/api/cms/sites/${siteId}/pages`)
+      .then((r) => r.json())
+      .then((data) => {
+        const next: CmsPage[] = data.pages ?? [];
+        setPages(next);
+        setPageId((current) => next.some((p) => p.id === current) ? current : (next[0]?.id ?? ''));
+      });
   }, [siteId]);
 
-  const loadPreview = React.useCallback(() => {
+  const loadPreview = useCallback(() => {
     if (!pageId) return;
-    fetch(`/api/cms/pages/${pageId}/preview`).then((r) => r.json()).then((data: Preview) => {
-      setPreview(data);
-      setSelectedSectionId((current) =>
-        current && data.page.sections.some((s) => s.id === current) ? current : (data.page.sections[0]?.id ?? ''),
-      );
-    });
+    fetch(`/api/cms/pages/${pageId}/preview`)
+      .then((r) => r.json())
+      .then((data: Preview) => {
+        setPreview(data);
+        setSelectedSectionId((current) =>
+          current && data.page.sections.some((s) => s.id === current)
+            ? current
+            : (data.page.sections[0]?.id ?? ''),
+        );
+      });
   }, [pageId]);
 
   useEffect(() => { loadPreview(); }, [loadPreview]);
@@ -56,6 +80,8 @@ export function CmsWorkspace() {
     () => preview?.page.sections.find((s) => s.id === selectedSectionId) ?? null,
     [preview, selectedSectionId],
   );
+  const sections = preview?.page.sections ?? [];
+  const drafts = pages.filter((p) => String(p.status).toLowerCase() !== 'published').length;
 
   async function saveField(sectionId: string, key: string, value: string) {
     setSaveState('saving');
@@ -85,98 +111,191 @@ export function CmsWorkspace() {
     }
   }
 
-  return (
-    <div className="cms-shell">
-      <aside className="cms-sidebar">
-        <div className="cms-brand">
-          <span className="cms-mark">L</span>
-          <div><strong>Legendary OS</strong><small>Websites</small></div>
-        </div>
-
-        <label className="cms-label">Website</label>
-        <select value={siteId} onChange={(event) => setSiteId(event.target.value)}>
-          {sites.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
-        </select>
-
-        <div className="cms-nav-heading">Pages</div>
-        <nav className="cms-pages">
-          {pages.map((item) => (
-            <button key={item.id} className={item.id === pageId ? 'active' : ''} onClick={() => setPageId(item.id)}>
-              <span>{item.title}</span><small>{item.route}</small>
-            </button>
-          ))}
-        </nav>
-
-        <div className="cms-sidebar-foot">
-          <span className="cms-dot" /> {status}
-        </div>
-      </aside>
-
-      <main className="cms-main">
-        <header className="cms-toolbar">
-          <div>
-            <span className="cms-kicker">{site?.name ?? 'Website'}</span>
-            <h1>{page?.title ?? 'Page'}</h1>
-          </div>
-          <div className="cms-actions">
-            <span className="cms-save-indicator">
+  if (view !== 'overview') {
+    return (
+      <div className="iam-cms-shell iam-cms-editor">
+        <header className="iam-cms-editor__top">
+          <div className="iam-cms-editor__bar">
+            <button className="iam-cms-editor__back" onClick={() => setView('overview')} aria-label="Back to CMS overview">←</button>
+            <div className="iam-cms-editor__title">
+              <strong>{site?.name ?? 'Legendary CMS'} · {page?.title ?? 'Page'}</strong>
+              <small>{site?.domain ?? 'Legendary'}{page?.route ?? '/'}</small>
+            </div>
+            <span style={{ fontSize: 10, color: '#6b6560' }}>
               {saveState === 'saving' ? 'Saving…' : saveState === 'saved' ? 'Saved' : saveState === 'error' ? 'Save failed' : ''}
             </span>
-            <button className="secondary" onClick={loadPreview}>Refresh preview</button>
-            <button className="primary" onClick={publish} disabled={!pageId || publishState === 'publishing'}>
+            <button className="iam-cms-editor__publish" onClick={publish} disabled={!pageId || publishState === 'publishing'}>
               {publishState === 'publishing' ? 'Publishing…' : publishState === 'published' ? 'Published' : 'Publish'}
             </button>
           </div>
-        </header>
-
-        <div className="cms-workarea">
-          <section className="cms-outline">
-            <div className="cms-panel-title"><span>Structure</span><button title="Adding sections is not available yet">+</button></div>
-            {preview?.page.sections.map((section) => (
-              <button
-                className={`cms-section-row${section.id === selectedSectionId ? ' active' : ''}`}
-                key={section.id}
-                onClick={() => setSelectedSectionId(section.id)}
-              >
-                <span className="cms-grip">⋮⋮</span>
-                <span><strong>{section.name}</strong><small>{section.type}</small></span>
-                <span className="cms-visible">{section.visible ? 'On' : 'Off'}</span>
+          <nav className="iam-cms-editor__tabs">
+            {(['content', 'theme', 'media', 'templates'] as View[]).map((item) => (
+              <button key={item} className={`iam-cms-editor__tab${view === item ? ' active' : ''}`} onClick={() => setView(item)}>
+                {item[0].toUpperCase() + item.slice(1)}
               </button>
             ))}
-          </section>
+          </nav>
+        </header>
 
-          <section className="cms-canvas">
-            <div className="cms-browser-bar">
-              <span className="cms-browser-dots">● ● ●</span>
-              <span>{site?.domain ?? 'preview.legendary.local'}{page?.route ?? '/'}</span>
-            </div>
-            <div className="cms-preview" style={{ '--cms-brand': String(preview?.theme?.tokens.brand ?? '#111111'), '--cms-surface': String(preview?.theme?.tokens.surface ?? '#f4f1ea') } as React.CSSProperties}>
-              {preview?.page.sections.map((section) => (
-                <article key={section.id} className={`cms-render cms-render-${section.type}`}>
-                  {section.data.eyebrow ? <p className="eyebrow">{String(section.data.eyebrow)}</p> : null}
-                  {section.data.heading ? <h2>{String(section.data.heading)}</h2> : null}
-                  {section.data.body ? <p>{String(section.data.body)}</p> : null}
-                  {section.data.ctaLabel ? <button>{String(section.data.ctaLabel)}</button> : null}
-                </article>
+        {view === 'content' ? (
+          <div className="iam-cms-editor__body">
+            <aside className="iam-cms-card iam-cms-editor__pages">
+              <div className="iam-cms-editor__section-title">Pages</div>
+              {pages.map((item) => (
+                <button key={item.id} className={`iam-cms-page-row${item.id === pageId ? ' active' : ''}`} onClick={() => setPageId(item.id)}>
+                  <strong>{item.title}</strong><small>{item.route}</small>
+                </button>
               ))}
-            </div>
-          </section>
+              <div className="iam-cms-editor__section-title" style={{ marginTop: 14 }}>Sections</div>
+              <div className="iam-cms-editor__section-list">
+                {sections.map((section) => (
+                  <button key={section.id} className={`iam-cms-section-row${section.id === selectedSectionId ? ' active' : ''}`} onClick={() => setSelectedSectionId(section.id)}>
+                    <strong>{section.name}</strong><small>{section.type} · {section.visible ? 'Visible' : 'Hidden'}</small>
+                  </button>
+                ))}
+              </div>
+            </aside>
 
-          <aside className="cms-inspector">
-            <div className="cms-panel-title">Properties</div>
-            {selectedSection ? Object.entries(selectedSection.data).map(([key, value]) => (
-              <EditableField
-                key={`${selectedSection.id}:${key}`}
-                label={humanize(key)}
-                value={String(value)}
-                onSave={(next) => saveField(selectedSection.id, key, next)}
-              />
-            )) : <p className="cms-muted">Select a section to edit it.</p>}
-          </aside>
+            <section className="iam-cms-card iam-cms-preview-frame">
+              <div className="iam-cms-browser">{site?.domain ?? 'preview.legendary.local'}{page?.route ?? '/'}</div>
+              <div className="iam-cms-preview-surface">
+                {sections.map((section) => (
+                  <article key={section.id} className="iam-cms-preview-section" onClick={() => setSelectedSectionId(section.id)}>
+                    {section.data.eyebrow ? <p className="eyebrow">{String(section.data.eyebrow)}</p> : null}
+                    {section.data.heading ? <h2>{String(section.data.heading)}</h2> : null}
+                    {section.data.body ? <p>{String(section.data.body)}</p> : null}
+                    {section.data.ctaLabel ? <button>{String(section.data.ctaLabel)}</button> : null}
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <aside className="iam-cms-card iam-cms-editor__properties">
+              <div className="iam-cms-editor__section-title">Properties</div>
+              {selectedSection ? Object.entries(selectedSection.data).map(([key, value]) => (
+                <EditableField key={`${selectedSection.id}:${key}`} label={humanize(key)} value={String(value)} onSave={(next) => saveField(selectedSection.id, key, next)} />
+              )) : <p style={{ color: '#6b6560', fontSize: 12 }}>Select a section to edit it.</p>}
+            </aside>
+          </div>
+        ) : (
+          <div style={{ padding: 18 }}>
+            <section className="iam-cms-card" style={{ padding: 22 }}>
+              <p className="iam-cms-site-hero__suite">{view}</p>
+              <h2 className="iam-cms-site-hero__name">{view[0].toUpperCase() + view.slice(1)}</h2>
+              <p className="iam-cms-site-hero__meta">IAM baseline surface copied in; this module is intentionally waiting for its focused isolation pass rather than inventing a second implementation.</p>
+            </section>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="iam-cms-shell iam-cms-hub-page">
+      <section className="iam-cms-guided-hero">
+        <div className="iam-cms-guided-hero__copy">
+          <p className="iam-cms-guided-hero__kicker">Legendary OS · CMS Suite</p>
+          <h1 className="iam-cms-guided-hero__title">What do you want to change?</h1>
+          <p className="iam-cms-guided-hero__sub">Manage Legendary’s websites directly or ask Agent Sam to help prepare the change.</p>
         </div>
-      </main>
+        <div className="iam-cms-guided-hero__compose">
+          <div className="iam-cms-guided-hero__compose-meta">
+            <span className="iam-cms-guided-hero__agent-pill">Agent Sam</span>
+            <span className="iam-cms-guided-hero__mode-pill">CMS context</span>
+          </div>
+          <div className="iam-cms-guided-hero__compose-row">
+            <input className="iam-cms-guided-hero__input" value={agentDraft} onChange={(e) => setAgentDraft(e.target.value)} placeholder="Update the Scapes services page, publish a project, change homepage copy…" />
+            <button className="iam-cms-guided-hero__send" title="Agent Sam SDK wiring comes next" onClick={() => setAgentDraft('')}>→</button>
+          </div>
+        </div>
+      </section>
+
+      <div className="iam-cms-hub-page__body">
+        <div className="iam-cms-hub-page__toolbar">
+          <div className="iam-cms-site-switcher">
+            <button className="iam-cms-site-switcher__trigger">
+              <span className="iam-cms-site-switcher__copy">
+                <span className="iam-cms-site-switcher__eyebrow">Active website</span>
+                <span className="iam-cms-site-switcher__label">{site?.name ?? 'Choose a website'}</span>
+                <span className="iam-cms-site-switcher__hint">{site?.domain ?? 'Legendary'}</span>
+              </span>
+              <span>⌄</span>
+            </button>
+            <select value={siteId} onChange={(e) => setSiteId(e.target.value)} aria-label="Choose website">
+              {sites.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
+            </select>
+          </div>
+          <button className="iam-cms-shell__nav-link" onClick={loadSites}>Refresh</button>
+        </div>
+
+        <div className="iam-cms-dashboard">
+          <div className="iam-cms-dashboard__hero">
+            <section className="iam-cms-card iam-cms-site-hero">
+              <div className="iam-cms-site-hero__head">
+                <div className="iam-cms-site-hero__identity">
+                  <div className="iam-cms-site-mark">{initials(site?.name ?? 'Legendary')}</div>
+                  <div>
+                    <p className="iam-cms-site-hero__suite">Active site · CMS Suite</p>
+                    <h2 className="iam-cms-site-hero__name">{site?.name ?? 'Legendary'}</h2>
+                    <p className="iam-cms-site-hero__meta">{site?.domain ?? 'Connected through Legendary OS'} · {drafts} draft{drafts === 1 ? '' : 's'}</p>
+                  </div>
+                </div>
+                <span className="iam-cms-site-hero__live"><i />Live</span>
+              </div>
+              <div className="iam-cms-site-hero__stats">
+                <Stat label="Pages" value={pages.length} />
+                <Stat label="Sections" value={sections.length} />
+                <Stat label="Drafts" value={drafts} />
+                <Stat label="Agent" value="Ready" />
+              </div>
+              <div className="iam-cms-site-hero__actions">
+                <button className="iam-cms-btn iam-cms-btn--primary" onClick={() => setView('content')}>Open CMS</button>
+                <button className="iam-cms-btn" onClick={() => setView('content')}>Edit site</button>
+                {site?.domain ? <a className="iam-cms-btn" href={`https://${site.domain.replace(/^https?:\/\//, '')}`} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>View site</a> : null}
+              </div>
+            </section>
+
+            <div className="iam-cms-modules">
+              <Module title="Content" desc="Create, organize, and publish pages and sections." sub={`${drafts} drafts`} cta="Manage content →" onClick={() => setView('content')} />
+              <Module title="Media" desc="Images, videos, job photos, and site assets." sub="Media library" cta="Open media →" onClick={() => setView('media')} />
+              <Module title="Theme" desc="Brand, typography, colors, and visual settings." sub="Site appearance" cta="Edit theme →" onClick={() => setView('theme')} />
+              <Module title="Templates" desc="Reusable page and section patterns." sub="Reusable system" cta="Browse templates →" onClick={() => setView('templates')} />
+            </div>
+          </div>
+
+          <div className="iam-cms-dashboard__grid">
+            <section className="iam-cms-card">
+              <div className="iam-cms-panel-head">Recent activity</div>
+              <ul className="iam-cms-activity">
+                <li><span className="iam-cms-activity__action">CMS connected to Legendary OS</span><span className="iam-cms-activity__when">Now</span></li>
+                <li><span className="iam-cms-activity__action">{site?.name ?? 'Website'} loaded</span><span className="iam-cms-activity__when">Live</span></li>
+                <li><span className="iam-cms-activity__action">{page?.title ?? 'Home'} ready to edit</span><span className="iam-cms-activity__when">Ready</span></li>
+              </ul>
+            </section>
+            <section className="iam-cms-card">
+              <div className="iam-cms-panel-head">Quick actions</div>
+              <ul className="iam-cms-quick">
+                <li><button onClick={() => setView('content')}>Edit homepage <span>→</span></button></li>
+                <li><button onClick={() => setView('content')}>Manage pages <span>→</span></button></li>
+                <li><button onClick={() => setView('media')}>Upload media <span>→</span></button></li>
+                <li><button onClick={() => setView('theme')}>Site appearance <span>→</span></button></li>
+              </ul>
+            </section>
+          </div>
+
+          <div className="iam-cms-runtime">{status} · IAM CMS baseline isolated inside Legendary OS · normal editing remains available without Agent Sam.</div>
+        </div>
+      </div>
     </div>
   );
+}
+
+function Stat({ label, value }: { label: string; value: string | number }) {
+  return <div className="iam-cms-stat"><div className="iam-cms-stat__label">{label}</div><div className="iam-cms-stat__value">{value}</div></div>;
+}
+
+function Module({ title, desc, sub, cta, onClick }: { title: string; desc: string; sub: string; cta: string; onClick: () => void }) {
+  return <button className="iam-cms-card iam-cms-module" onClick={onClick}><h3 className="iam-cms-module__title">{title}</h3><p className="iam-cms-module__desc">{desc}</p><p className="iam-cms-module__sub">{sub}</p><span className="iam-cms-module__cta">{cta}</span></button>;
 }
 
 function EditableField({ label, value, onSave }: { label: string; value: string; onSave: (value: string) => void }) {
@@ -184,16 +303,8 @@ function EditableField({ label, value, onSave }: { label: string; value: string;
   useEffect(() => setDraft(value), [value]);
   const long = value.length > 70;
   const commit = () => { if (draft !== value) onSave(draft); };
-  return (
-    <label className="cms-field">
-      <span>{label}</span>
-      {long
-        ? <textarea value={draft} onChange={(e) => setDraft(e.target.value)} onBlur={commit} />
-        : <input value={draft} onChange={(e) => setDraft(e.target.value)} onBlur={commit} />}
-    </label>
-  );
+  return <label className="iam-cms-field"><span>{label}</span>{long ? <textarea value={draft} onChange={(e) => setDraft(e.target.value)} onBlur={commit} /> : <input value={draft} onChange={(e) => setDraft(e.target.value)} onBlur={commit} />}</label>;
 }
 
-function humanize(value: string) {
-  return value.replace(/([A-Z])/g, ' $1').replace(/^./, (c) => c.toUpperCase());
-}
+function humanize(value: string) { return value.replace(/([A-Z])/g, ' $1').replace(/^./, (c) => c.toUpperCase()); }
+function initials(value: string) { return value.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join('').toUpperCase() || 'L'; }
