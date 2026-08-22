@@ -143,7 +143,7 @@ export async function handleCmsApi(request: Request, env: CmsApiEnv): Promise<Re
   const sectionMatch = url.pathname.match(/^\/api\/cms\/sections\/([^/]+)$/);
   if (sectionMatch && request.method === 'PATCH') {
     const sectionId = sectionMatch[1];
-    const body = await request.json<{ data?: Record<string, unknown> }>().catch(() => ({}));
+    const body = await request.json<{ data?: Record<string, unknown> }>().catch(() => ({ data: undefined }));
     const existing = await findSection(store, sectionId);
     if (!existing) return Response.json({ error: 'not_found' }, { status: 404 });
     const updated = await cms.updateSection(ctx, { ...existing, data: { ...existing.data, ...(body.data ?? {}) } });
