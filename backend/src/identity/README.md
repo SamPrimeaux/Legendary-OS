@@ -26,16 +26,12 @@ Post-login default: `/dashboard/cms` (React app shell).
 
 ## Secrets (Wrangler — never plaintext in wrangler.jsonc)
 
-**Default (IAM platform):**
-
 ```bash
 npx wrangler secret put IAM_CLIENT_ID -c wrangler.jsonc
 npx wrangler secret put IAM_CLIENT_SECRET -c wrangler.jsonc
 ```
 
 Register callback: `https://<host>/api/oauth/iam/callback`
-
-**Optional BYOK** (only when `IAM_CLIENT_*` unset): `GOOGLE_*` / `GITHUB_*`
 
 ## D1 migrate
 

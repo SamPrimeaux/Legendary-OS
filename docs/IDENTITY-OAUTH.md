@@ -2,37 +2,25 @@
 
 First external customer proof for `@inneranimalmedia/agentsam-sdk` identity.
 
-## Credential lanes (SSOT)
+## Required credentials
 
-| Lane | Env vars | Notes |
-|------|----------|-------|
-| **IAM platform (default)** | `IAM_CLIENT_ID` + `IAM_CLIENT_SECRET` | Inner Animal Media hosted OAuth — **Wrangler secrets only** |
-| BYOK Google | `GOOGLE_CLIENT_ID` + `GOOGLE_CLIENT_SECRET` | Only when IAM creds unset |
-| BYOK GitHub | `GITHUB_CLIENT_ID` + `GITHUB_CLIENT_SECRET` | Only when IAM creds unset |
+| Env var | Role |
+|---------|------|
+| `IAM_CLIENT_ID` | OAuth client id minted for this worker |
+| `IAM_CLIENT_SECRET` | OAuth client secret |
 
 Optional: `IAM_OAUTH_ISSUER` (default `https://inneranimalmedia.com`).
 
-Encryption is law, not luxury — never put `*_CLIENT_SECRET` in `wrangler.jsonc` plaintext.
+Encryption is law, not luxury — **Wrangler secrets only**; never plaintext in `wrangler.jsonc`.
 
-## Provision IAM platform OAuth
+## Provision
 
-1. Register OAuth client with IAM (`POST https://inneranimalmedia.com/api/oauth/register`) or use platform-provisioned `iam_dcr_*` credentials.
+1. Register OAuth client with IAM (`POST https://inneranimalmedia.com/api/oauth/register`) or use platform-minted `iam_dcr_*` credentials.
 2. Register redirect URI: `https://legendary-os.meauxbility.workers.dev/api/oauth/iam/callback`
 
 ```bash
 npx wrangler secret put IAM_CLIENT_ID -c wrangler.jsonc
 npx wrangler secret put IAM_CLIENT_SECRET -c wrangler.jsonc
-# optional staging issuer:
-# npx wrangler secret put IAM_OAUTH_ISSUER -c wrangler.jsonc
-```
-
-## Optional BYOK (advanced)
-
-Only if you are **not** using IAM platform creds:
-
-```bash
-npx wrangler secret put GOOGLE_CLIENT_ID -c wrangler.jsonc
-npx wrangler secret put GOOGLE_CLIENT_SECRET -c wrangler.jsonc
 ```
 
 ## D1
