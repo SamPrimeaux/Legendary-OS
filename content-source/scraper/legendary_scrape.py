@@ -349,6 +349,7 @@ def scrape_target(target: Target, root: Path, session: requests.Session, robots:
         "unique_images_found": len(all_images),
         "pages": pages,
         "images": image_results if download_images else list(all_images.values()),
+        "image_usages": image_usages,
         "errors": errors,
     }
     (target_dir / "manifest.json").write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
