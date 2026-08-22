@@ -104,6 +104,57 @@ export function CmsWorkspace() {
     }
   }
 
+  async function createPage() {
+    if (!siteId) return;
+    const title = window.prompt('Page title');
+    if (!title?.trim()) return;
+    const route = window.prompt('Page route', `/${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`);
+    if (!route?.trim()) return;
+    const response = await fetch(`/api/cms/sites/${siteId}/pages`, {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ title: title.trim(), route: route.trim(), pageType: 'standard' }),
+    });
+    if (!response.ok) { setSaveState('error'); return; }
+    const payload = await response.json() as { page?: CmsPage };
+    await loadPages();
+    if (payload.page?.id) setPageId(payload.page.id);
+  }
+
+  async function addSection() {
+    if (!pageId) return;
+    const response = await fetch('/api/cms/section-schemas');
+    const payload = await response.json() as { schemas?: Array<{ section_type: string; label: string }> };
+    const schemas = payload.schemas ?? [];
+    const suggested = schemas[0]?.section_type ?? 'content';
+    const type = window.prompt(`Section type\n${schemas.map((item) => `${item.section_type} — ${item.label}`).join('\n')}`, suggested);
+    if (!type?.trim()) return;
+    const created = await fetch(`/api/cms/pages/${pageId}/sections`, {
+      method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ type: type.trim() }),
+    });
+    if (!created.ok) { setSaveState('error'); return; }
+    const data = await created.json() as { section?: { id?: string } };
+    setSaveState('saved');
+    await loadPreview();
+    if (data.section?.id) setSelectedSectionId(data.section.id);
+  }
+
+  async function removeSection() {
+    if (!selectedSectionId || !window.confirm('Remove this section from the draft page?')) return;
+    const response = await fetch(`/api/cms/sections/${selectedSectionId}`, { method: 'DELETE' });
+    if (!response.ok) { setSaveState('error'); return; }
+    setSelectedSectionId('');
+    setSaveState('saved');
+    loadPreview();
+  }
+
+  async function archivePage() {
+    if (!pageId || !window.confirm('Archive this page? It will stop resolving as a live CMS route after the published pointer is removed in a later cleanup/publish action.')) return;
+    const response = await fetch(`/api/cms/pages/${pageId}`, { method: 'DELETE' });
+    if (!response.ok) { setSaveState('error'); return; }
+    setPageId('');
+    loadPages();
+  }
+
   async function publish() {
     if (!pageId) return;
     setPublishState('publishing');
