@@ -15,6 +15,7 @@ import { CmsPublishedStore } from './cms/published-store';
 import {
   rejectUnauthorizedCmsApi,
   buildCmsRequestContext,
+  cmsAuthMode,
 } from './auth/cms-route-auth.js';
 import type { CmsRouteAuthEnv } from './auth/cms-route-auth.js';
 
