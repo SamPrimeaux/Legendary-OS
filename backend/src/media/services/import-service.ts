@@ -39,7 +39,7 @@ export class ImportService {
         if (result.duplicate) results.reused += 1; else results.created += 1;
         if (result.asset.sha256) bySha.set(result.asset.sha256, result.asset.id);
         if (candidate.sourceUrl) bySource.set(candidate.sourceUrl, result.asset.id);
-        if (candidate.sourcePageUrl) {
+        if (siteId || candidate.sourcePageUrl || candidate.sourceUrl) {
           await this.usages.add(result.asset.id, input.organizationId, {
             assetId: result.asset.id,
             siteId,
