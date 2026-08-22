@@ -8,7 +8,7 @@ export interface Env {
   ASSETS_BUCKET: R2Bucket;
   CMS_CACHE: KVNamespace;
   IMAGES?: unknown;
-  CMS_DB: CmsD1Database;
+  DB: CmsD1Database;
 }
 
 export default {
