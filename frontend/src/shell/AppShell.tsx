@@ -122,6 +122,7 @@ export function AppShell({ children, title = 'Websites', section = 'Legendary OS
           <section className="los-mobile-sheet" onClick={(event) => event.stopPropagation()}>
             <div className="los-sheet-handle" />
             <div className="los-sheet-head"><strong>Legendary</strong><button onClick={() => setMobileMoreOpen(false)}>Done</button></div>
+            <button className="los-sheet-action" onClick={() => navigate('/cms')}><Icon name="sites" /><span><strong>Websites</strong><small>Pages, publishing, theme and site media</small></span></button>
             <button className="los-sheet-action" onClick={() => navigate('/team')}><Icon name="team" /><span><strong>Team</strong><small>Employees, roles and people operations</small></span></button>
             <button className="los-sheet-action"><Icon name="sparkles" /><span><strong>Agent Sam</strong><small>Ask or take action across Legendary</small></span></button>
             <button className="los-sheet-action"><Icon name="bell" /><span><strong>Notifications</strong><small>Updates that need your attention</small></span></button>
