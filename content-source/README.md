@@ -21,9 +21,11 @@ Preserve the customer's current public content inventory separately from the new
 
 ## 2026-08-22 capture note
 
-The scraper was executed in the ChatGPT container, but that runtime could not resolve public DNS, so the direct HTTP crawl recorded connection failures. The corpus committed here was therefore hydrated through the web retrieval layer instead. This means textual/page inventory is usable immediately, while image binaries were **not falsely marked as downloaded**.
+The initial container crawl could not resolve public DNS, so the first committed `corpus/` inventory was hydrated through the web retrieval layer without pretending image binaries had downloaded.
 
-The original CDN image URLs we could resolve are stored in `corpus/images.json`. Run the scraper from a normal networked workstation/CI job to download binaries into a local corpus, then intentionally decide whether those binaries belong in Git, R2, or the CMS asset store.
+A later normal-network crawl produced the durable `corpus-full/` capture for Legendary Contractors and Legendary Scapes, including downloaded images and per-page JSON. Those binaries were then uploaded to the `legendary-os` R2 bucket using `scripts/upload_to_r2.py`, which is content-addressed by SHA-256 and resumable. Its local resume state and generated combined `asset-manifest.json` are intentionally ignored because they can be regenerated and are migration state, not runtime truth.
+
+The production Media domain in `backend/src/media/` now registers those R2 originals as unique `MediaAsset` records and keeps page/site/project occurrences separately as `MediaAssetUsage` records.
 
 ## Rule
 
