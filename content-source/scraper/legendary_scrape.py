@@ -284,7 +284,14 @@ def download_image(session: requests.Session, url: str, image_dir: Path) -> dict
                     for chunk in response.iter_content(chunk_size=131072):
                         if chunk:
                             handle.write(chunk)
-            return {"url": url, "ok": True, "file": str(path), "bytes": path.stat().st_size, "content_type": ctype.split(";")[0]}
+            return {
+                "url": url,
+                "ok": True,
+                "file": str(path),
+                "bytes": path.stat().st_size,
+                "content_type": ctype.split(";")[0],
+                "sha256": sha256_file(path),
+            }
     except Exception as exc:
         return {"url": url, "ok": False, "error": f"{type(exc).__name__}: {exc}"}
 
