@@ -10,9 +10,17 @@
   },
   "observability": {
     "enabled": true
-  }
+  },
 
-  // Add durable bindings only when their owning domain is implemented.
+  "d1_databases": [
+    {
+      "binding": "CMS_DB",
+      "database_name": "legendary-os-cms",
+      "database_id": "716b1626-4ffb-42d3-8d98-b45a6333f1bf"
+    }
+  ]
+
+  // Add further durable bindings only when their owning domain is implemented.
   // Prefer service bindings for independently deployed capability workers.
   // Keep secrets out of this file; install them with Wrangler secrets.
 }

@@ -2,8 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import type { CmsPage, CmsSite } from '@legendary-os/iam-cms';
 import './cms.css';
 
+type PreviewSection = { id: string; name: string; type: string; visible: boolean; data: Record<string, unknown>; blocks: unknown[] };
 type Preview = {
-  page: CmsPage & { sections: Array<{ id: string; name: string; type: string; visible: boolean; data: Record<string, unknown>; blocks: unknown[] }> };
+  page: CmsPage & { sections: PreviewSection[] };
   theme: { tokens: Record<string, string | number> } | null;
 };
 
@@ -14,6 +15,9 @@ export function CmsWorkspace() {
   const [pageId, setPageId] = useState('');
   const [preview, setPreview] = useState<Preview | null>(null);
   const [status, setStatus] = useState('Loading CMS…');
+  const [selectedSectionId, setSelectedSectionId] = useState('');
+  const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  const [publishState, setPublishState] = useState<'idle' | 'publishing' | 'published' | 'error'>('idle');
 
   useEffect(() => {
     fetch('/api/cms/sites').then((r) => r.json()).then((data) => {
@@ -34,13 +38,52 @@ export function CmsWorkspace() {
     });
   }, [siteId]);
 
-  useEffect(() => {
+  const loadPreview = React.useCallback(() => {
     if (!pageId) return;
-    fetch(`/api/cms/pages/${pageId}/preview`).then((r) => r.json()).then(setPreview);
+    fetch(`/api/cms/pages/${pageId}/preview`).then((r) => r.json()).then((data: Preview) => {
+      setPreview(data);
+      setSelectedSectionId((current) =>
+        current && data.page.sections.some((s) => s.id === current) ? current : (data.page.sections[0]?.id ?? ''),
+      );
+    });
   }, [pageId]);
+
+  useEffect(() => { loadPreview(); }, [loadPreview]);
 
   const site = useMemo(() => sites.find((x) => x.id === siteId) ?? null, [sites, siteId]);
   const page = useMemo(() => pages.find((x) => x.id === pageId) ?? null, [pages, pageId]);
+  const selectedSection = useMemo(
+    () => preview?.page.sections.find((s) => s.id === selectedSectionId) ?? null,
+    [preview, selectedSectionId],
+  );
+
+  async function saveField(sectionId: string, key: string, value: string) {
+    setSaveState('saving');
+    try {
+      const res = await fetch(`/api/cms/sections/${sectionId}`, {
+        method: 'PATCH',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ data: { [key]: value } }),
+      });
+      if (!res.ok) throw new Error(await res.text());
+      setSaveState('saved');
+      loadPreview();
+    } catch {
+      setSaveState('error');
+    }
+  }
+
+  async function publish() {
+    if (!pageId) return;
+    setPublishState('publishing');
+    try {
+      const res = await fetch(`/api/cms/pages/${pageId}/publish`, { method: 'POST' });
+      if (!res.ok) throw new Error(await res.text());
+      setPublishState('published');
+    } catch {
+      setPublishState('error');
+    }
+  }
 
   return (
     <div className="cms-shell">
@@ -76,16 +119,25 @@ export function CmsWorkspace() {
             <h1>{page?.title ?? 'Page'}</h1>
           </div>
           <div className="cms-actions">
-            <button className="secondary">Preview</button>
-            <button className="primary">Publish</button>
+            <span className="cms-save-indicator">
+              {saveState === 'saving' ? 'Saving…' : saveState === 'saved' ? 'Saved' : saveState === 'error' ? 'Save failed' : ''}
+            </span>
+            <button className="secondary" onClick={loadPreview}>Refresh preview</button>
+            <button className="primary" onClick={publish} disabled={!pageId || publishState === 'publishing'}>
+              {publishState === 'publishing' ? 'Publishing…' : publishState === 'published' ? 'Published' : 'Publish'}
+            </button>
           </div>
         </header>
 
         <div className="cms-workarea">
           <section className="cms-outline">
-            <div className="cms-panel-title"><span>Structure</span><button>+</button></div>
+            <div className="cms-panel-title"><span>Structure</span><button title="Adding sections is not available yet">+</button></div>
             {preview?.page.sections.map((section) => (
-              <button className="cms-section-row" key={section.id}>
+              <button
+                className={`cms-section-row${section.id === selectedSectionId ? ' active' : ''}`}
+                key={section.id}
+                onClick={() => setSelectedSectionId(section.id)}
+              >
                 <span className="cms-grip">⋮⋮</span>
                 <span><strong>{section.name}</strong><small>{section.type}</small></span>
                 <span className="cms-visible">{section.visible ? 'On' : 'Off'}</span>
@@ -112,16 +164,33 @@ export function CmsWorkspace() {
 
           <aside className="cms-inspector">
             <div className="cms-panel-title">Properties</div>
-            {preview?.page.sections[0] ? Object.entries(preview.page.sections[0].data).map(([key, value]) => (
-              <label className="cms-field" key={key}>
-                <span>{humanize(key)}</span>
-                {String(value).length > 70 ? <textarea value={String(value)} readOnly /> : <input value={String(value)} readOnly />}
-              </label>
+            {selectedSection ? Object.entries(selectedSection.data).map(([key, value]) => (
+              <EditableField
+                key={`${selectedSection.id}:${key}`}
+                label={humanize(key)}
+                value={String(value)}
+                onSave={(next) => saveField(selectedSection.id, key, next)}
+              />
             )) : <p className="cms-muted">Select a section to edit it.</p>}
           </aside>
         </div>
       </main>
     </div>
+  );
+}
+
+function EditableField({ label, value, onSave }: { label: string; value: string; onSave: (value: string) => void }) {
+  const [draft, setDraft] = useState(value);
+  useEffect(() => setDraft(value), [value]);
+  const long = value.length > 70;
+  const commit = () => { if (draft !== value) onSave(draft); };
+  return (
+    <label className="cms-field">
+      <span>{label}</span>
+      {long
+        ? <textarea value={draft} onChange={(e) => setDraft(e.target.value)} onBlur={commit} />
+        : <input value={draft} onChange={(e) => setDraft(e.target.value)} onBlur={commit} />}
+    </label>
   );
 }
 

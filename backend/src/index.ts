@@ -1,7 +1,9 @@
-import { handleCmsDemo } from './cms-demo';
+import { handleCmsApi } from './cms-api';
+import type { CmsD1Database } from '@legendary-os/iam-cms/cloudflare/d1-store';
 
 export interface Env {
   ASSETS: Fetcher;
+  CMS_DB: CmsD1Database;
 }
 
 export default {
@@ -14,7 +16,7 @@ export default {
 
     if (url.pathname.startsWith('/api/cms/')) {
       try {
-        const response = await handleCmsDemo(request);
+        const response = await handleCmsApi(request, env.CMS_DB);
         if (response) return response;
       } catch (error) {
         console.error('cms_request_failed', error);

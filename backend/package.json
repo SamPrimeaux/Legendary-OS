@@ -5,13 +5,15 @@
   "scripts": {
     "dev": "wrangler dev --config ../wrangler.jsonc",
     "build": "wrangler deploy --dry-run --config ../wrangler.jsonc",
-    "check": "wrangler deploy --dry-run --config ../wrangler.jsonc",
+    "check": "tsc --noEmit -p tsconfig.json && wrangler deploy --dry-run --config ../wrangler.jsonc",
     "deploy": "wrangler deploy --config ../wrangler.jsonc"
   },
   "dependencies": {
     "@legendary-os/iam-cms": "workspace:*"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250204.0",
+    "typescript": "^5.9.3",
     "wrangler": "^4.115.0"
   }
 }
