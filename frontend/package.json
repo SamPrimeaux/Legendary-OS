@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@inneranimalmedia-client/backend": "workspace:*",
+    "@legendary-os/iam-cms": "link:../iaminfra/cms",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
