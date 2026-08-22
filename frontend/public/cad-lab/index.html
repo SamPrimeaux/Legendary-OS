@@ -136,6 +136,13 @@
             color: var(--primary-green);
         }
 
+        .flex { display: flex; }
+        .flex-1 { flex: 1 1 auto; min-width: 0; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .gap-4 { gap: 1rem; }
+        .cad-container > .flex-1 { height: 100%; overflow: hidden; }
+
         /* Main Layout */
         .cad-container {
             display: flex;
@@ -250,12 +257,14 @@
         .workspace {
             flex: 1;
             display: flex;
+            min-width: 0;
             overflow: hidden;
         }
 
         /* Left Panel - Scene/Assets */
         .left-panel {
             width: 280px;
+            flex: 0 0 280px;
             background: var(--panel-bg);
             backdrop-filter: blur(20px);
             border-right: 1px solid rgba(58, 90, 77, 0.1);
@@ -314,7 +323,8 @@
 
         /* Viewport */
         .viewport {
-            flex: 1;
+            flex: 1 1 auto;
+            min-width: 0;
             background: var(--cream);
             position: relative;
             overflow: hidden;
@@ -436,6 +446,7 @@
         /* Right Panel - Properties */
         .right-panel {
             width: 320px;
+            flex: 0 0 320px;
             background: var(--panel-bg);
             backdrop-filter: blur(20px);
             border-left: 1px solid rgba(58, 90, 77, 0.1);
@@ -630,6 +641,10 @@
             color: var(--warm-gray);
             font-size: 0.68rem;
         }
+        body.is-embedded .navbar { display: none; }
+        body.is-embedded .cad-container { height: 100vh; padding-top: 0; }
+        body.is-embedded .sidebar > a:first-child { display: none; }
+
         .prototype-badge {
             display: inline-flex;
             align-items: center;
@@ -648,6 +663,13 @@
 </head>
 
 <body>
+    <script>
+        if (window.self === window.top && window.location.pathname.startsWith('/cad-lab')) {
+            window.location.replace('/dashboard/cad');
+        } else if (window.self !== window.top) {
+            document.body.classList.add('is-embedded');
+        }
+    </script>
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
@@ -660,7 +682,7 @@
                 <li><a href="/dashboard" class="nav-link">Home</a></li>
                 <li><a href="/projects" class="nav-link">Projects</a></li>
                 <li><a href="/media" class="nav-link">Media</a></li>
-                <li><a href="/cms" class="nav-link">Websites</a></li>
+                <li><a href="/dashboard/cms" class="nav-link">Websites</a></li>
             </ul>
         </div>
     </nav>

@@ -23,6 +23,18 @@ function DashboardHome() {
   );
 }
 
+function CadWorkspace() {
+  return (
+    <AppShell title="CAD Lab" section="Legendary OS">
+      <iframe
+        className="los-cad-frame"
+        src="/cad-lab/index.html?embedded=1"
+        title="Legendary OS CAD Lab"
+      />
+    </AppShell>
+  );
+}
+
 function App() {
   const path = window.location.pathname;
 
@@ -31,7 +43,8 @@ function App() {
   }
 
   if (path === '/dashboard' || path === '/dashboard/') {
-    return <DashboardHome />;
+    window.location.replace('/dashboard/cms');
+    return null;
   }
 
   const publicSite = path.match(/^\/site\/([^/]+)(\/.*)?$/);
@@ -47,11 +60,21 @@ function App() {
   }
 
   if (path === '/cms' || path.startsWith('/cms/')) {
+    const suffix = path.slice('/cms'.length);
+    window.location.replace(`/dashboard/cms${suffix}`);
+    return null;
+  }
+
+  if (path === '/dashboard/cms' || path.startsWith('/dashboard/cms/')) {
     return (
       <AppShell title="Websites" section="Legendary OS">
         <CmsWorkspace />
       </AppShell>
     );
+  }
+
+  if (path === '/dashboard/cad' || path.startsWith('/dashboard/cad/')) {
+    return <CadWorkspace />;
   }
 
   if (path === '/media' || path === '/media/') {

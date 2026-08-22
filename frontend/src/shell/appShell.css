@@ -45,7 +45,7 @@ button { -webkit-tap-highlight-color: transparent; }
 }
 .los-brand { display: flex; align-items: center; gap: 10px; padding: 8px; background: transparent; text-align: left; color: var(--los-sidebar-text); }
 .los-brand-mark, .los-mobile-mark { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px; background: var(--los-sidebar-text); color: var(--los-sidebar-active-text); font-weight: 850; }
-.los-mobile-mark { background: var(--los-sidebar-bg); color: var(--los-sidebar-text); }
+.los-mobile-mark { background: var(--los-sidebar-text); color: var(--los-sidebar-active-text); }
 .los-brand-copy, .los-user span:not(.los-avatar), .los-agent-card > span:last-child { display: flex; flex-direction: column; min-width: 0; }
 .los-brand-copy strong { font-size: 14px; line-height: 1.1; }
 .los-brand-copy small, .los-user small, .los-agent-card small { margin-top: 2px; color: var(--los-sidebar-muted); font-size: 10px; }
@@ -77,28 +77,38 @@ button { -webkit-tap-highlight-color: transparent; }
   align-items: center;
   gap: 18px;
   padding: 0 20px;
-  background: rgba(255,255,255,.92);
+  background: rgba(31, 58, 46, .97);
+  color: var(--los-sidebar-text);
   backdrop-filter: blur(18px);
-  border-bottom: 1px solid var(--los-border);
+  border-bottom: 1px solid var(--los-sidebar-border);
+  box-shadow: 0 8px 28px rgba(17, 37, 28, .08);
   z-index: 40;
 }
 .los-topbar-title { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .los-topbar-title > div { display: flex; flex-direction: column; min-width: 0; }
-.los-topbar-title small { color: var(--los-muted); font-size: 10px; }
+.los-topbar-title small { color: var(--los-sidebar-muted); font-size: 10px; }
 .los-topbar-title strong { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .los-mobile-mark { display: none; }
-.los-search { height: 36px; display: flex; align-items: center; gap: 9px; padding: 0 10px; border: 1px solid var(--los-border); border-radius: 9px; background: #f6f7f4; color: #8b908c; text-align: left; }
+.los-search { height: 36px; display: flex; align-items: center; gap: 9px; padding: 0 10px; border: 1px solid rgba(245,241,232,.16); border-radius: 9px; background: rgba(245,241,232,.08); color: var(--los-sidebar-muted); text-align: left; }
 .los-search span { flex: 1; }
 .los-search svg { width: 17px; }
-.los-search kbd { padding: 2px 6px; border: 1px solid #dadcd7; border-radius: 5px; background: #fff; font-size: 10px; color: #777d79; }
+.los-search kbd { padding: 2px 6px; border: 1px solid rgba(245,241,232,.18); border-radius: 5px; background: rgba(245,241,232,.1); font-size: 10px; color: var(--los-sidebar-text); }
 .los-topbar-actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
-.los-agent-pill { height: 34px; display: inline-flex; align-items: center; gap: 6px; padding: 0 11px; border-radius: 9px; background: var(--los-accent-soft); color: #0b766d; font-size: 11px; font-weight: 750; }
+.los-agent-pill { height: 34px; display: inline-flex; align-items: center; gap: 6px; padding: 0 11px; border-radius: 9px; background: var(--los-sidebar-text); color: var(--los-sidebar-active-text); font-size: 11px; font-weight: 750; }
 .los-agent-pill svg { width: 15px; }
-.los-icon-button { position: relative; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 9px; background: transparent; color: #555b57; }
-.los-icon-button:hover { background: var(--los-surface-soft); }
+.los-icon-button { position: relative; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 9px; background: transparent; color: var(--los-sidebar-text); }
+.los-icon-button:hover { background: var(--los-sidebar-hover); }
 .los-icon-button svg { width: 17px; }
 .los-icon-button i { position: absolute; right: 7px; top: 6px; width: 5px; height: 5px; border-radius: 999px; background: #d55f50; border: 1px solid #fff; }
-.los-top-avatar { width: 32px; height: 32px; }
+.los-top-avatar { width: 32px; height: 32px; background: var(--los-sidebar-text); color: var(--los-sidebar-active-text); }
+
+.los-cad-frame {
+  display: block;
+  width: 100%;
+  height: calc(100vh - var(--los-topbar));
+  border: 0;
+  background: var(--los-bg);
+}
 
 .los-content { min-width: 0; min-height: calc(100vh - var(--los-topbar)); }
 .los-mobile-nav, .los-mobile-sheet-backdrop { display: none; }

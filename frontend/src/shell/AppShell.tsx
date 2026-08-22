@@ -34,17 +34,17 @@ const navItems: NavItem[] = [
   { id: 'leads', label: 'Leads', href: '/leads', icon: <Icon name="leads" /> },
   { id: 'projects', label: 'Projects', href: '/projects', icon: <Icon name="projects" /> },
   { id: 'media', label: 'Media', href: '/media', icon: <Icon name="media" /> },
-  { id: 'sites', label: 'Websites', href: '/cms', icon: <Icon name="sites" /> },
-  { id: 'design', label: 'Design Lab', href: '/cad-lab/index.html', icon: <Icon name="design" /> },
+  { id: 'sites', label: 'Websites', href: '/dashboard/cms', icon: <Icon name="sites" /> },
+  { id: 'design', label: 'CAD Lab', href: '/dashboard/cad', icon: <Icon name="design" /> },
   { id: 'team', label: 'Team', href: '/team', icon: <Icon name="team" /> },
 ];
 
 function activeNav(pathname: string): string {
-  if (pathname === '/cms' || pathname.startsWith('/cms/')) return 'sites';
+  if (pathname === '/dashboard/cms' || pathname.startsWith('/dashboard/cms/')) return 'sites';
   if (pathname.startsWith('/leads')) return 'leads';
   if (pathname.startsWith('/projects')) return 'projects';
   if (pathname.startsWith('/media')) return 'media';
-  if (pathname.startsWith('/cad-lab')) return 'design';
+  if (pathname.startsWith('/dashboard/cad')) return 'design';
   if (pathname.startsWith('/team')) return 'team';
   return 'home';
 }
@@ -125,8 +125,8 @@ export function AppShell({ children, title = 'Websites', section = 'Legendary OS
           <section className="los-mobile-sheet" onClick={(event) => event.stopPropagation()}>
             <div className="los-sheet-handle" />
             <div className="los-sheet-head"><strong>Legendary</strong><button onClick={() => setMobileMoreOpen(false)}>Done</button></div>
-            <button className="los-sheet-action" onClick={() => navigate('/cms')}><Icon name="sites" /><span><strong>Websites</strong><small>Pages, publishing, theme and site media</small></span></button>
-            <button className="los-sheet-action" onClick={() => navigate('/cad-lab/index.html')}><Icon name="design" /><span><strong>Design Lab</strong><small>Floor plans, takeoffs and project concepts</small></span></button>
+            <button className="los-sheet-action" onClick={() => navigate('/dashboard/cms')}><Icon name="sites" /><span><strong>Websites</strong><small>Pages, publishing, theme and site media</small></span></button>
+            <button className="los-sheet-action" onClick={() => navigate('/dashboard/cad')}><Icon name="design" /><span><strong>CAD Lab</strong><small>Floor plans, takeoffs and project concepts</small></span></button>
             <button className="los-sheet-action" onClick={() => navigate('/team')}><Icon name="team" /><span><strong>Team</strong><small>Employees, roles and people operations</small></span></button>
             <button className="los-sheet-action"><Icon name="sparkles" /><span><strong>Agent Sam</strong><small>Ask or take action across Legendary</small></span></button>
             <button className="los-sheet-action"><Icon name="bell" /><span><strong>Notifications</strong><small>Updates that need your attention</small></span></button>
