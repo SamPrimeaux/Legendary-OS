@@ -1,0 +1,47 @@
+{
+  "captured_at": "2026-08-22",
+  "binary_download_status": "not_downloaded_in_chatgpt_runtime_due_public_dns_resolution_failure",
+  "notes": [
+    "Run content-source/scraper/legendary_scrape.py from a normal networked environment to fetch image binaries.",
+    "The URLs below were resolved from the public Legendary Contractors portfolio during web retrieval and can be used as migration source references.",
+    "Do not treat source CDN URLs as the future CMS asset identity; ingest approved assets into the Legendary/IAM asset store and preserve source provenance."
+  ],
+  "legendary_contractors": {
+    "portfolio_source": "https://www.legendarycontractors.com/portfolio",
+    "images": [
+      {"context": "site/portfolio image", "url": "https://static.wixstatic.com/media/11062b_92cba8036d8a45fdb1669fdc2fd26536~mv2.jpg/v1/fill/w_1920%2Ch_1280%2Cal_c%2Cq_90%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/11062b_92cba8036d8a45fdb1669fdc2fd26536~mv2.jpg"},
+      {"context": "2023 Home for the Holidays — 109 Peaceful Hollow", "url": "https://static.wixstatic.com/media/706848_bb3570a433e2436f86802fd203fbf610~mv2.webp/v1/fill/w_477%2Ch_357%2Cq_90%2Cenc_avif%2Cquality_auto/706848_bb3570a433e2436f86802fd203fbf610~mv2.webp"},
+      {"context": "108 Queen Palm Circle", "url": "https://static.wixstatic.com/media/706848_1f9ff288bd144ddca9be5b984fc1118a~mv2.webp/v1/fill/w_477%2Ch_357%2Cq_90%2Cenc_avif%2Cquality_auto/706848_1f9ff288bd144ddca9be5b984fc1118a~mv2.webp"},
+      {"context": "302 Abercrombie Way — 2024 Parade of Homes", "url": "https://static.wixstatic.com/media/706848_7e46c655037547c1855a3e0a11c1bb50~mv2.webp/v1/fill/w_476%2Ch_357%2Cq_90%2Cenc_avif%2Cquality_auto/706848_7e46c655037547c1855a3e0a11c1bb50~mv2.webp"},
+      {"context": "137 Grandview Terrace Drive", "url": "https://static.wixstatic.com/media/706848_c87948520a224eb5ae37988f250433e7~mv2.webp/v1/fill/w_477%2Ch_357%2Cq_90%2Cenc_avif%2Cquality_auto/706848_c87948520a224eb5ae37988f250433e7~mv2.webp"},
+      {"context": "102 Queen Palm Circle", "url": "https://static.wixstatic.com/media/706848_d1dfb22052ba4208bc8f84d60b9f3b04~mv2.webp/v1/fill/w_477%2Ch_357%2Cq_90%2Cenc_avif%2Cquality_auto/706848_d1dfb22052ba4208bc8f84d60b9f3b04~mv2.webp"},
+      {"context": "2023 Parade of Homes — 113 Amberjack Terrace", "url": "https://static.wixstatic.com/media/706848_e6eb4b0477254da999e95f0c171a00bd~mv2.webp/v1/fill/w_476%2Ch_357%2Cq_90%2Cenc_avif%2Cquality_auto/706848_e6eb4b0477254da999e95f0c171a00bd~mv2.webp"},
+      {"context": "Hebert Residence — Youngsville", "url": "https://static.wixstatic.com/media/706848_9ea2ff63170f4563a922121cf97d9708~mv2.webp/v1/fill/w_477%2Ch_357%2Cq_90%2Cenc_avif%2Cquality_auto/706848_9ea2ff63170f4563a922121cf97d9708~mv2.webp"},
+      {"context": "2023 Parade of Homes — 113 Abercrombie Way", "url": "https://static.wixstatic.com/media/706848_543bd26e93af425f82b6d75334260f18~mv2.webp/v1/fill/w_477%2Ch_357%2Cq_90%2Cenc_avif%2Cquality_auto/706848_543bd26e93af425f82b6d75334260f18~mv2.webp"},
+      {"context": "Dore Residence — Breaux Bridge", "url": "https://static.wixstatic.com/media/706848_e5d20d011ed042038160ee200b62a55e~mv2.webp/v1/fill/w_476%2Ch_357%2Cq_90%2Cenc_avif%2Cquality_auto/706848_e5d20d011ed042038160ee200b62a55e~mv2.webp"},
+      {"context": "Hebert Residence — Breaux Bridge", "url": "https://static.wixstatic.com/media/706848_c520839f4a4f411ea117e7fb10876efa~mv2.webp/v1/fill/w_477%2Ch_357%2Cq_90%2Cenc_avif%2Cquality_auto/706848_c520839f4a4f411ea117e7fb10876efa~mv2.webp"},
+      {"context": "2022 Parade of Homes — 401 Sunshine Rise Drive", "url": "https://static.wixstatic.com/media/706848_adf11be6fa094294a28f9ce38786d66a~mv2.webp/v1/fill/w_477%2Ch_357%2Cq_90%2Cenc_avif%2Cquality_auto/706848_adf11be6fa094294a28f9ce38786d66a~mv2.webp"},
+      {"context": "311 Buenos Aires Ave", "url": "https://static.wixstatic.com/media/706848_63afa8b57683432c8b28a247495633ca~mv2.webp/v1/fill/w_476%2Ch_357%2Cq_90%2Cenc_avif%2Cquality_auto/706848_63afa8b57683432c8b28a247495633ca~mv2.webp"}
+    ],
+    "other_known_image_labels": [
+      "201 Ivy Cottage Drive-Rendering.jpg",
+      "207 Sabal Bend Rendering.png",
+      "rs=w_1200,h_600,cg_true_edited.jpg",
+      "rs=w_1200,h_600,cg_true (2)_edited.jpg",
+      "_79A0638.jpg",
+      "IMG_2123.heic"
+    ]
+  },
+  "legendary_scapes": {
+    "status": "page crawl identified image-bearing sections, but exact binary URLs were not exposed through the available retrieval layer",
+    "image_contexts": [
+      "homepage client gallery",
+      "services landscaping installations",
+      "services retaining walls",
+      "services pools",
+      "services drainage/maintenance",
+      "legacy services hero/section imagery",
+      "blog article imagery"
+    ]
+  }
+}
