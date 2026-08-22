@@ -41,6 +41,7 @@ function activeNav(pathname: string): string {
   if (pathname === '/cms' || pathname.startsWith('/cms/')) return 'sites';
   if (pathname.startsWith('/leads')) return 'leads';
   if (pathname.startsWith('/projects')) return 'projects';
+  if (pathname.startsWith('/media')) return 'media';
   if (pathname.startsWith('/team')) return 'team';
   return 'home';
 }
