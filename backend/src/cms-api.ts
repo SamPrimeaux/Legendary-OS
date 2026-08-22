@@ -356,7 +356,10 @@ export async function handleCmsApi(request: Request, env: CmsApiEnv): Promise<Re
     const tree = await cms.publishPage(ctx, decodeURIComponent(publishMatch[1]), true);
     const page = await app.getPublishedPage(tree.siteId, tree.route);
     if (!page) throw new Error(`Published page could not be reloaded: ${tree.id}`);
-    return Response.json({ page: tree, publication: await published.publishPage(page) });
+    const publication = await published.publishPage(page);
+    const verified = await published.readPage(page.site.id, page.page.route);
+    if (!verified) throw new Error(`Published page could not be verified: ${tree.id}`);
+    return Response.json({ page: tree, publication, verification: { ok: true, route: page.page.route, publishedAt: publication.publishedAt } });
   }
 
   if (url.pathname === '/api/cms/registry' && request.method === 'GET') {
