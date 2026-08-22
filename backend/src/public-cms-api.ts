@@ -3,7 +3,7 @@ import { CmsApplication } from './cms/application';
 import { CmsPublishedStore } from './cms/published-store';
 
 export type PublicCmsEnv = {
-  CMS_DB: CmsD1Database;
+  DB: CmsD1Database;
   ASSETS_BUCKET: R2Bucket;
   CMS_CACHE: KVNamespace;
 };
@@ -16,7 +16,7 @@ export async function handlePublicCmsApi(request: Request, env: PublicCmsEnv): P
 
   const siteKey = decodeURIComponent(match[1]);
   const route = url.searchParams.get('route') || '/';
-  const app = new CmsApplication(env.CMS_DB);
+  const app = new CmsApplication(env.DB);
   const site = await app.resolveSiteByKey(siteKey);
   if (!site) return Response.json({ error: 'site_not_found', site: siteKey }, { status: 404 });
 
