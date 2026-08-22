@@ -28,7 +28,11 @@ const ALL_CAPABILITIES = [
 ];
 
 function contextFor(request: Request): CmsRequestContext {
-  const email = request.headers.get('Cf-Access-Authenticated-User-Email') || 'local-dev';
+  // Bridge-proxied requests (see proxyCmsBridgeRequest / cms-bridge-trust.js on the
+  // platform side) forward the real editing user via X-User-Id — prefer that identity
+  // for audit trail over the CF Access header, which doesn't apply to M2M bridge calls.
+  const bridgeUserId = request.headers.get('X-User-Id');
+  const email = bridgeUserId || request.headers.get('Cf-Access-Authenticated-User-Email') || 'local-dev';
   return {
     organizationId: 'legendary',
     brandIds: ['contractors', 'scapes'],
