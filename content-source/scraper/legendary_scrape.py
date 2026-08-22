@@ -97,7 +97,48 @@ def unique(items: Iterable[str]) -> list[str]:
 
 
 def parse_srcset(value: str) -> list[str]:
-    return [part.strip().split(" ")[0] for part in (value or "").split(",") if part.strip()]
+    """Parse common srcset forms without splitting commas inside CDN URLs.
+
+    Wix and GoDaddy transformation paths contain commas (for example
+    ``w_640,h_480``). Splitting the entire attribute on every comma creates
+    fake URLs such as ``/h_480``. Tokenize the URL separately from its optional
+    ``640w``/``2x`` descriptor instead.
+    """
+    text = (value or "").strip()
+    if not text:
+        return []
+
+    out: list[str] = []
+    cursor = 0
+    while cursor < len(text):
+        while cursor < len(text) and (text[cursor].isspace() or text[cursor] == ","):
+            cursor += 1
+        if cursor >= len(text):
+            break
+
+        start = cursor
+        while cursor < len(text) and not text[cursor].isspace():
+            cursor += 1
+        url = text[start:cursor].strip()
+
+        # Descriptor-less candidates commonly look like ``a.jpg, b.jpg``.
+        # Only trailing commas are delimiters; embedded CDN commas are kept.
+        if url.endswith(","):
+            url = url.rstrip(",")
+            if url:
+                out.append(url)
+            continue
+
+        while cursor < len(text) and text[cursor].isspace():
+            cursor += 1
+        while cursor < len(text) and text[cursor] != ",":
+            cursor += 1
+        if url:
+            out.append(url)
+        if cursor < len(text) and text[cursor] == ",":
+            cursor += 1
+
+    return out
 
 
 def extract_background_urls(value: str) -> list[str]:
@@ -220,6 +261,14 @@ def image_extension(content_type: str, url: str) -> str:
     return suffix if re.fullmatch(r"\.[a-z0-9]{2,5}", suffix) else ".bin"
 
 
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
 def download_image(session: requests.Session, url: str, image_dir: Path) -> dict:
     image_dir.mkdir(parents=True, exist_ok=True)
     digest = hashlib.sha256(url.encode("utf-8")).hexdigest()[:20]
@@ -235,7 +284,14 @@ def download_image(session: requests.Session, url: str, image_dir: Path) -> dict
                     for chunk in response.iter_content(chunk_size=131072):
                         if chunk:
                             handle.write(chunk)
-            return {"url": url, "ok": True, "file": str(path), "bytes": path.stat().st_size, "content_type": ctype.split(";")[0]}
+            return {
+                "url": url,
+                "ok": True,
+                "file": str(path),
+                "bytes": path.stat().st_size,
+                "content_type": ctype.split(";")[0],
+                "sha256": sha256_file(path),
+            }
     except Exception as exc:
         return {"url": url, "ok": False, "error": f"{type(exc).__name__}: {exc}"}
 
@@ -247,7 +303,7 @@ def scrape_target(target: Target, root: Path, session: requests.Session, robots:
     pages_dir.mkdir(parents=True, exist_ok=True)
     seed = clean_url(target.seed)
     queue, queued, visited = deque([seed]), {seed}, set()
-    pages, all_images, errors = [], {}, []
+    pages, all_images, image_usages, errors = [], {}, [], []
 
     while queue and len(visited) < max_pages:
         url = queue.popleft()
@@ -265,6 +321,7 @@ def scrape_target(target: Target, root: Path, session: requests.Session, robots:
             json_path.write_text(json.dumps(page, indent=2, ensure_ascii=False), encoding="utf-8")
             pages.append({"url": final_url, "title": page["title"], "json": str(json_path), "images": len(page["images"])})
             for image in page["images"]:
+                image_usages.append({"page_url": final_url, **image})
                 all_images.setdefault(image["url"], image)
             if target.crawl_mode == "domain":
                 for link in page["links"]:
@@ -292,6 +349,7 @@ def scrape_target(target: Target, root: Path, session: requests.Session, robots:
         "unique_images_found": len(all_images),
         "pages": pages,
         "images": image_results if download_images else list(all_images.values()),
+        "image_usages": image_usages,
         "errors": errors,
     }
     (target_dir / "manifest.json").write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
