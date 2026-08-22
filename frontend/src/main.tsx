@@ -41,6 +41,11 @@ function App() {
     return <PublicCmsPage siteKey={siteKey} route={route} />;
   }
 
+  if (path === '/scapes' || path.startsWith('/scapes/')) {
+    const route = path.slice('/scapes'.length) || '/';
+    return <PublicCmsPage siteKey="site_scapes" route={route} />;
+  }
+
   if (path === '/cms' || path.startsWith('/cms/')) {
     return (
       <AppShell title="Websites" section="Legendary OS">
