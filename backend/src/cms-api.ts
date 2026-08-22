@@ -122,7 +122,7 @@ export async function handleCmsApi(request: Request, env: CmsApiEnv): Promise<Re
 
   const globalNavPublishMatch = url.pathname.match(/^\/api\/cms\/sites\/([^/]+)\/global-nav\/publish$/);
   if (globalNavPublishMatch && request.method === 'POST') {
-    cms.require(ctx, 'publish.page');
+    cms.require(ctx, 'publish.page', true);
     const site = await app.resolveSiteByKey(decodeURIComponent(globalNavPublishMatch[1]));
     if (!site) return Response.json({ error: 'site_not_found' }, { status: 404 });
     const globalCmsNav = await app.getGlobalCmsNav(site.id);
