@@ -72,6 +72,14 @@ CREATE TABLE IF NOT EXISTS cms_themes (
   updated_at INTEGER NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS cms_global_nav (
+  id TEXT PRIMARY KEY,
+  site_id TEXT NOT NULL UNIQUE REFERENCES cms_sites(id) ON DELETE CASCADE,
+  data_json TEXT NOT NULL DEFAULT '{}',
+  updated_at INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_cms_global_nav_site ON cms_global_nav(site_id);
+
 CREATE TABLE IF NOT EXISTS cms_revisions (
   id TEXT PRIMARY KEY,
   site_id TEXT NOT NULL REFERENCES cms_sites(id) ON DELETE CASCADE,
