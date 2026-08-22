@@ -1,0 +1,14 @@
+{
+  "name": "@legendary-os/backend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --config ../wrangler.jsonc",
+    "build": "wrangler deploy --dry-run --config ../wrangler.jsonc",
+    "check": "wrangler deploy --dry-run --config ../wrangler.jsonc",
+    "deploy": "wrangler deploy --config ../wrangler.jsonc"
+  },
+  "devDependencies": {
+    "wrangler": "^4.115.0"
+  }
+}
