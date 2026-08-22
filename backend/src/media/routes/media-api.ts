@@ -45,7 +45,7 @@ export async function handleMediaApi(request: Request, app: MediaApplication): P
     const assetId = decodeURIComponent(usageListMatch[1]);
     if (request.method === 'GET') return Response.json({ usages: await app.usages.list(assetId, organizationId) });
     if (request.method === 'POST') {
-      const body = await request.json<Record<string, unknown>>().catch(() => ({}));
+      const body = await request.json<Record<string, unknown>>().catch(() => ({} as Record<string, unknown>));
       const usage = await app.usages.add(assetId, organizationId, {
         assetId,
         siteId: body.siteId ? String(body.siteId) : body.site_id ? String(body.site_id) : null,
