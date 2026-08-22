@@ -12,8 +12,13 @@ import { D1CmsStore, type CmsD1Database } from '@legendary-os/iam-cms/cloudflare
 import { CmsApplication } from './cms/application';
 import type { CmsThemeDto, GlobalCmsNavDto } from './cms/contracts';
 import { CmsPublishedStore } from './cms/published-store';
+import {
+  rejectUnauthorizedCmsApi,
+  buildCmsRequestContext,
+} from './auth/cms-route-auth.js';
+import type { CmsRouteAuthEnv } from './auth/cms-route-auth.js';
 
-export type CmsApiEnv = {
+export type CmsApiEnv = CmsRouteAuthEnv & {
   DB: CmsD1Database;
   ASSETS_BUCKET: R2Bucket;
   CMS_CACHE: KVNamespace;
@@ -27,14 +32,13 @@ const ALL_CAPABILITIES = [
   'preview.read', 'revision.list', 'revision.restore', 'publish.verify', 'publish.page',
 ];
 
-function contextFor(request: Request): CmsRequestContext {
-  const email = request.headers.get('Cf-Access-Authenticated-User-Email') || 'local-dev';
-  return {
-    organizationId: 'legendary',
-    brandIds: ['contractors', 'scapes'],
-    actorId: email,
-    capabilities: ALL_CAPABILITIES,
-  };
+/** IAM hub bridge, or Cf-Access when bridge secret is not provisioned (local dev). */
+function cmsApiAuthRejected(request: Request, env: CmsApiEnv): Response | null {
+  return rejectUnauthorizedCmsApi(request, env);
+}
+
+function contextFor(request: Request, env: CmsApiEnv): CmsRequestContext {
+  return buildCmsRequestContext(request, env, ALL_CAPABILITIES);
 }
 
 function buildSeed(now: number) {
@@ -97,13 +101,16 @@ async function syncSectionSchemas(db: CmsD1Database, cms: CmsService) {
 }
 
 export async function handleCmsApi(request: Request, env: CmsApiEnv): Promise<Response | null> {
+  const authRejected = cmsApiAuthRejected(request, env);
+  if (authRejected) return authRejected;
+
   const url = new URL(request.url);
   const db = env.DB;
   const store = new D1CmsStore(db);
   const cms = new CmsService(store, { registry: createLegendaryCmsRegistry() });
   const app = new CmsApplication(db);
   const published = new CmsPublishedStore(env);
-  const ctx = contextFor(request);
+  const ctx = contextFor(request, env);
 
   await ensureSeeded(store);
   await syncSectionSchemas(db, cms);

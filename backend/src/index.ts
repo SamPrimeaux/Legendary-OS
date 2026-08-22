@@ -1,15 +1,9 @@
 import { handleCmsApi } from './cms-api';
 import { handlePublicCmsApi } from './public-cms-api';
 import { handleMediaRequest } from './media';
-import type { CmsD1Database } from '@legendary-os/iam-cms/cloudflare/d1-store';
+import type { WorkerEnv } from './env';
 
-export interface Env {
-  ASSETS: Fetcher;
-  ASSETS_BUCKET: R2Bucket;
-  CMS_CACHE: KVNamespace;
-  IMAGES?: unknown;
-  DB: CmsD1Database;
-}
+export type Env = WorkerEnv;
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
