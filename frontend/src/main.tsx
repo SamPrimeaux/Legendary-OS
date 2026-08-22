@@ -33,6 +33,15 @@ function App() {
     );
   }
 
+  if (path === '/media' || path === '/media/') {
+    return <AppShell title="Media"><MediaWorkspace /></AppShell>;
+  }
+
+  const mediaAsset = path.match(/^\/media\/([^/]+)$/);
+  if (mediaAsset) {
+    return <AppShell title="Media"><MediaAssetPage assetId={decodeURIComponent(mediaAsset[1])} /></AppShell>;
+  }
+
   if (path.startsWith('/leads')) {
     return <AppShell title="Leads"><Placeholder title="Leads" description="Lead intake, ownership, follow-up and conversion will live here." /></AppShell>;
   }
