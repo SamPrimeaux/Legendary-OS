@@ -41,7 +41,7 @@ export default {
 
     if (url.pathname.startsWith('/api/cms/')) {
       try {
-        const response = await handleCmsApi(request, env.CMS_DB);
+        const response = await handleCmsApi(request, env);
         if (response) return response;
       } catch (error) {
         console.error('cms_request_failed', error);
