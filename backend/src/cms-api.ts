@@ -125,7 +125,7 @@ export async function handleCmsApi(request: Request, env: CmsApiEnv): Promise<Re
     const siteId = decodeURIComponent(pagesMatch[1]);
     if (request.method === 'GET') return Response.json({ pages: await cms.listPages(ctx, siteId) });
     if (request.method === 'POST') {
-      const body = await request.json<Record<string, unknown>>().catch(() => ({}));
+      const body = await request.json<Record<string, unknown>>().catch(() => ({} as Record<string, unknown>));
       const page = await cms.createPage(ctx, siteId, {
         title: String(body.title || '').trim(),
         route: String(body.route || '/').trim(),
@@ -147,7 +147,7 @@ export async function handleCmsApi(request: Request, env: CmsApiEnv): Promise<Re
       return page ? Response.json(page) : Response.json({ error: 'not_found' }, { status: 404 });
     }
     if (request.method === 'PATCH') {
-      const body = await request.json<Record<string, unknown>>().catch(() => ({}));
+      const body = await request.json<Record<string, unknown>>().catch(() => ({} as Record<string, unknown>));
       const patch = Object.fromEntries(
         ['title', 'route', 'pageType', 'seoTitle', 'seoDescription', 'parentId']
           .filter((key) => Object.hasOwn(body, key))
@@ -166,7 +166,7 @@ export async function handleCmsApi(request: Request, env: CmsApiEnv): Promise<Re
   const pageSectionsMatch = url.pathname.match(/^\/api\/cms\/pages\/([^/]+)\/sections$/);
   if (pageSectionsMatch && request.method === 'POST') {
     const pageId = decodeURIComponent(pageSectionsMatch[1]);
-    const body = await request.json<Record<string, unknown>>().catch(() => ({}));
+    const body = await request.json<Record<string, unknown>>().catch(() => ({} as Record<string, unknown>));
     const type = String(body.type || '').trim();
     const definition = cms.registry.getSection(type);
     if (!definition) return Response.json({ error: 'unknown_section_type', type }, { status: 400 });
@@ -217,7 +217,7 @@ export async function handleCmsApi(request: Request, env: CmsApiEnv): Promise<Re
     }
     if (request.method === 'PATCH') {
       cms.require(ctx, 'theme.update');
-      const body = await request.json<Record<string, unknown>>().catch(() => ({}));
+      const body = await request.json<Record<string, unknown>>().catch(() => ({} as Record<string, unknown>));
       const current = await store.getTheme(site.id);
       const theme: CmsTheme = {
         id: current?.id ?? `theme_${site.brandId}`,
@@ -273,7 +273,7 @@ export async function handleCmsApi(request: Request, env: CmsApiEnv): Promise<Re
     const existing = await findSection(store, sectionId);
     if (!existing) return Response.json({ error: 'not_found' }, { status: 404 });
     if (request.method === 'PATCH') {
-      const body = await request.json<Record<string, unknown>>().catch(() => ({}));
+      const body = await request.json<Record<string, unknown>>().catch(() => ({} as Record<string, unknown>));
       const updated = await cms.updateSection(ctx, {
         ...existing,
         name: body.name == null ? existing.name : String(body.name),
@@ -295,7 +295,7 @@ export async function handleCmsApi(request: Request, env: CmsApiEnv): Promise<Re
   if (sectionBlocksMatch && request.method === 'POST') {
     const section = await findSection(store, decodeURIComponent(sectionBlocksMatch[1]));
     if (!section) return Response.json({ error: 'section_not_found' }, { status: 404 });
-    const body = await request.json<Record<string, unknown>>().catch(() => ({}));
+    const body = await request.json<Record<string, unknown>>().catch(() => ({} as Record<string, unknown>));
     const block = await cms.createBlock(ctx, section, {
       type: String(body.type || 'text'),
       data: isRecord(body.data) ? body.data : {},
@@ -311,7 +311,7 @@ export async function handleCmsApi(request: Request, env: CmsApiEnv): Promise<Re
     const section = await findSection(store, block.sectionId);
     if (!section) return Response.json({ error: 'section_not_found' }, { status: 404 });
     if (request.method === 'PATCH') {
-      const body = await request.json<Record<string, unknown>>().catch(() => ({}));
+      const body = await request.json<Record<string, unknown>>().catch(() => ({} as Record<string, unknown>));
       const updated = await cms.updateBlock(ctx, section, {
         ...block,
         type: body.type == null ? block.type : String(body.type),
