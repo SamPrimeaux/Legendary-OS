@@ -367,7 +367,7 @@ export async function handleCmsApi(request: Request, env: CmsApiEnv): Promise<Re
   }
 
   if (url.pathname === '/api/cms/whoami' && request.method === 'GET') {
-    return Response.json({ actorId: ctx.actorId });
+    return Response.json({ actorId: ctx.actorId, authMode: cmsAuthMode(env), capabilities: ctx.capabilities });
   }
 
   return null;
