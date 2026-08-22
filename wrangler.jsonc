@@ -14,7 +14,7 @@
 
   "d1_databases": [
     {
-      "binding": "CMS_DB",
+      "binding": "DB",
       "database_name": "legendary-os-cms",
       "database_id": "716b1626-4ffb-42d3-8d98-b45a6333f1bf"
     }
