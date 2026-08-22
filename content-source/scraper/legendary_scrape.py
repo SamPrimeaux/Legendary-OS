@@ -97,7 +97,48 @@ def unique(items: Iterable[str]) -> list[str]:
 
 
 def parse_srcset(value: str) -> list[str]:
-    return [part.strip().split(" ")[0] for part in (value or "").split(",") if part.strip()]
+    """Parse common srcset forms without splitting commas inside CDN URLs.
+
+    Wix and GoDaddy transformation paths contain commas (for example
+    ``w_640,h_480``). Splitting the entire attribute on every comma creates
+    fake URLs such as ``/h_480``. Tokenize the URL separately from its optional
+    ``640w``/``2x`` descriptor instead.
+    """
+    text = (value or "").strip()
+    if not text:
+        return []
+
+    out: list[str] = []
+    cursor = 0
+    while cursor < len(text):
+        while cursor < len(text) and (text[cursor].isspace() or text[cursor] == ","):
+            cursor += 1
+        if cursor >= len(text):
+            break
+
+        start = cursor
+        while cursor < len(text) and not text[cursor].isspace():
+            cursor += 1
+        url = text[start:cursor].strip()
+
+        # Descriptor-less candidates commonly look like ``a.jpg, b.jpg``.
+        # Only trailing commas are delimiters; embedded CDN commas are kept.
+        if url.endswith(","):
+            url = url.rstrip(",")
+            if url:
+                out.append(url)
+            continue
+
+        while cursor < len(text) and text[cursor].isspace():
+            cursor += 1
+        while cursor < len(text) and text[cursor] != ",":
+            cursor += 1
+        if url:
+            out.append(url)
+        if cursor < len(text) and text[cursor] == ",":
+            cursor += 1
+
+    return out
 
 
 def extract_background_urls(value: str) -> list[str]:
