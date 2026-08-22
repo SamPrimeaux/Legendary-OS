@@ -104,7 +104,7 @@ export function CmsWorkspace() {
     }
   }
 
-  async function saveField(sectionId: string, key: string, value: string) {
+  async function saveField(sectionId: string, key: string, value: unknown) {
     setSaveState('saving');
     try {
       const res = await fetch(`/api/cms/sections/${sectionId}`, {
