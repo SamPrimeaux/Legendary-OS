@@ -303,7 +303,7 @@ def scrape_target(target: Target, root: Path, session: requests.Session, robots:
     pages_dir.mkdir(parents=True, exist_ok=True)
     seed = clean_url(target.seed)
     queue, queued, visited = deque([seed]), {seed}, set()
-    pages, all_images, errors = [], {}, []
+    pages, all_images, image_usages, errors = [], {}, [], []
 
     while queue and len(visited) < max_pages:
         url = queue.popleft()
