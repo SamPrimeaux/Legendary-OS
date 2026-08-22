@@ -429,9 +429,17 @@ async function findBlock(store: D1CmsStore, blockId: string): Promise<CmsBlock |
 }
 
 function defaultSectionData(fields: Array<{ key: string; defaultValue?: unknown; required?: boolean; type: string }>) {
+  const fallback = (key: string, type: string) => {
+    if (type === 'json' || type === 'images') return [];
+    if (key === 'heading') return 'Untitled section';
+    if (key === 'body') return 'Add content here.';
+    if (key === 'ctaLabel') return 'Learn more';
+    if (key === 'ctaHref') return '#';
+    return 'Add content';
+  };
   return Object.fromEntries(fields
     .filter((field) => field.defaultValue !== undefined || field.required)
-    .map((field) => [field.key, field.defaultValue ?? (field.type === 'json' || field.type === 'images' ? [] : '')]));
+    .map((field) => [field.key, field.defaultValue ?? fallback(field.key, field.type)]));
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
