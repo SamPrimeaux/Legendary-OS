@@ -124,9 +124,9 @@ export class CmsService {
     const tree = await this.store.getPageTree(pageId);
     if (!tree) throw new CmsNotFoundError('Page tree not found');
     this.validateTree(tree);
-    const current = await this.store.getPublishedPage(pageId);
-    await this.store.createRevision({ id: this.ids.id('revision'), siteId: page.siteId, pageId, kind: 'publish', snapshot: current, actorId: ctx.actorId, createdAt: this.clock.now() });
-    await this.store.setPublishedPage(pageId, { ...tree, status: 'published' });
+    const publishedTree = { ...tree, status: 'published' as const };
+    await this.store.createRevision({ id: this.ids.id('revision'), siteId: page.siteId, pageId, kind: 'publish', snapshot: publishedTree, actorId: ctx.actorId, createdAt: this.clock.now() });
+    await this.store.setPublishedPage(pageId, publishedTree);
     await this.store.updatePage({ ...page, status: 'published', updatedAt: this.clock.now() });
     return { ...tree, status: 'published' };
   }
