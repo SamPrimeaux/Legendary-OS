@@ -49,7 +49,7 @@ export function CmsWorkspace() {
 
   useEffect(() => { loadSites(); }, [loadSites]);
 
-  useEffect(() => {
+  const loadPages = useCallback(() => {
     if (!siteId) return;
     setPreview(null);
     fetch(`/api/cms/sites/${siteId}/pages`)
@@ -60,6 +60,8 @@ export function CmsWorkspace() {
         setPageId((current) => next.some((p) => p.id === current) ? current : (next[0]?.id ?? ''));
       });
   }, [siteId]);
+
+  useEffect(() => { loadPages(); }, [loadPages]);
 
   const loadPreview = useCallback(() => {
     if (!pageId) return;
