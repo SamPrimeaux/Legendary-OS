@@ -2,6 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { CmsWorkspace } from './cms/CmsWorkspace';
 import { AppShell } from './shell/AppShell';
+import { PublicCmsPage } from './site/PublicCmsPage';
 
 function Placeholder({ title, description }: { title: string; description: string }) {
   return (
@@ -15,6 +16,13 @@ function Placeholder({ title, description }: { title: string; description: strin
 
 function App() {
   const path = window.location.pathname;
+
+  const publicSite = path.match(/^\/site\/([^/]+)(\/.*)?$/);
+  if (publicSite) {
+    const siteKey = decodeURIComponent(publicSite[1]);
+    const route = publicSite[2] || '/';
+    return <PublicCmsPage siteKey={siteKey} route={route} />;
+  }
 
   if (path === '/cms' || path.startsWith('/cms/')) {
     return (
