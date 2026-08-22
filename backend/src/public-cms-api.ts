@@ -1,4 +1,4 @@
-import type { CmsD1Database } from '@legendary-os/iam-cms/cloudflare/d1-store';
+import type { CmsD1Database } from '@inneranimalmedia-client/backend/cloudflare/d1-store';
 import { CmsApplication } from './cms/application';
 
 /**
