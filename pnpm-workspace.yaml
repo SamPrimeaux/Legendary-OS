@@ -3,3 +3,10 @@ packages:
   - backend
   - services/*
   - iaminfra/*
+
+# pnpm 11 blocks dependency install scripts unless they are explicitly allowed.
+# Keep this list narrow and intentional for Cloudflare/Vite + Agent Sam SDK tooling.
+allowBuilds:
+  esbuild: true
+  workerd: true
+  node-pty: true
