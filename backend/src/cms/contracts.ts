@@ -44,6 +44,9 @@ export type GlobalCmsNavDto = {
   siteId: string;
   brand: {
     mark?: string;
+    logoAssetId?: string;
+    logoUrl?: string;
+    logoAlt?: string;
     name: string;
     sublabel?: string;
     homeHref: string;
