@@ -1,16 +1,7 @@
 # Media service
 
-Cloudflare-native ingestion and asset-processing boundary for field photos, video, documents, and approved content handoff.
+Reserved for heavy asynchronous processing only.
 
-## Intended responsibilities
+The canonical Legendary media runtime now lives in `backend/src/media/`. Do not create a second CRUD/storage implementation here.
 
-- direct upload flows
-- object-storage adapters
-- media metadata and normalization
-- thumbnails / previews / derivatives
-- async processing receipts
-- approved handoff to InnerAnimal Media production systems
-
-## Boundary law
-
-Legendary users interact with projects and assets, not buckets or processing pipelines. MovieMode remains outside Legendary OS; this service exposes only the clean exchange contract needed for capture, status, review, and approved results.
+Promote work into this service only when it genuinely needs a separate Worker/runtime, for example video inspection, expensive transcoding, background derivatives, or optional AI enrichment. The service must consume the same `MediaAsset` / `MediaAssetUsage` contracts and write through the canonical media persistence boundary.

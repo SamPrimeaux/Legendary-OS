@@ -1,9 +1,12 @@
 import { handleCmsApi } from './cms-api';
 import { handlePublicCmsApi } from './public-cms-api';
+import { handleMediaRequest } from './media';
 import type { CmsD1Database } from '@legendary-os/iam-cms/cloudflare/d1-store';
 
 export interface Env {
   ASSETS: Fetcher;
+  ASSETS_BUCKET: R2Bucket;
+  IMAGES?: unknown;
   CMS_DB: CmsD1Database;
 }
 
@@ -13,6 +16,16 @@ export default {
 
     if (url.pathname === '/api/health') {
       return Response.json({ ok: true, service: 'legendary-os', runtime: 'cloudflare-workers' });
+    }
+
+    if (url.pathname.startsWith('/api/media/') || url.pathname.startsWith('/assets/')) {
+      try {
+        const response = await handleMediaRequest(request, env);
+        if (response) return response;
+      } catch (error) {
+        console.error('media_request_failed', error);
+        return Response.json({ error: 'media_request_failed', message: error instanceof Error ? error.message : 'Unknown media error' }, { status: 400 });
+      }
     }
 
     if (url.pathname.startsWith('/api/public/')) {

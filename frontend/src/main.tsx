@@ -1,6 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { CmsWorkspace } from './cms/CmsWorkspace';
+import { MediaAssetPage, MediaWorkspace } from './media';
 import { AppShell } from './shell/AppShell';
 import { PublicCmsPage } from './site/PublicCmsPage';
 
@@ -30,6 +31,15 @@ function App() {
         <CmsWorkspace />
       </AppShell>
     );
+  }
+
+  if (path === '/media' || path === '/media/') {
+    return <AppShell title="Media"><MediaWorkspace /></AppShell>;
+  }
+
+  const mediaAsset = path.match(/^\/media\/([^/]+)$/);
+  if (mediaAsset) {
+    return <AppShell title="Media"><MediaAssetPage assetId={decodeURIComponent(mediaAsset[1])} /></AppShell>;
   }
 
   if (path.startsWith('/leads')) {

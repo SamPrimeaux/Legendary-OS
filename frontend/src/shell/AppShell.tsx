@@ -14,11 +14,12 @@ type AppShellProps = {
   section?: string;
 };
 
-const Icon = ({ name }: { name: 'home' | 'leads' | 'projects' | 'sites' | 'team' | 'more' | 'search' | 'bell' | 'sparkles' }) => {
+const Icon = ({ name }: { name: 'home' | 'leads' | 'projects' | 'media' | 'sites' | 'team' | 'more' | 'search' | 'bell' | 'sparkles' }) => {
   const common = { width: 20, height: 20, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const, 'aria-hidden': true };
   if (name === 'home') return <svg {...common}><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-7h6v7"/></svg>;
   if (name === 'leads') return <svg {...common}><circle cx="12" cy="8" r="3"/><path d="M5.5 20c.7-4 3-6 6.5-6s5.8 2 6.5 6"/><path d="M18 4v4M16 6h4"/></svg>;
   if (name === 'projects') return <svg {...common}><rect x="3" y="5" width="18" height="15" rx="2"/><path d="M8 5V3h8v2M3 10h18"/></svg>;
+  if (name === 'media') return <svg {...common}><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9" r="1.5"/><path d="m5 17 4.2-4 3 2.8 2.5-2.3L19 17"/></svg>;
   if (name === 'sites') return <svg {...common}><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><circle cx="6.5" cy="6.5" r=".7" fill="currentColor" stroke="none"/><circle cx="9" cy="6.5" r=".7" fill="currentColor" stroke="none"/></svg>;
   if (name === 'team') return <svg {...common}><circle cx="9" cy="8" r="3"/><path d="M3.5 20c.5-3.6 2.4-5.5 5.5-5.5s5 1.9 5.5 5.5"/><circle cx="17.2" cy="9" r="2.2"/><path d="M15.5 15.2c3.2-.4 5 1.1 5.5 4.8"/></svg>;
   if (name === 'more') return <svg {...common}><circle cx="5" cy="12" r="1" fill="currentColor"/><circle cx="12" cy="12" r="1" fill="currentColor"/><circle cx="19" cy="12" r="1" fill="currentColor"/></svg>;
@@ -31,6 +32,7 @@ const navItems: NavItem[] = [
   { id: 'home', label: 'Home', href: '/', icon: <Icon name="home" /> },
   { id: 'leads', label: 'Leads', href: '/leads', icon: <Icon name="leads" /> },
   { id: 'projects', label: 'Projects', href: '/projects', icon: <Icon name="projects" /> },
+  { id: 'media', label: 'Media', href: '/media', icon: <Icon name="media" /> },
   { id: 'sites', label: 'Websites', href: '/cms', icon: <Icon name="sites" /> },
   { id: 'team', label: 'Team', href: '/team', icon: <Icon name="team" /> },
 ];
@@ -39,6 +41,7 @@ function activeNav(pathname: string): string {
   if (pathname === '/cms' || pathname.startsWith('/cms/')) return 'sites';
   if (pathname.startsWith('/leads')) return 'leads';
   if (pathname.startsWith('/projects')) return 'projects';
+  if (pathname.startsWith('/media')) return 'media';
   if (pathname.startsWith('/team')) return 'team';
   return 'home';
 }
@@ -119,6 +122,7 @@ export function AppShell({ children, title = 'Websites', section = 'Legendary OS
           <section className="los-mobile-sheet" onClick={(event) => event.stopPropagation()}>
             <div className="los-sheet-handle" />
             <div className="los-sheet-head"><strong>Legendary</strong><button onClick={() => setMobileMoreOpen(false)}>Done</button></div>
+            <button className="los-sheet-action" onClick={() => navigate('/cms')}><Icon name="sites" /><span><strong>Websites</strong><small>Pages, publishing, theme and site media</small></span></button>
             <button className="los-sheet-action" onClick={() => navigate('/team')}><Icon name="team" /><span><strong>Team</strong><small>Employees, roles and people operations</small></span></button>
             <button className="los-sheet-action"><Icon name="sparkles" /><span><strong>Agent Sam</strong><small>Ask or take action across Legendary</small></span></button>
             <button className="los-sheet-action"><Icon name="bell" /><span><strong>Notifications</strong><small>Updates that need your attention</small></span></button>
