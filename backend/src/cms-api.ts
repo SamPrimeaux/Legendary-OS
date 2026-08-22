@@ -113,7 +113,7 @@ export async function handleCmsApi(request: Request, env: CmsApiEnv): Promise<Re
 
     if (request.method === 'PATCH') {
       cms.require(ctx, 'theme.update');
-      const body = await request.json<{ data?: Omit<GlobalCmsNavDto, 'id' | 'siteId' | 'updatedAt'> }>().catch(() => ({}));
+      const body = await request.json<{ data?: Omit<GlobalCmsNavDto, 'id' | 'siteId' | 'updatedAt'> }>().catch(() => ({ data: undefined }));
       if (!body.data) return Response.json({ error: 'data_required' }, { status: 400 });
       const globalCmsNav = await app.saveGlobalCmsNav(site.id, body.data);
       return Response.json({ globalCmsNav });
