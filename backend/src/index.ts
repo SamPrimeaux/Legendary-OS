@@ -1,4 +1,5 @@
 import { handleCmsApi } from './cms-api';
+import { handlePublicCmsApi } from './public-cms-api';
 import type { CmsD1Database } from '@legendary-os/iam-cms/cloudflare/d1-store';
 
 export interface Env {
@@ -12,6 +13,19 @@ export default {
 
     if (url.pathname === '/api/health') {
       return Response.json({ ok: true, service: 'legendary-os', runtime: 'cloudflare-workers' });
+    }
+
+    if (url.pathname.startsWith('/api/public/')) {
+      try {
+        const response = await handlePublicCmsApi(request, env.CMS_DB);
+        if (response) return response;
+      } catch (error) {
+        console.error('public_cms_request_failed', error);
+        return Response.json(
+          { error: 'public_cms_request_failed' },
+          { status: 500 },
+        );
+      }
     }
 
     if (url.pathname.startsWith('/api/cms/')) {
