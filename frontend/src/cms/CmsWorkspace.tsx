@@ -138,7 +138,9 @@ export function CmsWorkspace() {
           </nav>
         </header>
 
-        {view === 'content' ? (
+        {view === 'media' ? (
+          <MediaWorkspace embedded siteId={siteId} />
+        ) : view === 'content' ? (
           <div className="iam-cms-editor__body">
             <aside className="iam-cms-card iam-cms-editor__pages">
               <div className="iam-cms-editor__section-title">Pages</div>
