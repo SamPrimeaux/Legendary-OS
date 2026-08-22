@@ -96,3 +96,50 @@ CREATE TABLE IF NOT EXISTS cms_publications (
   tree_json TEXT NOT NULL,
   published_at INTEGER NOT NULL
 );
+
+-- D1 mirror of the canonical registry. The TypeScript registry remains the
+-- validation SSOT; this mirror lets the editor discover fields dynamically.
+CREATE TABLE IF NOT EXISTS cms_section_schemas (
+  section_type TEXT PRIMARY KEY,
+  label TEXT NOT NULL,
+  description TEXT,
+  schema_json TEXT NOT NULL DEFAULT '{}',
+  is_active INTEGER NOT NULL DEFAULT 1,
+  updated_at INTEGER NOT NULL
+);
+
+-- Publish audit/receipt tables. R2 remains the immutable artifact store and
+-- CMS_CACHE remains the hot pointer; D1 records what was emitted and where.
+CREATE TABLE IF NOT EXISTS cms_publish_jobs (
+  id TEXT PRIMARY KEY,
+  site_id TEXT NOT NULL REFERENCES cms_sites(id) ON DELETE CASCADE,
+  page_id TEXT REFERENCES cms_pages(id) ON DELETE SET NULL,
+  job_type TEXT NOT NULL CHECK(job_type IN ('page','global_nav','theme','full_site')),
+  status TEXT NOT NULL CHECK(status IN ('pending','running','done','failed')),
+  r2_prefix TEXT,
+  artifacts_json TEXT NOT NULL DEFAULT '[]',
+  error_message TEXT,
+  created_at INTEGER NOT NULL,
+  started_at INTEGER,
+  completed_at INTEGER
+);
+CREATE INDEX IF NOT EXISTS idx_cms_publish_jobs_site_created ON cms_publish_jobs(site_id, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_cms_publish_jobs_page_created ON cms_publish_jobs(page_id, created_at DESC);
+
+CREATE TABLE IF NOT EXISTS cms_publish_artifacts (
+  id TEXT PRIMARY KEY,
+  job_id TEXT NOT NULL REFERENCES cms_publish_jobs(id) ON DELETE CASCADE,
+  site_id TEXT NOT NULL REFERENCES cms_sites(id) ON DELETE CASCADE,
+  page_id TEXT REFERENCES cms_pages(id) ON DELETE SET NULL,
+  section_id TEXT REFERENCES cms_sections(id) ON DELETE SET NULL,
+  artifact_type TEXT NOT NULL CHECK(artifact_type IN ('page','section','global_nav','theme')),
+  r2_key TEXT NOT NULL,
+  r2_bucket TEXT NOT NULL DEFAULT 'legendary-os',
+  content_hash TEXT NOT NULL,
+  size_bytes INTEGER NOT NULL,
+  is_current INTEGER NOT NULL DEFAULT 1,
+  created_at INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_cms_publish_artifacts_job ON cms_publish_artifacts(job_id);
+CREATE INDEX IF NOT EXISTS idx_cms_publish_artifacts_page_current ON cms_publish_artifacts(page_id, is_current, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_cms_publish_artifacts_site_type_current ON cms_publish_artifacts(site_id, artifact_type, is_current, created_at DESC);
