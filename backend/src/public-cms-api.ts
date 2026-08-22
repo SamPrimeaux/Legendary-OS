@@ -25,8 +25,9 @@ export async function handlePublicCmsApi(request: Request, env: PublicCmsEnv): P
   if (!page) return Response.json({ error: 'published_page_not_found', site: siteKey, route }, { status: 404 });
 
   const globalCmsNav = await published.readGlobalNav(site.id) ?? await app.getGlobalCmsNav(site.id);
+  const theme = await published.readTheme(site.id) ?? page.theme;
   return Response.json(
-    { ...page, globalCmsNav },
+    { ...page, theme, globalCmsNav },
     { headers: { 'cache-control': 'public, max-age=30, stale-while-revalidate=300' } },
   );
 }
