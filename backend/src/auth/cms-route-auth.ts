@@ -5,7 +5,7 @@ import type { CmsRequestContext } from '@legendary-os/iam-cms';
 import { isBridgeKeyProvisioned, trimSecret, type MachineAuthEnv } from './machine-auth-env.js';
 import { verifyBridgeKey } from './bridge-key-auth.js';
 
-export type CmsRouteAuthEnv = MachineAuthEnv;
+export type CmsRouteAuthEnv = MachineAuthEnv & {\n  /** Temporary shell mode. Replace with the AgentSam Identity adapter once the SDK contract is stable. */\n  CMS_AUTH_MODE?: 'open-shell' | 'bridge' | 'agentsam-identity' | string;\n};
 
 const LEGENDARY_ORG_ID = 'legendary';
 const LEGENDARY_BRAND_IDS = ['contractors', 'scapes'] as const;
