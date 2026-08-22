@@ -36,6 +36,7 @@ export type CmsSection = {
   visible: boolean;
   sortOrder: number;
   data: Record<string, unknown>;
+  r2Url?: string | null;
 };
 
 export type CmsBlock = {
