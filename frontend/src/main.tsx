@@ -75,7 +75,7 @@ function App() {
     return <AppShell title="Team"><Placeholder title="Team" description="Employees, roles, requests, guidance and people operations will live here." /></AppShell>;
   }
 
-  return <DashboardHome />;
+  return <PublicCmsPage siteKey="site_contractors" route={path} />;
 }
 
 const root = document.getElementById('root');
