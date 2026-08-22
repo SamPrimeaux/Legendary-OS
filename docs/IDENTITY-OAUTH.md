@@ -2,26 +2,37 @@
 
 First external customer proof for `@inneranimalmedia/agentsam-sdk` identity.
 
-## What shipped
+## Credential lanes (SSOT)
 
-- `app/frontend/` — auth portal (login, signup, reset, company branding)
-- `backend/src/identity/` — dispatches to SDK `handleIdentityWorkerRequest`
-- `migrations/0001_identity_core.sql` — D1 tables + `company` row for Legendary branding
+| Lane | Env vars | Notes |
+|------|----------|-------|
+| **IAM platform (default)** | `IAM_CLIENT_ID` + `IAM_CLIENT_SECRET` | Inner Animal Media hosted OAuth — **Wrangler secrets only** |
+| BYOK Google | `GOOGLE_CLIENT_ID` + `GOOGLE_CLIENT_SECRET` | Only when IAM creds unset |
+| BYOK GitHub | `GITHUB_CLIENT_ID` + `GITHUB_CLIENT_SECRET` | Only when IAM creds unset |
 
-## OAuth providers
+Optional: `IAM_OAUTH_ISSUER` (default `https://inneranimalmedia.com`).
 
-Configure Google + GitHub OAuth apps with callback URLs on your Worker host:
+Encryption is law, not luxury — never put `*_CLIENT_SECRET` in `wrangler.jsonc` plaintext.
 
-```text
-https://<host>/api/oauth/google/callback
-https://<host>/api/oauth/github/callback
+## Provision IAM platform OAuth
+
+1. Register OAuth client with IAM (`POST https://inneranimalmedia.com/api/oauth/register`) or use platform-provisioned `iam_dcr_*` credentials.
+2. Register redirect URI: `https://legendary-os.meauxbility.workers.dev/api/oauth/iam/callback`
+
+```bash
+npx wrangler secret put IAM_CLIENT_ID -c wrangler.jsonc
+npx wrangler secret put IAM_CLIENT_SECRET -c wrangler.jsonc
+# optional staging issuer:
+# npx wrangler secret put IAM_OAUTH_ISSUER -c wrangler.jsonc
 ```
+
+## Optional BYOK (advanced)
+
+Only if you are **not** using IAM platform creds:
 
 ```bash
 npx wrangler secret put GOOGLE_CLIENT_ID -c wrangler.jsonc
 npx wrangler secret put GOOGLE_CLIENT_SECRET -c wrangler.jsonc
-npx wrangler secret put GITHUB_CLIENT_ID -c wrangler.jsonc
-npx wrangler secret put GITHUB_CLIENT_SECRET -c wrangler.jsonc
 ```
 
 ## D1
@@ -30,21 +41,10 @@ npx wrangler secret put GITHUB_CLIENT_SECRET -c wrangler.jsonc
 pnpm run db:migrate:identity
 ```
 
-## Local dev
-
-```bash
-pnpm install
-pnpm run db:migrate:identity:local
-pnpm run dev
-# http://localhost:8787/auth/login
-```
-
 ## Proof checklist
 
-- [ ] `GET /api/company` returns Legendary OS branding
+- [ ] `GET /api/company` → Legendary branding
+- [ ] `IAM_CLIENT_*` set → Google/GitHub buttons route through IAM authorize
+- [ ] OAuth round-trip → `/dashboard/cms` with session
 - [ ] Email signup + login
-- [ ] Google OAuth round-trip → `/dashboard/cms`
-- [ ] GitHub OAuth round-trip → `/dashboard/cms`
 - [ ] Logout clears session
-
-See `backend/src/identity/README.md` for route table.

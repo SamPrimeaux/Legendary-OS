@@ -24,21 +24,18 @@ migrations/             D1 identity tables + default company row
 
 Post-login default: `/dashboard/cms` (React app shell).
 
-## Secrets (Wrangler)
+## Secrets (Wrangler — never plaintext in wrangler.jsonc)
+
+**Default (IAM platform):**
 
 ```bash
-npx wrangler secret put GOOGLE_CLIENT_ID -c wrangler.jsonc
-npx wrangler secret put GOOGLE_CLIENT_SECRET -c wrangler.jsonc
-npx wrangler secret put GITHUB_CLIENT_ID -c wrangler.jsonc
-npx wrangler secret put GITHUB_CLIENT_SECRET -c wrangler.jsonc
-# optional — password reset email
-npx wrangler secret put RESEND_API_KEY -c wrangler.jsonc
+npx wrangler secret put IAM_CLIENT_ID -c wrangler.jsonc
+npx wrangler secret put IAM_CLIENT_SECRET -c wrangler.jsonc
 ```
 
-OAuth redirect URIs must include:
+Register callback: `https://<host>/api/oauth/iam/callback`
 
-- `https://<your-host>/api/oauth/google/callback`
-- `https://<your-host>/api/oauth/github/callback`
+**Optional BYOK** (only when `IAM_CLIENT_*` unset): `GOOGLE_*` / `GITHUB_*`
 
 ## D1 migrate
 

@@ -12,6 +12,11 @@ export type WorkerEnv = MachineAuthEnv & {
   SESSION_CACHE?: KVNamespace;
   IMAGES?: unknown;
   DB: CmsD1Database;
+  /** Default: IAM platform OAuth (Wrangler secrets only — never plaintext in wrangler.jsonc). */
+  IAM_CLIENT_ID?: string;
+  IAM_CLIENT_SECRET?: string;
+  IAM_OAUTH_ISSUER?: string;
+  /** Optional BYOK — used only when IAM_CLIENT_* are unset. */
   GOOGLE_CLIENT_ID?: string;
   GOOGLE_CLIENT_SECRET?: string;
   GITHUB_CLIENT_ID?: string;
