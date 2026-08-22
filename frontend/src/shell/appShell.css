@@ -7,6 +7,13 @@
   --los-muted: #6d726f;
   --los-accent: #0f8f83;
   --los-accent-soft: #e1f2ef;
+  --los-sidebar-bg: #1f3a2e;
+  --los-sidebar-border: #2b4a3c;
+  --los-sidebar-text: #f5f1e8;
+  --los-sidebar-muted: #aebbb2;
+  --los-sidebar-hover: rgba(245, 241, 232, .09);
+  --los-sidebar-active-bg: #f5f1e8;
+  --los-sidebar-active-text: #183126;
   --los-shadow: 0 1px 2px rgba(20, 25, 22, .05), 0 8px 30px rgba(20, 25, 22, .06);
   --los-sidebar: 232px;
   --los-topbar: 60px;
@@ -27,36 +34,38 @@ button { -webkit-tap-highlight-color: transparent; }
   display: flex;
   flex-direction: column;
   padding: 14px 12px;
-  background: #eef0ec;
-  border-right: 1px solid var(--los-border);
+  background: var(--los-sidebar-bg);
+  border-right: 1px solid var(--los-sidebar-border);
+  box-shadow: 10px 0 32px rgba(17, 37, 28, .08);
   z-index: 50;
 }
 .los-brand, .los-user, .los-agent-card, .los-nav-item, .los-search, .los-agent-pill, .los-icon-button, .los-top-avatar, .los-mobile-nav button, .los-sheet-action {
   border: 0;
   cursor: pointer;
 }
-.los-brand { display: flex; align-items: center; gap: 10px; padding: 8px; background: transparent; text-align: left; color: var(--los-text); }
-.los-brand-mark, .los-mobile-mark { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px; background: #111715; color: #fff; font-weight: 850; }
+.los-brand { display: flex; align-items: center; gap: 10px; padding: 8px; background: transparent; text-align: left; color: var(--los-sidebar-text); }
+.los-brand-mark, .los-mobile-mark { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px; background: var(--los-sidebar-text); color: var(--los-sidebar-active-text); font-weight: 850; }
+.los-mobile-mark { background: var(--los-sidebar-bg); color: var(--los-sidebar-text); }
 .los-brand-copy, .los-user span:not(.los-avatar), .los-agent-card > span:last-child { display: flex; flex-direction: column; min-width: 0; }
 .los-brand-copy strong { font-size: 14px; line-height: 1.1; }
-.los-brand-copy small, .los-user small, .los-agent-card small { margin-top: 2px; color: var(--los-muted); font-size: 10px; }
+.los-brand-copy small, .los-user small, .los-agent-card small { margin-top: 2px; color: var(--los-sidebar-muted); font-size: 10px; }
 
 .los-sidebar-nav { margin-top: 18px; display: grid; gap: 3px; }
-.los-nav-label { margin: 0 8px 6px; color: #858a86; font-size: 10px; font-weight: 750; text-transform: uppercase; letter-spacing: .09em; }
-.los-nav-item { width: 100%; height: 40px; display: flex; align-items: center; gap: 10px; padding: 0 10px; border-radius: 9px; background: transparent; color: #4f5552; text-align: left; font-size: 13px; font-weight: 600; }
+.los-nav-label { margin: 0 8px 6px; color: var(--los-sidebar-muted); font-size: 10px; font-weight: 750; text-transform: uppercase; letter-spacing: .09em; }
+.los-nav-item { width: 100%; height: 40px; display: flex; align-items: center; gap: 10px; padding: 0 10px; border-radius: 9px; background: transparent; color: #d7dfd9; text-align: left; font-size: 13px; font-weight: 600; }
 .los-nav-item svg { width: 18px; height: 18px; }
-.los-nav-item:hover { background: rgba(255,255,255,.65); color: var(--los-text); }
-.los-nav-item.is-active { background: #fff; color: var(--los-text); box-shadow: 0 1px 1px rgba(15,20,18,.06); }
+.los-nav-item:hover { background: var(--los-sidebar-hover); color: var(--los-sidebar-text); }
+.los-nav-item.is-active { background: var(--los-sidebar-active-bg); color: var(--los-sidebar-active-text); box-shadow: 0 1px 1px rgba(10,28,20,.18); }
 .los-sidebar-bottom { margin-top: auto; display: grid; gap: 8px; }
-.los-agent-card { display: flex; align-items: center; gap: 9px; padding: 10px; border: 1px solid #d6e9e5; border-radius: 11px; background: var(--los-accent-soft); color: var(--los-text); text-align: left; }
+.los-agent-card { display: flex; align-items: center; gap: 9px; padding: 10px; border: 1px solid rgba(245,241,232,.17); border-radius: 11px; background: rgba(245,241,232,.09); color: var(--los-sidebar-text); text-align: left; }
 .los-agent-card strong { font-size: 12px; }
-.los-agent-icon { color: var(--los-accent); display: grid; place-items: center; }
-.los-user { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px; padding: 8px; background: transparent; border-radius: 10px; text-align: left; color: var(--los-text); }
-.los-user:hover { background: rgba(255,255,255,.65); }
+.los-agent-icon { color: #b9ddd1; display: grid; place-items: center; }
+.los-user { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px; padding: 8px; background: transparent; border-radius: 10px; text-align: left; color: var(--los-sidebar-text); }
+.los-user:hover { background: var(--los-sidebar-hover); }
 .los-avatar, .los-top-avatar { display: grid; place-items: center; border-radius: 999px; background: #d9ddd8; color: #303532; font-size: 10px; font-weight: 800; }
-.los-avatar { width: 30px; height: 30px; }
+.los-avatar { width: 30px; height: 30px; background: var(--los-sidebar-text); color: var(--los-sidebar-active-text); }
 .los-user strong { font-size: 11px; }
-.los-user svg { width: 16px; color: var(--los-muted); }
+.los-user svg { width: 16px; color: var(--los-sidebar-muted); }
 
 .los-stage { min-height: 100vh; margin-left: var(--los-sidebar); }
 .los-topbar {
