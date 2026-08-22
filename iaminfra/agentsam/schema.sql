@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS agentsam_project_context (
   r2_buckets_involved TEXT,
   domains_involved TEXT,
   mcp_services_involved TEXT,
+  key_files TEXT,
   related_routes TEXT,
   tokens_budgeted INTEGER,
   tokens_used INTEGER DEFAULT 0,
