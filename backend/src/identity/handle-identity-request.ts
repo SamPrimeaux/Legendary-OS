@@ -7,6 +7,10 @@ type IdentityEnv = WorkerEnv & {
   IAM_CLIENT_ID?: string;
   IAM_CLIENT_SECRET?: string;
   IAM_OAUTH_ISSUER?: string;
+  GOOGLE_CLIENT_ID?: string;
+  GOOGLE_CLIENT_SECRET?: string;
+  GITHUB_CLIENT_ID?: string;
+  GITHUB_CLIENT_SECRET?: string;
   RESEND_API_KEY?: string;
 };
 

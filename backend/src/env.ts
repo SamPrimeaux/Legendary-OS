@@ -12,10 +12,15 @@ export type WorkerEnv = MachineAuthEnv & {
   SESSION_CACHE?: KVNamespace;
   IMAGES?: unknown;
   DB: CmsD1Database;
-  /** Required — IAM platform OAuth (Wrangler secrets, minted at install/build). */
+  /** Minted IAM platform OAuth — ID plaintext var; SECRET wrangler secret put only. */
   IAM_CLIENT_ID?: string;
   IAM_CLIENT_SECRET?: string;
   IAM_OAUTH_ISSUER?: string;
+  /** Developer BYOK — takes /api/oauth/google|github/start when set. */
+  GOOGLE_CLIENT_ID?: string;
+  GOOGLE_CLIENT_SECRET?: string;
+  GITHUB_CLIENT_ID?: string;
+  GITHUB_CLIENT_SECRET?: string;
   RESEND_API_KEY?: string;
 };
 
