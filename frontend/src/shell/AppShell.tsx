@@ -29,7 +29,7 @@ const Icon = ({ name }: { name: 'home' | 'leads' | 'projects' | 'media' | 'sites
 };
 
 const navItems: NavItem[] = [
-  { id: 'home', label: 'Home', href: '/', icon: <Icon name="home" /> },
+  { id: 'home', label: 'Home', href: '/dashboard', icon: <Icon name="home" /> },
   { id: 'leads', label: 'Leads', href: '/leads', icon: <Icon name="leads" /> },
   { id: 'projects', label: 'Projects', href: '/projects', icon: <Icon name="projects" /> },
   { id: 'media', label: 'Media', href: '/media', icon: <Icon name="media" /> },
