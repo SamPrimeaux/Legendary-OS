@@ -400,5 +400,8 @@ function EditableField({ label, value, onSave }: { label: string; value: string;
   return <label className="iam-cms-field"><span>{label}</span>{long ? <textarea value={draft} onChange={(e) => setDraft(e.target.value)} onBlur={commit} /> : <input value={draft} onChange={(e) => setDraft(e.target.value)} onBlur={commit} />}</label>;
 }
 
+function parseStructuredEditorValue(value: string, fallback: unknown) {
+  try { return JSON.parse(value); } catch { return fallback; }
+}
 function humanize(value: string) { return value.replace(/([A-Z])/g, ' $1').replace(/^./, (c) => c.toUpperCase()); }
 function initials(value: string) { return value.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join('').toUpperCase() || 'L'; }
