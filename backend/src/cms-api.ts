@@ -14,7 +14,7 @@ import type { CmsThemeDto, GlobalCmsNavDto } from './cms/contracts';
 import { CmsPublishedStore } from './cms/published-store';
 
 export type CmsApiEnv = {
-  CMS_DB: CmsD1Database;
+  DB: CmsD1Database;
   ASSETS_BUCKET: R2Bucket;
   CMS_CACHE: KVNamespace;
 };
@@ -98,7 +98,7 @@ async function syncSectionSchemas(db: CmsD1Database, cms: CmsService) {
 
 export async function handleCmsApi(request: Request, env: CmsApiEnv): Promise<Response | null> {
   const url = new URL(request.url);
-  const db = env.CMS_DB;
+  const db = env.DB;
   const store = new D1CmsStore(db);
   const cms = new CmsService(store, { registry: createLegendaryCmsRegistry() });
   const app = new CmsApplication(db);
