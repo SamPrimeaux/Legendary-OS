@@ -178,17 +178,33 @@ export class D1MediaStore {
   }
 
   async createUsage(assetId: string, organizationId: string, input: MediaUsageInput): Promise<MediaAssetUsage> {
+    const siteId = input.siteId ?? null;
+    const pageId = input.pageId ?? null;
+    const sectionId = input.sectionId ?? null;
+    const projectId = input.projectId ?? null;
+    const sourcePageUrl = input.sourcePageUrl ?? null;
+    const sourceUrl = input.sourceUrl ?? null;
+    const role = input.role ?? null;
+    const existing = await this.db.prepare(`SELECT * FROM media_asset_usages
+      WHERE asset_id=? AND organization_id=?
+        AND COALESCE(site_id,'')=? AND COALESCE(page_id,'')=? AND COALESCE(section_id,'')=?
+        AND COALESCE(project_id,'')=? AND COALESCE(source_page_url,'')=? AND COALESCE(source_url,'')=?
+        AND COALESCE(role,'')=? LIMIT 1`).bind(
+      assetId, organizationId, siteId || '', pageId || '', sectionId || '', projectId || '', sourcePageUrl || '', sourceUrl || '', role || '',
+    ).first<UsageRow>();
+    if (existing) return usageFromRow(existing);
+
     const usage: MediaAssetUsage = {
       id: `usage_${crypto.randomUUID()}`,
       assetId,
       organizationId,
-      siteId: input.siteId ?? null,
-      pageId: input.pageId ?? null,
-      sectionId: input.sectionId ?? null,
-      projectId: input.projectId ?? null,
-      sourcePageUrl: input.sourcePageUrl ?? null,
-      sourceUrl: input.sourceUrl ?? null,
-      role: input.role ?? null,
+      siteId,
+      pageId,
+      sectionId,
+      projectId,
+      sourcePageUrl,
+      sourceUrl,
+      role,
       altText: input.altText ?? null,
       caption: input.caption ?? null,
       metadata: input.metadata ?? {},
