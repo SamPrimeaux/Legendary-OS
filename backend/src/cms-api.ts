@@ -6,12 +6,16 @@ import {
   type CmsSection,
 } from '@legendary-os/iam-cms';
 import { D1CmsStore, type CmsD1Database } from '@legendary-os/iam-cms/cloudflare/d1-store';
+import { CmsApplication } from './cms/application';
+import type { GlobalCmsNavDto } from './cms/contracts';
+import { CmsPublishedStore } from './cms/published-store';
 
-// Every authenticated request currently gets the same broad capability set.
-// Legendary OS does not have a People/Roles domain yet, so per-user scoping
-// is not possible — Cloudflare Access is the only gate in front of this API.
-// Narrow this once real roles exist. Never hardcode a *resource* id here;
-// this is a capability list, not a lookup into specific records.
+export type CmsApiEnv = {
+  CMS_DB: CmsD1Database;
+  ASSETS_BUCKET: R2Bucket;
+  CMS_CACHE: KVNamespace;
+};
+
 const ALL_CAPABILITIES = [
   'site.read', 'page.list', 'page.read', 'page.create', 'page.update',
   'section.list', 'section.read', 'section.create', 'section.update',
@@ -30,9 +34,6 @@ function contextFor(request: Request): CmsRequestContext {
   };
 }
 
-// Cloudflare Workers restricts real wall-clock time in module (global) scope
-// — Date.now() there is frozen, not the actual time — so seed timestamps must
-// be computed inside the request-scoped function below, not at module load.
 function buildSeed(now: number) {
   return {
     sites: [
@@ -61,28 +62,29 @@ async function ensureSeeded(store: D1CmsStore) {
   try {
     const existing = await store.db.prepare('SELECT id FROM cms_sites LIMIT 1').first();
     if (existing) { seeded = true; return; }
-    const SEED = buildSeed(Date.now());
-    for (const site of SEED.sites) {
+    const seed = buildSeed(Date.now());
+    for (const site of seed.sites) {
       await store.db
         .prepare('INSERT OR IGNORE INTO cms_sites(id,organization_id,brand_id,name,domain,theme_id,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?)')
         .bind(site.id, site.organizationId, site.brandId, site.name, site.domain, site.themeId, site.createdAt, site.updatedAt)
         .run();
     }
-    for (const page of SEED.pages) await store.createPage(page).catch(() => null);
-    for (const section of SEED.sections) await store.createSection(section as CmsSection).catch(() => null);
-    for (const theme of SEED.themes) await store.saveTheme(theme).catch(() => null);
+    for (const page of seed.pages) await store.createPage(page).catch(() => null);
+    for (const section of seed.sections) await store.createSection(section as CmsSection).catch(() => null);
+    for (const theme of seed.themes) await store.saveTheme(theme).catch(() => null);
     seeded = true;
   } catch (error) {
-    // Non-fatal: a seeding failure should not take the API down. Worst case
-    // is an empty site list, which the frontend already handles.
     console.error('cms_seed_failed', error);
   }
 }
 
-export async function handleCmsApi(request: Request, db: CmsD1Database): Promise<Response | null> {
+export async function handleCmsApi(request: Request, env: CmsApiEnv): Promise<Response | null> {
   const url = new URL(request.url);
+  const db = env.CMS_DB;
   const store = new D1CmsStore(db);
   const cms = new CmsService(store, { registry: createLegendaryCmsRegistry() });
+  const app = new CmsApplication(db);
+  const published = new CmsPublishedStore(env);
   const ctx = contextFor(request);
 
   await ensureSeeded(store);
@@ -98,19 +100,50 @@ export async function handleCmsApi(request: Request, db: CmsD1Database): Promise
     return Response.json({ pages: await cms.listPages(ctx, pagesMatch[1]) });
   }
 
+  const globalNavMatch = url.pathname.match(/^\/api\/cms\/sites\/([^/]+)\/global-nav$/);
+  if (globalNavMatch) {
+    const siteId = decodeURIComponent(globalNavMatch[1]);
+    const site = await app.resolveSiteByKey(siteId);
+    if (!site) return Response.json({ error: 'site_not_found' }, { status: 404 });
+
+    if (request.method === 'GET') {
+      cms.require(ctx, 'site.read');
+      return Response.json({ globalCmsNav: await app.getGlobalCmsNav(site.id) });
+    }
+
+    if (request.method === 'PATCH') {
+      cms.require(ctx, 'theme.update');
+      const body = await request.json<{ data?: Omit<GlobalCmsNavDto, 'id' | 'siteId' | 'updatedAt'> }>().catch(() => ({}));
+      if (!body.data) return Response.json({ error: 'data_required' }, { status: 400 });
+      const globalCmsNav = await app.saveGlobalCmsNav(site.id, body.data);
+      return Response.json({ globalCmsNav });
+    }
+  }
+
+  const globalNavPublishMatch = url.pathname.match(/^\/api\/cms\/sites\/([^/]+)\/global-nav\/publish$/);
+  if (globalNavPublishMatch && request.method === 'POST') {
+    cms.require(ctx, 'publish.page');
+    const site = await app.resolveSiteByKey(decodeURIComponent(globalNavPublishMatch[1]));
+    if (!site) return Response.json({ error: 'site_not_found' }, { status: 404 });
+    const globalCmsNav = await app.getGlobalCmsNav(site.id);
+    if (!globalCmsNav) return Response.json({ error: 'global_nav_not_found' }, { status: 404 });
+    return Response.json({ globalCmsNav, publication: await published.publishGlobalNav(site.id, globalCmsNav) });
+  }
+
   const previewMatch = url.pathname.match(/^\/api\/cms\/pages\/([^/]+)\/preview$/);
   if (previewMatch && request.method === 'GET') {
     cms.require(ctx, 'preview.read');
     const page = await store.getPageTree(previewMatch[1]);
     if (!page) return Response.json({ error: 'not_found' }, { status: 404 });
     const theme = await store.getTheme(page.siteId);
-    return Response.json(buildCmsPreviewModel(page, theme));
+    const globalCmsNav = await app.getGlobalCmsNav(page.siteId);
+    return Response.json({ ...buildCmsPreviewModel(page, theme), globalCmsNav });
   }
 
   const sectionMatch = url.pathname.match(/^\/api\/cms\/sections\/([^/]+)$/);
   if (sectionMatch && request.method === 'PATCH') {
     const sectionId = sectionMatch[1];
-    const body = await request.json<{ data?: Record<string, unknown> }>().catch(() => ({}) as { data?: Record<string, unknown> });
+    const body = await request.json<{ data?: Record<string, unknown> }>().catch(() => ({}));
     const existing = await findSection(store, sectionId);
     if (!existing) return Response.json({ error: 'not_found' }, { status: 404 });
     const updated = await cms.updateSection(ctx, { ...existing, data: { ...existing.data, ...(body.data ?? {}) } });
@@ -120,7 +153,12 @@ export async function handleCmsApi(request: Request, db: CmsD1Database): Promise
   const publishMatch = url.pathname.match(/^\/api\/cms\/pages\/([^/]+)\/publish$/);
   if (publishMatch && request.method === 'POST') {
     const tree = await cms.publishPage(ctx, publishMatch[1], true);
-    return Response.json({ page: tree });
+    const page = await app.getPublishedPage(tree.siteId, tree.route);
+    if (!page) throw new Error(`Published page could not be reloaded: ${tree.id}`);
+    const pagePublication = await published.publishPage(page);
+    const globalCmsNav = await app.getGlobalCmsNav(tree.siteId);
+    const navPublication = globalCmsNav ? await published.publishGlobalNav(tree.siteId, globalCmsNav) : null;
+    return Response.json({ page: tree, publication: pagePublication, globalCmsNav, globalNavPublication: navPublication });
   }
 
   if (url.pathname === '/api/cms/registry' && request.method === 'GET') {
