@@ -1,6 +1,6 @@
 import { handleCmsApi } from './cms-api';
 import { handlePublicCmsApi } from './public-cms-api';
-import type { CmsD1Database } from '@inneranimalmedia-client/backend/cloudflare/d1-store';
+import type { CmsD1Database } from '@legendary-os/iam-cms/cloudflare/d1-store';
 
 export interface Env {
   ASSETS: Fetcher;
