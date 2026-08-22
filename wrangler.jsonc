@@ -27,6 +27,13 @@
     }
   ],
 
+  "kv_namespaces": [
+    {
+      "binding": "CMS_CACHE",
+      "id": "22d060ed2a4a4619afcf3a693b2210f4"
+    }
+  ],
+
   "images": {
     "binding": "IMAGES"
   }
