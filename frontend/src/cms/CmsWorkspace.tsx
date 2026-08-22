@@ -131,7 +131,7 @@ export function CmsWorkspace() {
             </button>
           </div>
           <nav className="iam-cms-editor__tabs">
-            {(['content', 'theme', 'media', 'templates'] as View[]).map((item) => (
+            {(['content', 'navigation', 'theme', 'media', 'templates'] as View[]).map((item) => (
               <button key={item} className={`iam-cms-editor__tab${view === item ? ' active' : ''}`} onClick={() => setView(item)}>
                 {item[0].toUpperCase() + item.slice(1)}
               </button>
