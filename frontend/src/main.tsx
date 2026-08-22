@@ -15,8 +15,24 @@ function Placeholder({ title, description }: { title: string; description: strin
   );
 }
 
+function DashboardHome() {
+  return (
+    <AppShell title="Home">
+      <Placeholder title="Good evening, Richard." description="Legendary OS surfaces the work, customers, people and follow-ups that need attention without making you hunt through separate systems." />
+    </AppShell>
+  );
+}
+
 function App() {
   const path = window.location.pathname;
+
+  if (path === '/') {
+    return <PublicCmsPage siteKey="site_contractors" route="/" />;
+  }
+
+  if (path === '/dashboard' || path === '/dashboard/') {
+    return <DashboardHome />;
+  }
 
   const publicSite = path.match(/^\/site\/([^/]+)(\/.*)?$/);
   if (publicSite) {
@@ -54,11 +70,7 @@ function App() {
     return <AppShell title="Team"><Placeholder title="Team" description="Employees, roles, requests, guidance and people operations will live here." /></AppShell>;
   }
 
-  return (
-    <AppShell title="Home">
-      <Placeholder title="Good evening, Richard." description="Legendary OS will surface the work, customers, people and follow-ups that need attention without making you hunt through separate systems." />
-    </AppShell>
-  );
+  return <DashboardHome />;
 }
 
 const root = document.getElementById('root');
