@@ -37,6 +37,32 @@ export type CmsThemeDto = {
   tokens: Record<string, string | number>;
 };
 
+export type CmsNavLinkDto = { label: string; href: string };
+
+export type GlobalCmsNavDto = {
+  id: string;
+  siteId: string;
+  brand: {
+    mark?: string;
+    name: string;
+    sublabel?: string;
+    homeHref: string;
+  };
+  header: {
+    links: CmsNavLinkDto[];
+    utilityLinks?: CmsNavLinkDto[];
+    cta?: CmsNavLinkDto | null;
+  };
+  footer: {
+    location?: string;
+    phone?: string;
+    phoneHref?: string;
+    links: CmsNavLinkDto[];
+    note?: string;
+  };
+  updatedAt: number;
+};
+
 /**
  * Canonical read model used by every storefront renderer.
  * Public websites must render from this contract rather than directly from D1
