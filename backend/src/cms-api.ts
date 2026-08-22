@@ -40,8 +40,8 @@ function contextFor(request: Request): CmsRequestContext {
 function buildSeed(now: number) {
   return {
     sites: [
-      { id: 'site_contractors', organizationId: 'legendary', brandId: 'contractors', name: 'Legendary Contractors', domain: 'legendarycontractors.com', themeId: 'theme_contractors', createdAt: now, updatedAt: now },
-      { id: 'site_scapes', organizationId: 'legendary', brandId: 'scapes', name: 'Legendary Scapes', domain: 'legendary-scapes.com', themeId: 'theme_scapes', createdAt: now, updatedAt: now },
+      { id: 'site_contractors', organizationId: 'legendary', brandId: 'contractors', name: 'Legendary Contractors', domain: 'legendary-os.meauxbility.workers.dev', themeId: 'theme_contractors', createdAt: now, updatedAt: now },
+      { id: 'site_scapes', organizationId: 'legendary', brandId: 'scapes', name: 'Legendary Scapes', domain: 'legendary-os.meauxbility.workers.dev', themeId: 'theme_scapes', createdAt: now, updatedAt: now },
     ],
     pages: [
       { id: 'page_contractors_home', siteId: 'site_contractors', title: 'Home', route: '/', pageType: 'home', status: 'draft' as const, parentId: null, seoTitle: 'Legendary Contractors', seoDescription: 'Custom home building in Acadiana.', createdAt: now, updatedAt: now },
