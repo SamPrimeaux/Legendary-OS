@@ -7,6 +7,14 @@ import type { WorkerEnv } from './env';
 
 export type Env = WorkerEnv;
 
+/** Vite emits hashed bundles under /assets/*. R2 media also uses /assets/{key} — flat hashed files are SPA static. */
+function isViteBundleAsset(pathname: string): boolean {
+  if (!pathname.startsWith('/assets/')) return false;
+  const leaf = pathname.slice('/assets/'.length);
+  if (!leaf || leaf.includes('/')) return false;
+  return /\.(js|css|map|woff2?|ttf|svg|ico)$/i.test(leaf);
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
@@ -24,6 +32,10 @@ export default {
         { error: 'identity_request_failed', message: error instanceof Error ? error.message : 'Unknown identity error' },
         { status: 500 },
       );
+    }
+
+    if (isViteBundleAsset(url.pathname)) {
+      return env.ASSETS.fetch(request);
     }
 
     if (url.pathname.startsWith('/api/media/') || url.pathname.startsWith('/assets/')) {
