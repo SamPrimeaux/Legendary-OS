@@ -42,6 +42,11 @@
 
   "images": {
     "binding": "IMAGES"
+  },
+
+  "vars": {
+    "IAM_CLIENT_ID": "iam_identity_21889c4c84ca4de3b4cb",
+    "IAM_OAUTH_ISSUER": "https://inneranimalmedia.com"
   }
 
   // CMS and media currently share the Legendary D1 binding while remaining separate domains.
