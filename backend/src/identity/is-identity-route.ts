@@ -7,6 +7,5 @@ export function isIdentityRoute(pathname: string): boolean {
     return true;
   }
   if (pathname.startsWith('/shared/')) return true;
-  if (pathname === '/dashboard/home' || pathname === '/dashboard/agent') return true;
   return false;
 }

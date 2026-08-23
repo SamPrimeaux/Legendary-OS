@@ -28,7 +28,19 @@ export async function handleIdentityRequest(
   request: Request,
   env: WorkerEnv,
 ): Promise<Response | null> {
-  const pathname = new URL(request.url).pathname;
+  const url = new URL(request.url);
+  const pathname = url.pathname;
+
+  // Assets html_handling serves /auth/login.html at /auth/login. Fetching the
+  // .html path from the worker gets a 307 back to /auth/login → redirect loop.
+  if (
+    request.method === 'GET' &&
+    (pathname === '/auth/login' || pathname === '/auth/signup' || pathname === '/auth/reset') &&
+    env.ASSETS?.fetch
+  ) {
+    return env.ASSETS.fetch(request);
+  }
+
   if (!isIdentityRoute(pathname)) return null;
   return handleIdentityWorkerRequest(request, identityEnv(env));
 }

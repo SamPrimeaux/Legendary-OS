@@ -10,9 +10,16 @@
 | `GOOGLE_CLIENT_*` / `GITHUB_CLIENT_*` | Developer BYOK — takes that provider's start button when set |
 
 ```bash
-# Secret is NOT in git — set once per environment:
+# From inneranimalmedia (mints iamcs_*, updates IAM D1 hash, wrangler put on Legendary):
+npm run sync:identity-oauth-secret -- --save-env
+
+# Or manual wrangler only (you must already have the iamcs_* plaintext):
 npx wrangler secret put IAM_CLIENT_SECRET -c wrangler.jsonc
 ```
+
+The plaintext `iamcs_*` is shown **once** at `POST /api/oauth/identity/register` — D1 stores only
+`oauth_clients.client_secret_hash` (not `user_api_keys`). If you lost it, run `sync:identity-oauth-secret`
+to rotate; do not re-register unless you want a new `client_id`.
 
 Registered redirect URIs (IAM AS):
 
