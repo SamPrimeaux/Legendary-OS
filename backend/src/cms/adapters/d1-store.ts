@@ -1,5 +1,5 @@
-import type { CmsAsset, CmsBlock, CmsPage, CmsPageTree, CmsRevision, CmsSection, CmsSite, CmsTheme } from '../../src/domain';
-import type { CmsStore } from '../../src/store';
+import type { CmsAsset, CmsBlock, CmsPage, CmsPageTree, CmsRevision, CmsSection, CmsSite, CmsTheme } from '../domain/domain';
+import type { CmsStore } from '../domain/store';
 
 type D1Result<T = unknown> = { results?: T[] };
 type D1Statement = { bind(...values: unknown[]): D1Statement; first<T = unknown>(): Promise<T | null>; all<T = unknown>(): Promise<D1Result<T>>; run(): Promise<unknown> };

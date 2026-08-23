@@ -1,9 +1,0 @@
-{
-  "name": "@legendary-os/agentsam-sdk-infra",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "dependencies": {
-    "@inneranimalmedia/agentsam-sdk": "1.9.0"
-  }
-}

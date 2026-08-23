@@ -1,5 +1,5 @@
 -- Legendary OS CMS schema
--- Portable CMS semantics live in @legendary-os/iam-cms; D1 is an adapter detail.
+-- Portable CMS semantics live in backend/src/cms; D1 is an adapter detail.
 
 CREATE TABLE IF NOT EXISTS cms_sites (
   id TEXT PRIMARY KEY,

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import type { CmsPage, CmsSite } from '@legendary-os/iam-cms';
+import type { CmsPage, CmsSite } from '@legendary-os/backend/cms';
 import { MediaWorkspace } from '../media';
 import { MediaPicker } from '../media/components/MediaPicker';
 import { mediaClient } from '../media/api/mediaClient';
@@ -333,7 +333,7 @@ export function CmsWorkspace() {
         <div className="iam-cms-dashboard__hero">
           <section className="iam-cms-card iam-cms-site-hero">
             <div className="iam-cms-site-hero__head"><div className="iam-cms-site-hero__identity"><div className="iam-cms-site-mark">{initials(site?.name || 'Legendary')}</div><div><p className="iam-cms-site-hero__suite">Active site · CMS Suite</p><h2 className="iam-cms-site-hero__name">{site?.name || 'Legendary'}</h2><p className="iam-cms-site-hero__meta">{siteId==='site_scapes'?'/scapes':site?.domain || 'Legendary'} · {dirtyCount} unpublished page{dirtyCount===1?'':'s'}</p></div></div><span className="iam-cms-site-hero__live"><i/>Live</span></div>
-            <div className="iam-cms-site-hero__stats"><Stat label="Pages" value={pages.length}/><Stat label="Sections" value={siteSectionCount}/><Stat label="Unpublished" value={dirtyCount}/><Stat label="Identity" value={whoami?.authMode==='open-shell'?'Open shell':'Connected'}/></div>
+            <div className="iam-cms-site-hero__stats"><Stat label="Pages" value={pages.length}/><Stat label="Sections" value={siteSectionCount}/><Stat label="Unpublished" value={dirtyCount}/><Stat label="Identity" value={whoami?.authMode==='agentsam-identity'?'Session':'Connected'}/></div>
             <div className="iam-cms-site-hero__actions"><button className="iam-cms-btn iam-cms-btn--primary" onClick={()=>setView('content')}>Open CMS</button><button className="iam-cms-btn" onClick={()=>setView('media')}>Open media</button><a className="iam-cms-btn" href={publicHref(siteId,'/')} target="_blank" rel="noreferrer">View site</a></div>
           </section>
           <div className="iam-cms-modules"><Module title="Content" desc="Edit and publish every page and section." sub={`${dirtyCount} unpublished`} cta="Manage content →" onClick={()=>setView('content')}/><Module title="Media" desc="Use the existing canonical asset library." sub="87+ managed assets" cta="Open media →" onClick={()=>setView('media')}/><Module title="Theme" desc="Brand colors and site appearance." sub="Published separately" cta="Edit theme →" onClick={()=>setView('theme')}/><Module title="Navigation" desc="Header, footer and public page links." sub="Global site chrome" cta="Edit navigation →" onClick={()=>setView('navigation')}/></div>

@@ -18,7 +18,7 @@ GitHub:         SamPrimeaux/Legendary-OS
 Branch:         main
 ```
 
-**Legendary-owned configuration only.** Do not copy customer import IDs (`client_companions_cpas`, `tenant_companionscpas`, `ws_companionscpas`) or Companions resource names into runtime defaults. Historical CPAS harness material must not live under `iaminfra/` — promote portable patterns into `backend/` with Legendary bindings.
+**Legendary-owned configuration only.** Do not copy customer import IDs (`client_companions_cpas`, `tenant_companionscpas`, `ws_companionscpas`) or Companions resource names into runtime defaults. Promote portable patterns into `backend/` with Legendary bindings — **`iaminfra/` is removed** from this repo.
 
 **Do not treat as defaults:** Companions worker names, D1 database names, R2 buckets, domains, or D1 snapshots from any imported source system.
 
@@ -32,7 +32,8 @@ Workers.dev:            https://legendary-os.meauxbility.workers.dev
 Custom domains:         (TBD — production DNS)
 Frontend:               Vite + React (frontend/) → ASSETS binding
 Identity:               @inneranimalmedia/agentsam-sdk (IAM OAuth + local session cookie)
-Deploy (Mac):           pnpm deploy  (build + wrangler deploy)
+Deploy (Mac):           pnpm deploy  ·  pnpm los deploy
+Operator CLI:           bin/los.mjs  (`pnpm los help`)
 Deploy (CF Builds):     npm run build && npx wrangler deploy --config wrangler.jsonc
 ```
 
@@ -90,9 +91,9 @@ Platform fallback:  IAM hub via AGENTSAM_BRIDGE_KEY for tool/MCP lanes (separate
 2. **Human CMS auth = identity session cookie** (`CMS_AUTH_MODE=agentsam-identity`). Never expose `AGENTSAM_BRIDGE_KEY` to the browser.
 3. **Bridge key = machine lane only** (Agent Sam / IAM hub → `Authorization: Bearer` + optional `X-User-Id`).
 4. **No hardcoded customer import identity** — resolve org/brand/user from session, D1 membership, or explicit Legendary config vars.
-5. **Do not merge or resurrect** `chore/import-companions-agentsam-harness` / `iaminfra/companionscpas-agentsam/` — CPAS-specific harness is out of scope for Legendary.
-6. **D1 migrations** run via `wrangler d1 migrations apply` against `migrations/` — see `docs/D1-MIGRATIONS-AUDIT.md`.
-7. **Deploy:** `wrangler deploy --config wrangler.jsonc` after `npm run build`. Do not use `wrangler versions upload` alone for production traffic.
+5. **Do not merge or resurrect** `chore/import-companions-agentsam-harness` — CPAS harness is out of scope for Legendary.
+6. **D1 migrations** via `pnpm los db migrate` or `pnpm db:migrate` — see `docs/D1-MIGRATIONS-AUDIT.md`.
+7. **Deploy:** `pnpm los deploy` or `pnpm deploy` after `pnpm check`. Do not use `wrangler versions upload` alone for production traffic.
 
 ---
 
@@ -101,7 +102,7 @@ Platform fallback:  IAM hub via AGENTSAM_BRIDGE_KEY for tool/MCP lanes (separate
 ```
 React editor (frontend/src/cms/)
   → /api/cms/* (session cookie)
-  → @legendary-os/iam-cms service + D1CmsStore
+  → backend/src/cms domain + D1CmsStore
   → publish → R2 (ASSETS_BUCKET) + KV (CMS_CACHE)
 Public site → /api/public/* + ASSETS SPA
 ```
@@ -117,7 +118,8 @@ Org scope: `organization_id = legendary`, brands `contractors` | `scapes`.
 | Worker entry | `backend/src/index.ts` |
 | Identity | `backend/src/identity/` |
 | CMS API | `backend/src/cms-api.ts` |
-| CMS domain | `iaminfra/cms/` (`@legendary-os/iam-cms`) |
+| CMS domain | `backend/src/cms/` (exported as `@legendary-os/backend/cms`) |
+| Operator CLI | `bin/los.mjs` · `scripts/` |
 | Media | `backend/src/media/` |
 | Agent Sam WAI | `backend/src/agentsam/` |
 | Auth portal HTML | `app/frontend/auth/` → synced to `frontend/dist/auth/` |
@@ -130,11 +132,11 @@ Org scope: `organization_id = legendary`, brands `contractors` | `scapes`.
 | Migration | SSOT source |
 |-----------|-------------|
 | `0001_identity_core.sql` | AgentSam Identity tables |
-| `0002_cms_core.sql` | `iaminfra/cms/adapters/cloudflare/schema.sql` |
+| `0002_cms_core.sql` | `backend/src/cms/schema.sql` |
 | `0003_media_core.sql` | `backend/src/media/schema.sql` |
-| `0004_agentsam_project_context.sql` | `iaminfra/agentsam/schema.sql` |
+| `0004_agentsam_project_context.sql` | `backend/src/agentsam/schema.sql` |
 
-Apply: `npx wrangler d1 migrations apply legendary-os-cms --remote -c wrangler.jsonc`
+Apply: `pnpm los db migrate` or `pnpm db:migrate`
 
 Full audit: `docs/D1-MIGRATIONS-AUDIT.md`
 

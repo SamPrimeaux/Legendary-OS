@@ -1,4 +1,4 @@
-import type { CmsD1Database } from '@legendary-os/iam-cms/cloudflare/d1-store';
+import type { CmsD1Database } from './adapters/d1-store';
 import { normalizePublicRoute } from './application';
 import type { CmsPublishedPageDto, CmsThemeDto, GlobalCmsNavDto } from './contracts';
 

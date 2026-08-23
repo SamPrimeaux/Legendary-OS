@@ -1,4 +1,4 @@
--- Legendary OS Agent Sam project context (SSOT: iaminfra/agentsam/schema.sql)
+-- Legendary OS Agent Sam project context (SSOT: backend/src/agentsam/schema.sql)
 -- tenant_id / workspace_id are runtime-bound — never hardcode customer imports.
 
 CREATE TABLE IF NOT EXISTS agentsam_project_context (

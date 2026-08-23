@@ -1,4 +1,4 @@
-import { cmsCapabilityRequiresApproval, isCmsCapabilityAllowed } from '../contracts/capabilities';
+import { cmsCapabilityRequiresApproval, isCmsCapabilityAllowed } from '../capabilities';
 import type { CmsBlock, CmsPage, CmsPageTree, CmsSection } from './domain';
 import { createLegendaryCmsRegistry, type CmsRegistry } from './registry';
 import { randomCmsIds, systemCmsClock, type CmsClock, type CmsIdFactory, type CmsRequestContext, type CmsStore } from './store';

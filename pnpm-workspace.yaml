@@ -2,7 +2,6 @@ packages:
   - frontend
   - backend
   - services/*
-  - iaminfra/*
 
 # pnpm 11 blocks dependency install scripts unless they are explicitly allowed.
 # Keep this list narrow and intentional for Cloudflare/Vite + Agent Sam SDK tooling.

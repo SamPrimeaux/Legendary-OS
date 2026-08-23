@@ -9,8 +9,11 @@
     "deploy": "wrangler deploy --config ../wrangler.jsonc"
   },
   "dependencies": {
-    "@inneranimalmedia/agentsam-sdk": "^2.0.0-alpha.identity.10",
-    "@legendary-os/iam-cms": "workspace:*"
+    "@inneranimalmedia/agentsam-sdk": "^2.0.0-alpha.identity.10"
+  },
+  "exports": {
+    "./cms": "./src/cms/index.ts",
+    "./cms/adapters/d1-store": "./src/cms/adapters/d1-store.ts"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250204.0",

@@ -6,8 +6,8 @@
  *
  * Do not expose the bridge key to the browser; the CMS UI uses credentials: 'include'.
  */
-import type { CmsRequestContext } from '@legendary-os/iam-cms';
-import type { CmsD1Database } from '@legendary-os/iam-cms/cloudflare/d1-store';
+import type { CmsRequestContext } from '../cms';
+import type { CmsD1Database } from '../cms/adapters/d1-store';
 import { resolveIdentitySession } from '../identity/resolve-identity-session.js';
 import { isBridgeKeyProvisioned, trimSecret, type MachineAuthEnv } from './machine-auth-env.js';
 import { verifyBridgeKey } from './bridge-key-auth.js';

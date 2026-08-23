@@ -1,4 +1,4 @@
--- Legendary OS CMS schema (SSOT: iaminfra/cms/adapters/cloudflare/schema.sql)
+-- Legendary OS CMS schema (SSOT: backend/src/cms/schema.sql)
 
 CREATE TABLE IF NOT EXISTS cms_sites (
   id TEXT PRIMARY KEY,

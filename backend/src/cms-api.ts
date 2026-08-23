@@ -7,8 +7,8 @@ import {
   type CmsRequestContext,
   type CmsSection,
   type CmsTheme,
-} from '@legendary-os/iam-cms';
-import { D1CmsStore, type CmsD1Database } from '@legendary-os/iam-cms/cloudflare/d1-store';
+} from './cms';
+import { D1CmsStore, type CmsD1Database } from './cms/adapters/d1-store';
 import { CmsApplication } from './cms/application';
 import type { CmsThemeDto, GlobalCmsNavDto } from './cms/contracts';
 import { CmsPublishedStore } from './cms/published-store';

@@ -4,6 +4,3 @@ export * from './store';
 export * from './service';
 export * from './memory-store';
 export * from './preview';
-export * from '../contracts/capabilities';
-export * from '../editor/types';
-export * from '../editor/model';
