@@ -15,6 +15,7 @@ import { CmsPublishedStore } from './cms/published-store';
 import {
   rejectUnauthorizedCmsApi,
   buildCmsRequestContext,
+  cmsAuthMode,
 } from './auth/cms-route-auth.js';
 import type { CmsRouteAuthEnv } from './auth/cms-route-auth.js';
 
@@ -268,6 +269,20 @@ export async function handleCmsApi(request: Request, env: CmsApiEnv): Promise<Re
     return Response.json({ revisions: await store.listRevisions(pageId) });
   }
 
+  const rollbackMatch = url.pathname.match(/^\/api\/cms\/revisions\/([^/]+)\/rollback$/);
+  if (rollbackMatch && request.method === 'POST') {
+    cms.require(ctx, 'revision.restore', true);
+    cms.require(ctx, 'publish.page', true);
+    const restored = await restoreRevision(db, store, cms, ctx, decodeURIComponent(rollbackMatch[1]));
+    const tree = await cms.publishPage(ctx, restored.id, true);
+    const page = await app.getPublishedPage(tree.siteId, tree.route);
+    if (!page) throw new Error(`Rolled-back page could not be reloaded: ${tree.id}`);
+    const publication = await published.publishPage(page);
+    const verified = await published.readPage(page.site.id, page.page.route);
+    if (!verified) throw new Error(`Rolled-back page could not be verified: ${tree.id}`);
+    return Response.json({ page: tree, publication, verification: { ok: true, route: page.page.route } });
+  }
+
   const restoreMatch = url.pathname.match(/^\/api\/cms\/revisions\/([^/]+)\/restore$/);
   if (restoreMatch && request.method === 'POST') {
     cms.require(ctx, 'revision.restore', true);
@@ -341,7 +356,10 @@ export async function handleCmsApi(request: Request, env: CmsApiEnv): Promise<Re
     const tree = await cms.publishPage(ctx, decodeURIComponent(publishMatch[1]), true);
     const page = await app.getPublishedPage(tree.siteId, tree.route);
     if (!page) throw new Error(`Published page could not be reloaded: ${tree.id}`);
-    return Response.json({ page: tree, publication: await published.publishPage(page) });
+    const publication = await published.publishPage(page);
+    const verified = await published.readPage(page.site.id, page.page.route);
+    if (!verified) throw new Error(`Published page could not be verified: ${tree.id}`);
+    return Response.json({ page: tree, publication, verification: { ok: true, route: page.page.route, publishedAt: publication.publishedAt } });
   }
 
   if (url.pathname === '/api/cms/registry' && request.method === 'GET') {
@@ -349,7 +367,7 @@ export async function handleCmsApi(request: Request, env: CmsApiEnv): Promise<Re
   }
 
   if (url.pathname === '/api/cms/whoami' && request.method === 'GET') {
-    return Response.json({ actorId: ctx.actorId });
+    return Response.json({ actorId: ctx.actorId, authMode: cmsAuthMode(env), capabilities: ctx.capabilities });
   }
 
   return null;
