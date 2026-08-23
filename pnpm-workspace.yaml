@@ -10,3 +10,7 @@ allowBuilds:
   esbuild: true
   workerd: true
   node-pty: true
+  '@inneranimalmedia/agentsam-sdk': true
+
+minimumReleaseAgeExclude:
+  - '@inneranimalmedia/agentsam-sdk'

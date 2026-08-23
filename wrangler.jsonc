@@ -6,7 +6,8 @@
   "assets": {
     "directory": "./frontend/dist",
     "binding": "ASSETS",
-    "not_found_handling": "single-page-application"
+    "not_found_handling": "single-page-application",
+    "run_worker_first": true
   },
   "observability": {
     "enabled": true
@@ -16,7 +17,8 @@
     {
       "binding": "DB",
       "database_name": "legendary-os-cms",
-      "database_id": "716b1626-4ffb-42d3-8d98-b45a6333f1bf"
+      "database_id": "716b1626-4ffb-42d3-8d98-b45a6333f1bf",
+      "migrations_dir": "migrations"
     }
   ],
 
@@ -31,11 +33,20 @@
     {
       "binding": "CMS_CACHE",
       "id": "22d060ed2a4a4619afcf3a693b2210f4"
+    },
+    {
+      "binding": "SESSION_CACHE",
+      "id": "22d060ed2a4a4619afcf3a693b2210f4"
     }
   ],
 
   "images": {
     "binding": "IMAGES"
+  },
+
+  "vars": {
+    "IAM_CLIENT_ID": "iam_identity_21889c4c84ca4de3b4cb",
+    "IAM_OAUTH_ISSUER": "https://inneranimalmedia.com"
   }
 
   // CMS and media currently share the Legendary D1 binding while remaining separate domains.
