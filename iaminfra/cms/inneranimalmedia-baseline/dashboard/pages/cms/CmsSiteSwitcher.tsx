@@ -37,7 +37,7 @@ function siteHint(site: CmsWorkspaceSite): string {
 
 /**
  * Always-visible site picker for the CMS command center / shell.
- * Works with 1+ registered sites (Companions, Fuel, IAM, etc.).
+ * Works with 1+ registered sites (Legendary brands, client workspaces, etc.).
  */
 export function CmsSiteSwitcher({
   sites,

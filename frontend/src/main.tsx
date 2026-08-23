@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { greetingName, timeGreeting } from './auth/sessionUser';
+import { useSessionUser } from './auth/useSessionUser';
 import { CmsWorkspace } from './cms/CmsWorkspace';
 import { MediaAssetPage, MediaWorkspace } from './media';
 import { AppShell } from './shell/AppShell';
@@ -16,9 +18,11 @@ function Placeholder({ title, description }: { title: string; description: strin
 }
 
 function DashboardHome() {
+  const { user } = useSessionUser();
+  const greeting = user ? `${timeGreeting()}, ${greetingName(user)}.` : `${timeGreeting()}.`;
   return (
     <AppShell title="Home">
-      <Placeholder title="Good evening, Richard." description="Legendary OS surfaces the work, customers, people and follow-ups that need attention without making you hunt through separate systems." />
+      <Placeholder title={greeting} description="Legendary OS surfaces the work, customers, people and follow-ups that need attention without making you hunt through separate systems." />
     </AppShell>
   );
 }

@@ -9,6 +9,7 @@
 - Treat files here as staging/reference material. Production code should be promoted deliberately into `/frontend`, `/backend`, or `/services` once Legendary-specific ownership is clear.
 - Do not import from the IAM repository at runtime.
 - Do not copy compatibility hosts, legacy shims, monolith files, deployment assumptions, customer-specific seeds, or IAM-only operator tooling unless a Legendary requirement proves they belong here.
+- **Do not import CPAS / Companions harness trees** (`companionscpas-agentsam`, `tenant_companionscpas`, etc.). Branch `chore/import-companions-agentsam-harness` is historical reference only — never merge. Promote portable Agent Sam patterns into `backend/src/agentsam/` instead.
 - Prefer portable domain logic over provider/runtime-specific implementation.
 
 ## Initial transplant

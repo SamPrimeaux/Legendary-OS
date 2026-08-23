@@ -33,12 +33,12 @@ const ALL_CAPABILITIES = [
   'preview.read', 'revision.list', 'revision.restore', 'publish.verify', 'publish.page',
 ];
 
-/** IAM hub bridge, or Cf-Access when bridge secret is not provisioned (local dev). */
-function cmsApiAuthRejected(request: Request, env: CmsApiEnv): Response | null {
+/** Session cookie for humans; AGENTSAM_BRIDGE_KEY for IAM hub / Agent Sam M2M. */
+async function cmsApiAuthRejected(request: Request, env: CmsApiEnv): Promise<Response | null> {
   return rejectUnauthorizedCmsApi(request, env);
 }
 
-function contextFor(request: Request, env: CmsApiEnv): CmsRequestContext {
+async function contextFor(request: Request, env: CmsApiEnv): Promise<CmsRequestContext> {
   return buildCmsRequestContext(request, env, ALL_CAPABILITIES);
 }
 
@@ -102,7 +102,7 @@ async function syncSectionSchemas(db: CmsD1Database, cms: CmsService) {
 }
 
 export async function handleCmsApi(request: Request, env: CmsApiEnv): Promise<Response | null> {
-  const authRejected = cmsApiAuthRejected(request, env);
+  const authRejected = await cmsApiAuthRejected(request, env);
   if (authRejected) return authRejected;
 
   const url = new URL(request.url);
@@ -111,7 +111,7 @@ export async function handleCmsApi(request: Request, env: CmsApiEnv): Promise<Re
   const cms = new CmsService(store, { registry: createLegendaryCmsRegistry() });
   const app = new CmsApplication(db);
   const published = new CmsPublishedStore(env);
-  const ctx = contextFor(request, env);
+  const ctx = await contextFor(request, env);
 
   await ensureSeeded(store);
   await syncSectionSchemas(db, cms);

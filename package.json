@@ -11,6 +11,8 @@
     "check": "pnpm -r check",
     "deploy": "pnpm --dir frontend build && node scripts/sync-auth-portal.mjs && pnpm --dir backend deploy",
     "db:migrate:identity": "npx wrangler d1 execute legendary-os-cms --remote --file=migrations/0001_identity_core.sql -c wrangler.jsonc",
-    "db:migrate:identity:local": "npx wrangler d1 execute legendary-os-cms --local --file=migrations/0001_identity_core.sql -c wrangler.jsonc"
+    "db:migrate:identity:local": "npx wrangler d1 execute legendary-os-cms --local --file=migrations/0001_identity_core.sql -c wrangler.jsonc",
+    "db:migrate": "npx wrangler d1 migrations apply legendary-os-cms --remote -c wrangler.jsonc",
+    "db:migrate:local": "npx wrangler d1 migrations apply legendary-os-cms --local -c wrangler.jsonc"
   }
 }

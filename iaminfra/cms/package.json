@@ -14,9 +14,13 @@
   },
   "scripts": {
     "check": "tsc --noEmit -p tsconfig.json",
+    "check:baseline": "tsc --noEmit -p inneranimalmedia-baseline/tsconfig.json",
     "build": "tsc --noEmit -p tsconfig.json"
   },
   "devDependencies": {
+    "@types/react": "^19.2.18",
+    "lucide-react": "^0.563.0",
+    "react": "19.2.8",
     "typescript": "^5.9.3"
   }
 }

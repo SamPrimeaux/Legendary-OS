@@ -12,6 +12,8 @@ declare module '@inneranimalmedia/agentsam-sdk/identity/adapters/cloudflare-d1' 
 
 declare module '@inneranimalmedia/agentsam-sdk/identity/server/identity-service' {
   export function createIdentityService(options: { adapter: unknown }): {
-    sessionFromRequest(request: Request): Promise<{ user: { id: string; email: string } } | null>;
+    sessionFromRequest(request: Request): Promise<{
+      user: { id: string; email: string; display_name?: string | null };
+    } | null>;
   };
 }

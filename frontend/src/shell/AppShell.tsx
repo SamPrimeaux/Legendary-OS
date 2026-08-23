@@ -1,4 +1,6 @@
 import React, { useMemo, useState } from 'react';
+import { userInitials } from '../auth/sessionUser';
+import { useSessionUser } from '../auth/useSessionUser';
 import './appShell.css';
 
 type NavItem = {
@@ -52,6 +54,10 @@ function activeNav(pathname: string): string {
 export function AppShell({ children, title = 'Websites', section = 'Legendary OS' }: AppShellProps) {
   const [mobileMoreOpen, setMobileMoreOpen] = useState(false);
   const active = useMemo(() => activeNav(window.location.pathname), []);
+  const { user } = useSessionUser();
+  const initials = user ? userInitials(user) : '…';
+  const displayName = user?.displayName?.trim() || user?.email?.split('@')[0] || 'Account';
+  const accountLabel = user?.email || 'Signed in';
 
   const navigate = (href: string) => {
     if (href === window.location.pathname) return;
@@ -81,8 +87,8 @@ export function AppShell({ children, title = 'Websites', section = 'Legendary OS
             <span><strong>Agent Sam</strong><small>Ask anything</small></span>
           </button>
           <button className="los-user" type="button">
-            <span className="los-avatar">RB</span>
-            <span><strong>Richard</strong><small>Legendary</small></span>
+            <span className="los-avatar">{initials}</span>
+            <span><strong>{displayName}</strong><small>{accountLabel}</small></span>
             <Icon name="more" />
           </button>
         </div>
@@ -102,7 +108,7 @@ export function AppShell({ children, title = 'Websites', section = 'Legendary OS
           <div className="los-topbar-actions">
             <button className="los-agent-pill" type="button"><Icon name="sparkles" /><span>Ask Sam</span></button>
             <button className="los-icon-button" type="button" aria-label="Notifications"><Icon name="bell" /><i /></button>
-            <button className="los-top-avatar" type="button" aria-label="Account">RB</button>
+            <button className="los-top-avatar" type="button" aria-label="Account">{initials}</button>
           </div>
         </header>
 

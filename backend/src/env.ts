@@ -11,6 +11,8 @@ export type WorkerEnv = MachineAuthEnv & {
   /** OAuth state + password-reset codes (falls back to CMS_CACHE in identity handler). */
   SESSION_CACHE?: KVNamespace;
   IMAGES?: unknown;
+  /** Workers AI catalog — portable Agent Sam inference harness (`@legendary-os/agentsam-wai`). */
+  AGENTSAM_WAI?: Ai;
   DB: CmsD1Database;
   /** Minted IAM platform OAuth — ID plaintext var; SECRET wrangler secret put only. */
   IAM_CLIENT_ID?: string;
