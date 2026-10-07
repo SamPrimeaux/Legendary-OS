@@ -2,6 +2,7 @@ import { handleIdentityWorkerRequest } from '@inneranimalmedia/agentsam-sdk/iden
 import type { WorkerEnv } from '../env.js';
 import { isIdentityRoute } from './is-identity-route.js';
 import { legendaryIdentityApp, legendaryIdentityRoutes } from './app-config';
+import { identityOptions, renderIdentityPortal } from './portal-capabilities';
 
 type IdentityEnv = WorkerEnv & {
   SESSION_CACHE: KVNamespace;
@@ -31,15 +32,20 @@ export async function handleIdentityRequest(
 ): Promise<Response | null> {
   const url = new URL(request.url);
   const pathname = url.pathname;
+  if (pathname === '/api/auth/options' && request.method === 'GET') {
+    return Response.json(await identityOptions(env), { headers: { 'cache-control': 'no-store' } });
+  }
+  if (pathname.startsWith('/api/auth/password-reset/') && !(await identityOptions(env)).passwordReset) {
+    return Response.json({ ok: false, error: 'Password recovery email is not configured for this application.' }, { status: 503 });
+  }
 
   // Assets html_handling serves /auth/login.html at /auth/login. Fetching the
   // .html path from the worker gets a 307 back to /auth/login → redirect loop.
   if (
     request.method === 'GET' &&
-    (pathname === '/auth/login' || pathname === '/auth/signup' || pathname === '/auth/reset') &&
-    env.ASSETS?.fetch
+    (pathname === '/auth/login' || pathname === '/auth/signup' || pathname === '/auth/reset')
   ) {
-    return env.ASSETS.fetch(request);
+    return renderIdentityPortal(request, env);
   }
 
   if (!isIdentityRoute(pathname)) return null;

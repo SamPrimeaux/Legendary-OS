@@ -6,6 +6,10 @@ import { legendaryIdentityRoutes } from '../backend/src/identity/app-config';
 import { isWorkspacePath, requireDashboardSession } from '../backend/src/identity/require-dashboard-session';
 import { handleIdentityRequest } from '../backend/src/identity/handle-identity-request';
 import { publicSiteRoute, serializeBootstrap } from '../backend/src/public-page-bootstrap';
+import { configuredIdentityOptions } from '../backend/src/identity/portal-capabilities';
+import { createRequire } from 'node:module';
+const backendRequire = createRequire(new URL('../backend/package.json', import.meta.url));
+const { createPasswordResetService } = await import(backendRequire.resolve('@inneranimalmedia/agentsam-sdk/identity/recovery/password-reset'));
 
 function database(beforeUpgrade?: (sqlite: DatabaseSync) => void) {
   const sqlite = new DatabaseSync(':memory:');
@@ -110,4 +114,56 @@ test('identity upgrade preserves an existing user and browser session', async ()
     const request = new Request('https://legendary.example/dashboard/cms', { headers: { cookie: 'session=existing-session' } });
     assert.equal(await requireDashboardSession(request, { DB } as any), null);
   } finally { sqlite.close(); }
+});
+
+test('portal options expose only configured providers and complete reset email configuration', async () => {
+  const partial = configuredIdentityOptions({ IAM_CLIENT_ID: 'client', GOOGLE_CLIENT_ID: 'google', RESEND_API_KEY: 'key' });
+  assert.deepEqual(partial.providers, { iam: false, google: false, github: false });
+  assert.equal(partial.passwordReset, false);
+  assert.equal(partial.backupCodes, false);
+  const complete = configuredIdentityOptions({ IAM_CLIENT_ID: 'client', IAM_CLIENT_SECRET: 'secret', IAM_OAUTH_ISSUER: 'https://identity.example', GOOGLE_CLIENT_ID: 'google', GOOGLE_CLIENT_SECRET: 'secret', RESEND_API_KEY: 'key' }, 'support@example.test');
+  assert.deepEqual(complete.providers, { iam: true, google: true, github: false });
+  assert.equal(complete.passwordReset, true);
+  assert.equal(JSON.stringify(complete).includes('secret'), false);
+  const response = await handleIdentityRequest(new Request('https://legendary.example/api/auth/password-reset/request', { method: 'POST' }), {} as any);
+  assert.equal(response?.status, 503);
+});
+
+test('IAM start and token exchange use the registered host callback projection', async context => {
+  const { sqlite, DB } = database();
+  const env = { DB, IAM_CLIENT_ID: 'fixture-client', IAM_CLIENT_SECRET: 'fixture-secret', IAM_OAUTH_ISSUER: 'https://identity.example' } as any;
+  try {
+    const start = await handleIdentityRequest(new Request('https://legendary.example/api/oauth/iam/start?next=/dashboard/cms'), env);
+    assert.equal(start?.status, 302);
+    const authUrl = new URL(start!.headers.get('location')!);
+    assert.equal(authUrl.searchParams.get('redirect_uri'), 'https://legendary.example/api/oauth/iam/callback');
+    let exchangeBody = '';
+    context.mock.method(globalThis, 'fetch', async (_url: unknown, options: RequestInit) => {
+      exchangeBody = String(options.body);
+      return Response.json({ ok: false });
+    });
+    const callback = await handleIdentityRequest(new Request(`https://legendary.example/api/oauth/iam/callback?code=fixture&state=${authUrl.searchParams.get('state')}`), env);
+    assert.equal(callback?.status, 302);
+    assert.equal(new URLSearchParams(exchangeBody).get('redirect_uri'), 'https://legendary.example/api/oauth/iam/callback');
+  } finally { sqlite.close(); }
+});
+
+test('reset codes use the full six-digit range and reject biased random values', async context => {
+  const candidates = [4294967295, 999999];
+  context.mock.method(crypto, 'getRandomValues', (buffer: Uint32Array) => {
+    assert.ok(buffer instanceof Uint32Array);
+    buffer[0] = candidates.shift()!;
+    return buffer;
+  });
+  let delivered = '';
+  const reset = createPasswordResetService({
+    kv: { async get() { return null; }, async put() {}, async delete() {} },
+    async findEligibleUser() { return { id: 'fixture', email: 'fixture@example.test', password_hash: 'hash' }; },
+    async hashPassword() { return { saltHex: 'salt', hashHex: 'hash' }; },
+    async updatePassword() {},
+    async sendResetEmail({ code }: { code: string }) { delivered = code; },
+  });
+  await reset.requestReset({ email: 'fixture@example.test' });
+  assert.equal(delivered, '999999');
+  assert.equal(candidates.length, 0);
 });

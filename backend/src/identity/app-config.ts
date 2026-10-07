@@ -13,7 +13,7 @@ export const legendaryIdentityRoutes = createRouteRegistry([defineRouteProjectio
     'identity.signup': '/auth/signup',
     'identity.reset': '/auth/reset',
     'identity.recovery': '/auth/login',
-    'identity.oauth.callback': '/api/oauth/:provider/callback',
+    'identity.oauth.callback': '/api/oauth/iam/callback',
     'app.authenticated': '/dashboard/cms',
     'app.workspace': { path: '/dashboard', auth: 'required' },
     'app.media': { path: '/media', auth: 'required' },
