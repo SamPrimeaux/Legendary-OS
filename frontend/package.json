@@ -8,6 +8,10 @@
     "check": "tsc --noEmit"
   },
   "dependencies": {
+    "@inneranimalmedia/agentsam-content": "2.6.12",
+    "@inneranimalmedia/agentsam-content-studio": "2.6.12",
+    "@inneranimalmedia/client-cms-editor": "2.6.12",
+    "@inneranimalmedia/ecommerce-cms-agentsam": "2.6.12",
     "@legendary-os/backend": "workspace:*",
     "react": "19.2.8",
     "react-dom": "19.2.8"

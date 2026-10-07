@@ -33,6 +33,18 @@ importers:
 
   frontend:
     dependencies:
+      '@inneranimalmedia/agentsam-content':
+        specifier: 2.6.12
+        version: 2.6.12
+      '@inneranimalmedia/agentsam-content-studio':
+        specifier: 2.6.12
+        version: 2.6.12(react@19.2.8)
+      '@inneranimalmedia/client-cms-editor':
+        specifier: 2.6.12
+        version: 2.6.12(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@inneranimalmedia/ecommerce-cms-agentsam':
+        specifier: 2.6.12
+        version: 2.6.12(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@legendary-os/backend':
         specifier: workspace:*
         version: link:../backend
@@ -694,14 +706,60 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@inneranimalmedia/agentsam-assets-core@2.6.12':
+    resolution: {integrity: sha512-NzVd9wj/ckvtcUWu/J0GhkDOPSPHQAK6Nbi3aiVNR4d8qmEUTM9foVaO17rqh0Cc3/BO3aI16Bv2Y2fU3PcbYQ==}
+
+  '@inneranimalmedia/agentsam-cloudflare-images@2.6.12':
+    resolution: {integrity: sha512-04r3t72m+Sws9YS1VYsgBdy3+5J5FVQEKEx7+B5pv28bEU5NCjOfZuO3cuLXANY62MCcPDnCMlqRNPbuyE7HsA==}
+
+  '@inneranimalmedia/agentsam-content-studio@2.6.12':
+    resolution: {integrity: sha512-NJiEs3FR1KS9bF/Rtoqv0Na3er/2j9J4eI8cSpERmTTc1N99e9/+ZMRtuD13slHfGc8jx5AjI8gCecJV086n8g==}
+    peerDependencies:
+      react: '>=18'
+
+  '@inneranimalmedia/agentsam-content@2.6.12':
+    resolution: {integrity: sha512-4A2iwTzIEOA0tQSmSSVRJszKV/rxQwmshsvbei8RF4Vsj8RULp8d00+kuq1h1JNdoX73ta12BpgdPzVVa6NUdA==}
+
   '@inneranimalmedia/agentsam-errors@2.6.12':
     resolution: {integrity: sha512-Q+DyMrpy7AQqj4h4UI57aXMDdKdKj2ICsG9q7pdK9742BfrL7ADotFalKRoIHtfzz84PODSOWF7IxFG5LdsWwQ==}
     engines: {node: '>=22 <25'}
+
+  '@inneranimalmedia/agentsam-scoring@2.6.12':
+    resolution: {integrity: sha512-EPtTDGUxuBIiWEH9ooBpZHBSMxCTndlKfqCzc0Y7yRcGZ6el0t/YseLPaYupxtKx4euSDmV+EtrC5joVsJ04Ig==}
 
   '@inneranimalmedia/agentsam-sdk@2.6.12':
     resolution: {integrity: sha512-pv3NxCrzAo1c/lQYyyc6um9qyXxzzbJkN5N6GkCaPCQc2FreDBNqIyP0JfgnVvroHEd90ImF0cdWZFfe3ZWVUA==}
     engines: {node: '>=22 <25', npm: '>=10 <12'}
     hasBin: true
+
+  '@inneranimalmedia/client-cms-editor@2.6.12':
+    resolution: {integrity: sha512-tTXN8AnGqcX+AS7Rsmqt6M4ZmzJ2AxRZjdKxWSQCC/zeMM2PMY/dp2NSmFp+LWGTZWeczNIswc4kIBSXM4R8CA==}
+    engines: {node: '>=20'}
+    hasBin: true
+    peerDependencies:
+      react: ^19.0.0
+      react-dom: ^19.0.0
+
+  '@inneranimalmedia/cms-runtime@2.6.12':
+    resolution: {integrity: sha512-PVCwcwi5B238tpFPczLItziD6MquQhKzKjTRxrhCXTlSpH4tuFY/4LFoY3n43+SCyyhTiz6dLvUdHQF2fwmSKA==}
+    engines: {node: '>=22 <25'}
+    hasBin: true
+
+  '@inneranimalmedia/ecommerce-cms-agentsam@2.6.12':
+    resolution: {integrity: sha512-zKlnKOKDuDfJ9/12vTap0mZ7Sf6w4VkXpRblph8YLLOrFbCNy0kDsb5iDGlMLb0eYNNPvk4ZtQ4t4DPODZC2hQ==}
+    hasBin: true
+    peerDependencies:
+      react: ^19.0.0
+      react-dom: ^19.0.0
+
+  '@inneranimalmedia/revise-theme@0.2.0':
+    resolution: {integrity: sha512-hSIampCFzOKuzsaR6lVRYVBxfrzBp4JF3w+LFdk5Oio0AN6p3jf9AcepoJUeGqWnVxiwq2XyQYbncakmR19Nxw==}
+
+  '@inneranimalmedia/section-library@0.1.0':
+    resolution: {integrity: sha512-2Cjpf+x2sRzmgqHZvxgORcoeIcqq4PT2AmiHLczuFfIpZ5IcuZgRD/BjMTYvan0roAWk59iWTZxYhuEAJcv7Aw==}
+
+  '@inneranimalmedia/site-contracts@0.1.0':
+    resolution: {integrity: sha512-hFQVVyvak7Ge3V258Rf+eOzjNvc2YRrhxYozEXw6zO4Eo9dZFslmS5d7ys6YGTKtE8kMOUn/+OtkDmoi/HV+zg==}
 
   '@jridgewell/gen-mapping@0.3.13':
     resolution: {integrity: sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==}
@@ -1755,7 +1813,7 @@ snapshots:
       '@babel/code-frame': 7.29.7
       '@babel/generator': 7.29.8
       '@babel/helper-compilation-targets': 7.29.7
-      '@babel/helper-module-transforms': 7.29.7(@babel/core@7.29.7(supports-color@10.2.2))(supports-color@10.2.2)
+      '@babel/helper-module-transforms': 7.29.7(@babel/core@7.29.7(supports-color@10.2.2))
       '@babel/helpers': 7.29.7
       '@babel/parser': 7.29.8
       '@babel/template': 7.29.7
@@ -1788,17 +1846,17 @@ snapshots:
 
   '@babel/helper-globals@7.29.7': {}
 
-  '@babel/helper-module-imports@7.29.7(supports-color@10.2.2)':
+  '@babel/helper-module-imports@7.29.7':
     dependencies:
       '@babel/traverse': 7.29.8(supports-color@10.2.2)
       '@babel/types': 7.29.8
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/helper-module-transforms@7.29.7(@babel/core@7.29.7(supports-color@10.2.2))(supports-color@10.2.2)':
+  '@babel/helper-module-transforms@7.29.7(@babel/core@7.29.7(supports-color@10.2.2))':
     dependencies:
       '@babel/core': 7.29.7(supports-color@10.2.2)
-      '@babel/helper-module-imports': 7.29.7(supports-color@10.2.2)
+      '@babel/helper-module-imports': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
       '@babel/traverse': 7.29.8(supports-color@10.2.2)
     transitivePeerDependencies:
@@ -2178,7 +2236,24 @@ snapshots:
   '@img/sharp-win32-x64@0.35.2':
     optional: true
 
+  '@inneranimalmedia/agentsam-assets-core@2.6.12': {}
+
+  '@inneranimalmedia/agentsam-cloudflare-images@2.6.12': {}
+
+  '@inneranimalmedia/agentsam-content-studio@2.6.12(react@19.2.8)':
+    dependencies:
+      '@inneranimalmedia/agentsam-content': 2.6.12
+      react: 19.2.8
+
+  '@inneranimalmedia/agentsam-content@2.6.12':
+    dependencies:
+      '@inneranimalmedia/agentsam-assets-core': 2.6.12
+      '@inneranimalmedia/agentsam-cloudflare-images': 2.6.12
+      '@inneranimalmedia/agentsam-scoring': 2.6.12
+
   '@inneranimalmedia/agentsam-errors@2.6.12': {}
+
+  '@inneranimalmedia/agentsam-scoring@2.6.12': {}
 
   '@inneranimalmedia/agentsam-sdk@2.6.12(patch_hash=5c775fc642609e2d93e700b928e6044bbb00172d612afa7ed6dd3f11adc93d64)(supports-color@10.2.2)(zod@4.6.5)':
     dependencies:
@@ -2199,6 +2274,34 @@ snapshots:
       - supports-color
       - utf-8-validate
       - zod
+
+  '@inneranimalmedia/client-cms-editor@2.6.12(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+    dependencies:
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+
+  '@inneranimalmedia/cms-runtime@2.6.12': {}
+
+  '@inneranimalmedia/ecommerce-cms-agentsam@2.6.12(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+    dependencies:
+      '@inneranimalmedia/agentsam-content': 2.6.12
+      '@inneranimalmedia/client-cms-editor': 2.6.12(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@inneranimalmedia/cms-runtime': 2.6.12
+      '@inneranimalmedia/revise-theme': 0.2.0
+      '@inneranimalmedia/section-library': 0.1.0
+      '@inneranimalmedia/site-contracts': 0.1.0
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+
+  '@inneranimalmedia/revise-theme@0.2.0':
+    dependencies:
+      '@inneranimalmedia/site-contracts': 0.1.0
+
+  '@inneranimalmedia/section-library@0.1.0':
+    dependencies:
+      '@inneranimalmedia/site-contracts': 0.1.0
+
+  '@inneranimalmedia/site-contracts@0.1.0': {}
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
@@ -2650,7 +2753,7 @@ snapshots:
       range-parser: 1.3.0
       router: 2.2.0(supports-color@10.2.2)
       send: 1.2.1(supports-color@10.2.2)
-      serve-static: 2.2.1(supports-color@10.2.2)
+      serve-static: 2.2.1
       statuses: 2.0.2
       type-is: 2.1.0
       vary: 1.1.2
@@ -3006,7 +3109,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  serve-static@2.2.1(supports-color@10.2.2):
+  serve-static@2.2.1:
     dependencies:
       encodeurl: 2.0.0
       escape-html: 1.0.3

@@ -6,7 +6,8 @@ import { AppShell } from './shell/AppShell';
 import { PublicCmsPage } from './site/PublicCmsPage';
 
 // Public visitors should not download the CMS and media editor to view a site.
-const CmsWorkspace = lazy(() => import('./cms/CmsWorkspace').then(module => ({ default: module.CmsWorkspace })));
+const LegendaryCmsApp = lazy(() => import('./cms/LegendaryCmsApp').then(module => ({ default: module.LegendaryCmsApp })));
+const ContentStudioPage = lazy(() => import('./content/ContentStudioPage').then(module => ({ default: module.ContentStudioPage })));
 const MediaWorkspace = lazy(() => import('./media/pages/MediaWorkspace').then(module => ({ default: module.MediaWorkspace })));
 const MediaAssetPage = lazy(() => import('./media/pages/MediaAssetPage').then(module => ({ default: module.MediaAssetPage })));
 
@@ -75,13 +76,17 @@ function App() {
   if (path === '/dashboard/cms' || path.startsWith('/dashboard/cms/')) {
     return (
       <AppShell title="Websites" section="Legendary OS">
-        <CmsWorkspace />
+        <LegendaryCmsApp />
       </AppShell>
     );
   }
 
   if (path === '/dashboard/cad' || path.startsWith('/dashboard/cad/')) {
     return <CadWorkspace />;
+  }
+
+  if (path === '/content' || path === '/content/') {
+    return <AppShell title="Content" section="Legendary OS"><ContentStudioPage /></AppShell>;
   }
 
   if (path === '/media' || path === '/media/') {

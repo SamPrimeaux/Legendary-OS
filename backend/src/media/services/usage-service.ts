@@ -8,6 +8,10 @@ export class UsageService {
     return this.store.listUsages(assetId, organizationId);
   }
 
+  listForAssets(assetIds: string[], organizationId: string) {
+    return this.store.listUsagesForAssets(assetIds, organizationId);
+  }
+
   async add(assetId: string, organizationId: string, input: MediaUsageInput) {
     const asset = await this.store.getAsset(assetId, organizationId);
     if (!asset) throw new Error('media_asset_not_found');

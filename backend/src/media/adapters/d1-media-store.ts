@@ -87,7 +87,7 @@ function usageFromRow(row: UsageRow): MediaAssetUsage {
 export class D1MediaStore {
   constructor(readonly db: MediaD1Database) {}
 
-  async listAssets(filters: MediaAssetListFilters): Promise<MediaAsset[]> {
+  private assetWhere(filters: MediaAssetListFilters) {
     const where = ['organization_id=?', "status!='archived'"];
     const binds: unknown[] = [filters.organizationId];
     if (filters.siteId) { where.push('site_id=?'); binds.push(filters.siteId); }
@@ -95,14 +95,31 @@ export class D1MediaStore {
     if (filters.kind) { where.push('media_kind=?'); binds.push(filters.kind); }
     if (filters.source) { where.push('source_kind=?'); binds.push(filters.source); }
     if (filters.query) {
-      const q = `%${filters.query.trim().toLowerCase()}%`;
-      where.push('(lower(filename) LIKE ? OR lower(COALESCE(alt_text,\'\')) LIKE ? OR lower(tags_json) LIKE ?)');
-      binds.push(q, q, q);
+      const q = '%' + filters.query.trim().toLowerCase() + '%';
+      where.push("(lower(filename) LIKE ? OR lower(COALESCE(alt_text,'')) LIKE ? OR lower(COALESCE(caption,'')) LIKE ? OR lower(tags_json) LIKE ? OR lower(metadata_json) LIKE ?)");
+      binds.push(q, q, q, q, q);
     }
+    return { where, binds };
+  }
+
+  async listAssets(filters: MediaAssetListFilters): Promise<MediaAsset[]> {
+    const { where, binds } = this.assetWhere(filters);
     const limit = Math.max(1, Math.min(200, Number(filters.limit || 80)));
-    binds.push(limit);
-    const rows = await this.db.prepare(`SELECT * FROM media_assets WHERE ${where.join(' AND ')} ORDER BY created_at DESC LIMIT ?`).bind(...binds).all<AssetRow>();
+    const offset = Math.max(0, Number(filters.offset || 0));
+    const rows = await this.db
+      .prepare('SELECT * FROM media_assets WHERE ' + where.join(' AND ') + ' ORDER BY created_at DESC LIMIT ? OFFSET ?')
+      .bind(...binds, limit, offset)
+      .all<AssetRow>();
     return (rows.results ?? []).map(assetFromRow);
+  }
+
+  async countAssets(filters: MediaAssetListFilters): Promise<number> {
+    const { where, binds } = this.assetWhere(filters);
+    const row = await this.db
+      .prepare('SELECT COUNT(*) AS c FROM media_assets WHERE ' + where.join(' AND '))
+      .bind(...binds)
+      .first<{ c?: number }>();
+    return Number(row?.c || 0);
   }
 
   async getAsset(id: string, organizationId: string): Promise<MediaAsset | null> {
@@ -155,6 +172,16 @@ export class D1MediaStore {
 
   async listUsages(assetId: string, organizationId: string): Promise<MediaAssetUsage[]> {
     const rows = await this.db.prepare('SELECT * FROM media_asset_usages WHERE asset_id=? AND organization_id=? ORDER BY created_at ASC').bind(assetId, organizationId).all<UsageRow>();
+    return (rows.results ?? []).map(usageFromRow);
+  }
+
+  async listUsagesForAssets(assetIds: string[], organizationId: string): Promise<MediaAssetUsage[]> {
+    if (!assetIds.length) return [];
+    const placeholders = assetIds.map(() => '?').join(',');
+    const rows = await this.db
+      .prepare('SELECT * FROM media_asset_usages WHERE organization_id=? AND asset_id IN (' + placeholders + ') ORDER BY created_at ASC')
+      .bind(organizationId, ...assetIds)
+      .all<UsageRow>();
     return (rows.results ?? []).map(usageFromRow);
   }
 

@@ -122,6 +122,73 @@ export async function handleCmsApi(request: Request, env: CmsApiEnv): Promise<Re
     return Response.json({ sites: rows.results ?? [] });
   }
 
+  // Compatibility read model for the packaged AgentSam CMS hub.
+  // This is a view over Legendary's existing CMS + media authorities, not a
+  // second persistence model. Customer content remains in the canonical tables.
+  if (url.pathname === '/api/cms/bootstrap' && request.method === 'GET') {
+    cms.require(ctx, 'site.read');
+    const siteKey = url.searchParams.get('site') || url.searchParams.get('project_slug') || 'site_contractors';
+    const site = await app.resolveSiteByKey(siteKey);
+    if (!site) return Response.json({ error: 'site_not_found' }, { status: 404 });
+
+    const pages = await cms.listPages(ctx, site.id);
+    const assets = await db
+      .prepare(
+        `SELECT id,filename,media_kind,status,site_id,created_at
+         FROM media_assets
+         WHERE site_id=? OR site_id IS NULL
+         ORDER BY created_at DESC
+         LIMIT 500`,
+      )
+      .bind(site.id)
+      .all<Record<string, unknown>>();
+    const theme = await store.getTheme(site.id);
+
+    return Response.json({
+      site,
+      pages: pages.map((page) => ({ ...page, published: page.status === 'published' })),
+      assets: assets.results ?? [],
+      theme,
+    });
+  }
+
+  // The packaged hub only needs a recent activity read model. Revisions are
+  // already Legendary's durable CMS audit trail, so project them directly.
+  if (url.pathname === '/api/cms/activity' && request.method === 'GET') {
+    cms.require(ctx, 'revision.list');
+    const siteKey = url.searchParams.get('site') || url.searchParams.get('project_slug') || 'site_contractors';
+    const site = await app.resolveSiteByKey(siteKey);
+    if (!site) return Response.json({ error: 'site_not_found' }, { status: 404 });
+
+    const rows = await db
+      .prepare(
+        `SELECT r.id,r.page_id,r.kind,r.actor_id,r.created_at,p.title,p.route
+         FROM cms_revisions r
+         LEFT JOIN cms_pages p ON p.id=r.page_id
+         WHERE r.site_id=?
+         ORDER BY r.created_at DESC
+         LIMIT 20`,
+      )
+      .bind(site.id)
+      .all<Record<string, unknown>>();
+
+    return Response.json({
+      activity: (rows.results ?? []).map((row) => ({
+        id: String(row.id || ''),
+        action: String(row.kind || 'draft') === 'publish' ? 'publish' : String(row.kind || 'draft'),
+        resource_type: 'page',
+        resource_id: row.page_id == null ? null : String(row.page_id),
+        // CmsDashboard expects unix seconds for numeric timestamps.
+        created_at: Math.floor(Number(row.created_at || Date.now()) / 1000),
+        details: {
+          title: row.title == null ? undefined : String(row.title),
+          route_path: row.route == null ? undefined : String(row.route),
+          actor_id: row.actor_id == null ? undefined : String(row.actor_id),
+        },
+      })),
+    });
+  }
+
   if (url.pathname === '/api/cms/section-schemas' && request.method === 'GET') {
     cms.require(ctx, 'section.list');
     const rows = await db.prepare('SELECT section_type,label,description,schema_json,is_active,updated_at FROM cms_section_schemas WHERE is_active=1 ORDER BY label').all<Record<string, unknown>>();
