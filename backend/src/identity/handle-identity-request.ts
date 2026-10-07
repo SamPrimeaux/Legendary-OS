@@ -1,6 +1,7 @@
 import { handleIdentityWorkerRequest } from '@inneranimalmedia/agentsam-sdk/identity/server/worker-router';
 import type { WorkerEnv } from '../env.js';
 import { isIdentityRoute } from './is-identity-route.js';
+import { legendaryIdentityApp, legendaryIdentityRoutes } from './app-config';
 
 type IdentityEnv = WorkerEnv & {
   SESSION_CACHE: KVNamespace;
@@ -42,5 +43,8 @@ export async function handleIdentityRequest(
   }
 
   if (!isIdentityRoute(pathname)) return null;
-  return handleIdentityWorkerRequest(request, identityEnv(env));
+  return handleIdentityWorkerRequest(request, identityEnv(env), {
+    app: legendaryIdentityApp,
+    routeRegistry: legendaryIdentityRoutes,
+  });
 }

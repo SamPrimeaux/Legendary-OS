@@ -13,10 +13,14 @@
     "dev:backend": "pnpm --dir backend dev",
     "build": "pnpm --dir frontend build && node scripts/sync-auth-portal.mjs && pnpm --dir backend build",
     "check": "node scripts/check.mjs",
+    "test": "node --import tsx --test tests/*.test.ts",
     "deploy": "node scripts/deploy.mjs",
     "db:migrate": "node scripts/db-migrate.mjs",
     "db:migrate:local": "node scripts/db-migrate.mjs --local",
     "db:status": "node bin/los.mjs db status",
     "auth:sync": "node scripts/sync-auth-portal.mjs"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.15"
   }
 }

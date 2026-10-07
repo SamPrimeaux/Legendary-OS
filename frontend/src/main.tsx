@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { greetingName, timeGreeting } from './auth/sessionUser';
 import { useSessionUser } from './auth/useSessionUser';
-import { CmsWorkspace } from './cms/CmsWorkspace';
-import { MediaAssetPage, MediaWorkspace } from './media';
 import { AppShell } from './shell/AppShell';
 import { PublicCmsPage } from './site/PublicCmsPage';
+
+// Public visitors should not download the CMS and media editor to view a site.
+const CmsWorkspace = lazy(() => import('./cms/CmsWorkspace').then(module => ({ default: module.CmsWorkspace })));
+const MediaWorkspace = lazy(() => import('./media/pages/MediaWorkspace').then(module => ({ default: module.MediaWorkspace })));
+const MediaAssetPage = lazy(() => import('./media/pages/MediaAssetPage').then(module => ({ default: module.MediaAssetPage })));
 
 function Placeholder({ title, description }: { title: string; description: string }) {
   return (
@@ -55,7 +58,7 @@ function App() {
   if (publicSite) {
     const siteKey = decodeURIComponent(publicSite[1]);
     const route = publicSite[2] || '/';
-    return <PublicCmsPage siteKey={siteKey} route={route} />;
+    return <PublicCmsPage siteKey={siteKey} route={route} basePath={`/site/${encodeURIComponent(siteKey)}`} />;
   }
 
   if (path === '/scapes' || path.startsWith('/scapes/')) {
@@ -107,4 +110,4 @@ function App() {
 
 const root = document.getElementById('root');
 if (!root) throw new Error('Missing #root mount element');
-createRoot(root).render(<React.StrictMode><App /></React.StrictMode>);
+createRoot(root).render(<React.StrictMode><Suspense fallback={<div role="status" style={{ padding: 24 }}>Loading workspace…</div>}><App /></Suspense></React.StrictMode>);

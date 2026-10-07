@@ -1,5 +1,4 @@
-import { createCloudflareD1Adapter } from '@inneranimalmedia/agentsam-sdk/identity/adapters/cloudflare-d1';
-import { createIdentityService } from '@inneranimalmedia/agentsam-sdk/identity/server/identity-service';
+import { legendaryIdentity } from './app-config';
 import type { WorkerEnv } from '../env.js';
 
 const AUTH_LOGIN_PATH = '/auth/login';
@@ -14,13 +13,16 @@ export async function requireDashboardSession(
 ): Promise<Response | null> {
   const url = new URL(request.url);
   if (request.method !== 'GET') return null;
-  if (!url.pathname.startsWith('/dashboard')) return null;
+  if (!isWorkspacePath(url.pathname)) return null;
 
-  const adapter = createCloudflareD1Adapter(env.DB);
-  const identity = createIdentityService({ adapter });
+  const identity = legendaryIdentity(env);
   const ctx = await identity.sessionFromRequest(request);
   if (ctx) return null;
 
   const next = encodeURIComponent(url.pathname + url.search);
   return Response.redirect(`${url.origin}${AUTH_LOGIN_PATH}?next=${next}`, 302);
+}
+
+export function isWorkspacePath(pathname: string): boolean {
+  return /^\/(dashboard|cms|media|leads|projects|team)(\/|$)/.test(pathname);
 }

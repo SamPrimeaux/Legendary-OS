@@ -21,11 +21,15 @@ export async function handlePublicCmsApi(request: Request, env: PublicCmsEnv): P
   if (!site) return Response.json({ error: 'site_not_found', site: siteKey }, { status: 404 });
 
   const published = new CmsPublishedStore(env);
-  const page = await published.readPage(site.id, route) ?? await app.getPublishedPage(site.id, route);
+  const snapshot = await published.readPage(site.id, route);
+  const page = snapshot ?? await app.getPublishedPage(site.id, route);
   if (!page) return Response.json({ error: 'published_page_not_found', site: siteKey, route }, { status: 404 });
 
-  const globalCmsNav = await published.readGlobalNav(site.id) ?? await app.getGlobalCmsNav(site.id);
-  const theme = await published.readTheme(site.id) ?? page.theme;
+  // Draft settings must never become public merely because a publication is
+  // absent. The R2 page snapshot contains its publish-time theme; the legacy
+  // D1 fallback loads the mutable editor theme, so do not expose that theme.
+  const globalCmsNav = await published.readGlobalNav(site.id);
+  const theme = await published.readTheme(site.id) ?? snapshot?.theme ?? null;
   return Response.json(
     { ...page, theme, globalCmsNav },
     { headers: { 'cache-control': 'public, max-age=30, stale-while-revalidate=300' } },

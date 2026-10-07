@@ -9,7 +9,7 @@
     "deploy": "wrangler deploy --config ../wrangler.jsonc"
   },
   "dependencies": {
-    "@inneranimalmedia/agentsam-sdk": "^2.0.0-alpha.identity.10"
+    "@inneranimalmedia/agentsam-sdk": "^2.6.12"
   },
   "exports": {
     "./cms": "./src/cms/index.ts",
