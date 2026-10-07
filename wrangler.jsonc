@@ -50,7 +50,7 @@
   },
 
   "vars": {
-    "CMS_AUTH_MODE": "agentsam-identity",
+    "CMS_AUTH_MODE": "disabled",
     "IAM_CLIENT_ID": "iam_identity_21889c4c84ca4de3b4cb",
     "IAM_OAUTH_ISSUER": "https://inneranimalmedia.com"
   }
