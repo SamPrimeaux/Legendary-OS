@@ -66,27 +66,30 @@ test('public site renderer remains independent from authenticated packaged dashb
   assert.match(main, /lazy\(\(\) => import\('\.\/cms\/LegendaryCmsApp'\)/);
   assert.match(main, /lazy\(\(\) => import\('\.\/content\/ContentStudioPage'\)/);
   assert.match(main, /lazy\(\(\) => import\('\.\/work\/LegendaryWorkPage'\)/);
-  assert.match(main, /lazy\(\(\) => import\('\.\/account\/AccountPage'\)/);
   assert.match(main, /<PublicCmsPage siteKey="site_contractors" route="\/" \/>/);
   assert.match(main, /<PublicCmsPage siteKey="site_scapes"/);
 
   const gate = read('backend/src/identity/require-dashboard-session.ts');
-  for (const workspace of ['collaborate', 'mail', 'artifacts', 'projects', 'account']) {
-    assert.match(gate, new RegExp(workspace));
-  }
+  assert.match(gate, /return null/);
 
   const publicPage = read('frontend/src/site/PublicCmsPage.tsx');
   assert.doesNotMatch(publicPage, /ecommerce-cms-agentsam|agentsam-content-studio/,
     'public visitors must not pull authenticated CMS/admin packages into the public renderer');
 });
 
-test('identity package patch prevents passwordless-account deadlock', () => {
-  const patch = read('patches/@inneranimalmedia__agentsam-sdk@2.6.12.patch');
-  const accountPage = read('frontend/src/account/AccountPage.tsx');
-  assert.match(patch, /\/api\/auth\/password/);
-  assert.match(patch, /hasPassword/);
-  assert.match(patch, /verified reset email/);
-  assert.match(patch, /-  function isOAuthOnlyUser/);
-  assert.match(accountPage, /fetch\('\/api\/auth\/password'/);
-  assert.match(accountPage, /Create a local password/);
+test('Legendary runtime authentication is intentionally disabled', () => {
+  const gate = read('backend/src/identity/require-dashboard-session.ts');
+  const identity = read('backend/src/identity/handle-identity-request.ts');
+  const cmsAuth = read('backend/src/auth/cms-route-auth.ts');
+  const sessionHook = read('frontend/src/auth/useSessionUser.ts');
+  const wrangler = read('wrangler.jsonc');
+  const main = read('frontend/src/main.tsx');
+
+  assert.match(gate, /return null/);
+  assert.match(identity, /auth_disabled/);
+  assert.match(identity, /dashboard\/cms/);
+  assert.match(cmsAuth, /CMS_AUTH_MODE === 'disabled'/);
+  assert.match(wrangler, /"CMS_AUTH_MODE": "disabled"/);
+  assert.doesNotMatch(sessionHook, /fetchSessionUser/);
+  assert.doesNotMatch(main, /AccountPage/);
 });
