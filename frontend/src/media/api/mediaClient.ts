@@ -23,13 +23,14 @@ function params(filters: MediaAssetFilters) {
   if (filters.source) search.set('source', filters.source);
   if (filters.query?.trim()) search.set('q', filters.query.trim());
   if (filters.limit) search.set('limit', String(filters.limit));
+  if (filters.offset) search.set('offset', String(filters.offset));
   return search.toString();
 }
 
 export const mediaClient = {
   async listAssets(filters: MediaAssetFilters = {}) {
     const query = params(filters);
-    return json<{ assets: MediaAsset[] }>(await fetch(`/api/media/assets${query ? `?${query}` : ''}`));
+    return json<{ assets: MediaAsset[]; total: number; offset: number; limit: number; nextOffset: number | null; usagesByAsset: Record<string, MediaAssetUsage[]> }>(await fetch(`/api/media/assets${query ? `?${query}` : ''}`));
   },
 
   async getAsset(id: string) {

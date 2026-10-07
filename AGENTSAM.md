@@ -94,6 +94,7 @@ Platform fallback:  IAM hub via AGENTSAM_BRIDGE_KEY for tool/MCP lanes (separate
 5. **Do not merge or resurrect** `chore/import-companions-agentsam-harness` — CPAS harness is out of scope for Legendary.
 6. **D1 migrations** via `pnpm los db migrate` or `pnpm db:migrate` — see `docs/D1-MIGRATIONS-AUDIT.md`.
 7. **Deploy:** `pnpm los deploy` or `pnpm deploy` after `pnpm check`. Do not use `wrangler versions upload` alone for production traffic.
+8. **Legendary consumes reusable AgentSam products; it does not fork them.** Before adding generic CMS/content/dashboard product machinery locally, read docs/PACKAGED-PLATFORM-INTEGRATION.md and prefer a host adapter into the shipped package.
 
 ---
 

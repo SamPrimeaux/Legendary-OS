@@ -6,7 +6,7 @@ export async function handleMediaApi(request: Request, app: MediaApplication): P
   const organizationId = mediaOrganizationId(request);
 
   if (url.pathname === '/api/media/assets' && request.method === 'GET') {
-    const assets = await app.assets.list({
+    const filters = {
       organizationId,
       siteId: url.searchParams.get('site_id') || undefined,
       projectId: url.searchParams.get('project_id') || undefined,
@@ -14,8 +14,17 @@ export async function handleMediaApi(request: Request, app: MediaApplication): P
       source: (url.searchParams.get('source') || undefined) as MediaSourceKind | undefined,
       query: url.searchParams.get('q') || undefined,
       limit: Number(url.searchParams.get('limit') || 80),
-    });
-    return Response.json({ assets });
+      offset: Number(url.searchParams.get('offset') || 0),
+    };
+    const [assets, total] = await Promise.all([
+      app.assets.list(filters),
+      app.assets.count(filters),
+    ]);
+    const usages = await app.usages.listForAssets(assets.map((asset) => asset.id), organizationId);
+    const usagesByAsset: Record<string, typeof usages> = {};
+    for (const usage of usages) (usagesByAsset[usage.assetId] ||= []).push(usage);
+    const nextOffset = filters.offset + assets.length < total ? filters.offset + assets.length : null;
+    return Response.json({ assets, total, offset: filters.offset, limit: filters.limit, nextOffset, usagesByAsset });
   }
 
   const assetMatch = url.pathname.match(/^\/api\/media\/assets\/([^/]+)$/);

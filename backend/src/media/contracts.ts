@@ -75,6 +75,7 @@ export type MediaAssetListFilters = {
   source?: MediaSourceKind;
   query?: string;
   limit?: number;
+  offset?: number;
 };
 
 export type MediaAssetPatch = {

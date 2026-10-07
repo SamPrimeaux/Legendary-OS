@@ -1,10 +1,9 @@
 /**
- * CMS /api/cms/* route auth.
+ * CMS /api/cms/* route access.
  *
- * Human operators: identity session cookie (set at login — same as /api/auth/me).
- * Machine callers (Agent Sam / IAM hub): AGENTSAM_BRIDGE_KEY + optional X-User-Id.
- *
- * Do not expose the bridge key to the browser; the CMS UI uses credentials: 'include'.
+ * Legendary currently runs with CMS_AUTH_MODE="disabled" while the reusable
+ * identity package is redesigned and validated separately. Bridge/session modes
+ * remain available in the module so the switch is explicit and reversible.
  */
 import type { CmsRequestContext } from '../cms';
 import type { CmsD1Database } from '../cms/adapters/d1-store';
@@ -14,8 +13,7 @@ import { verifyBridgeKey } from './bridge-key-auth.js';
 
 export type CmsRouteAuthEnv = MachineAuthEnv & {
   DB: CmsD1Database;
-  /** Default agentsam-identity (session cookie). Use bridge for headless-only deployments. */
-  CMS_AUTH_MODE?: 'agentsam-identity' | 'bridge' | string;
+  CMS_AUTH_MODE?: 'disabled' | 'agentsam-identity' | 'bridge' | string;
 };
 
 const LEGENDARY_ORG_ID = 'legendary';
@@ -24,6 +22,7 @@ const LEGENDARY_BRAND_IDS = ['contractors', 'scapes'] as const;
 export type CmsActorCapabilities = CmsRequestContext['capabilities'];
 
 export function cmsAuthMode(env: CmsRouteAuthEnv) {
+  if (env.CMS_AUTH_MODE === 'disabled') return 'disabled';
   return env.CMS_AUTH_MODE === 'bridge' ? 'bridge' : 'agentsam-identity';
 }
 
@@ -31,11 +30,10 @@ export async function rejectUnauthorizedCmsApi(
   request: Request,
   env: CmsRouteAuthEnv,
 ): Promise<Response | null> {
+  if (cmsAuthMode(env) === 'disabled') return null;
   if (verifyBridgeKey(request, env)) return null;
 
   if (cmsAuthMode(env) === 'bridge') {
-    // A missing secret is not a development bypass. An email header alone
-    // is also not proof of a verified Cloudflare Access identity.
     return Response.json({ ok: false, error: 'invalid_bridge_key' }, { status: 401 });
   }
 
@@ -49,6 +47,15 @@ export async function buildCmsRequestContext(
   env: CmsRouteAuthEnv,
   capabilities: CmsActorCapabilities,
 ): Promise<CmsRequestContext> {
+  if (cmsAuthMode(env) === 'disabled') {
+    return {
+      organizationId: LEGENDARY_ORG_ID,
+      brandIds: [...LEGENDARY_BRAND_IDS],
+      actorId: 'legendary-open-build',
+      capabilities,
+    };
+  }
+
   if (verifyBridgeKey(request, env)) {
     const actorId =
       trimSecret(request.headers.get('X-User-Id')) ||
@@ -73,11 +80,10 @@ export async function buildCmsRequestContext(
     };
   }
 
-  const email = request.headers.get('Cf-Access-Authenticated-User-Email') || 'local-dev';
   return {
     organizationId: LEGENDARY_ORG_ID,
     brandIds: [...LEGENDARY_BRAND_IDS],
-    actorId: email,
+    actorId: 'legendary-open-build',
     capabilities,
   };
 }

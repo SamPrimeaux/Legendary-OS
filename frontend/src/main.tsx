@@ -6,7 +6,9 @@ import { AppShell } from './shell/AppShell';
 import { PublicCmsPage } from './site/PublicCmsPage';
 
 // Public visitors should not download the CMS and media editor to view a site.
-const CmsWorkspace = lazy(() => import('./cms/CmsWorkspace').then(module => ({ default: module.CmsWorkspace })));
+const LegendaryCmsApp = lazy(() => import('./cms/LegendaryCmsApp').then(module => ({ default: module.LegendaryCmsApp })));
+const ContentStudioPage = lazy(() => import('./content/ContentStudioPage').then(module => ({ default: module.ContentStudioPage })));
+const LegendaryWorkPage = lazy(() => import('./work/LegendaryWorkPage').then(module => ({ default: module.LegendaryWorkPage })));
 const MediaWorkspace = lazy(() => import('./media/pages/MediaWorkspace').then(module => ({ default: module.MediaWorkspace })));
 const MediaAssetPage = lazy(() => import('./media/pages/MediaAssetPage').then(module => ({ default: module.MediaAssetPage })));
 
@@ -75,13 +77,26 @@ function App() {
   if (path === '/dashboard/cms' || path.startsWith('/dashboard/cms/')) {
     return (
       <AppShell title="Websites" section="Legendary OS">
-        <CmsWorkspace />
+        <LegendaryCmsApp />
       </AppShell>
     );
   }
 
   if (path === '/dashboard/cad' || path.startsWith('/dashboard/cad/')) {
     return <CadWorkspace />;
+  }
+
+  if (path === '/content' || path === '/content/') {
+    return <AppShell title="Content" section="Legendary OS"><ContentStudioPage /></AppShell>;
+  }
+
+  if (
+    path === '/collaborate' || path === '/collaborate/' ||
+    path === '/mail' || path === '/mail/' ||
+    path === '/projects' || path === '/projects/' || path.startsWith('/projects/') ||
+    path === '/artifacts' || path === '/artifacts/' || path.startsWith('/artifacts/')
+  ) {
+    return <LegendaryWorkPage />;
   }
 
   if (path === '/media' || path === '/media/') {
@@ -95,10 +110,6 @@ function App() {
 
   if (path.startsWith('/leads')) {
     return <AppShell title="Leads"><Placeholder title="Leads" description="Lead intake, ownership, follow-up and conversion will live here." /></AppShell>;
-  }
-
-  if (path.startsWith('/projects')) {
-    return <AppShell title="Projects"><Placeholder title="Projects" description="Jobs, field updates, files, media and customer progress will live here." /></AppShell>;
   }
 
   if (path.startsWith('/team')) {

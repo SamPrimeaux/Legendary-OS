@@ -16,3 +16,4 @@ minimumReleaseAgeExclude:
 
 patchedDependencies:
   '@inneranimalmedia/agentsam-sdk@2.6.12': patches/@inneranimalmedia__agentsam-sdk@2.6.12.patch
+  '@inneranimalmedia/agentsam-work@2.6.12': patches/@inneranimalmedia__agentsam-work@2.6.12.patch

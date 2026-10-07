@@ -34,7 +34,9 @@ const Icon = ({ name }: { name: 'home' | 'leads' | 'projects' | 'media' | 'sites
 const navItems: NavItem[] = [
   { id: 'home', label: 'Home', href: '/dashboard', icon: <Icon name="home" /> },
   { id: 'leads', label: 'Leads', href: '/leads', icon: <Icon name="leads" /> },
+  { id: 'work', label: 'Work', href: '/collaborate', icon: <Icon name="projects" /> },
   { id: 'projects', label: 'Projects', href: '/projects', icon: <Icon name="projects" /> },
+  { id: 'content', label: 'Content', href: '/content', icon: <Icon name="media" /> },
   { id: 'media', label: 'Media', href: '/media', icon: <Icon name="media" /> },
   { id: 'sites', label: 'Websites', href: '/dashboard/cms', icon: <Icon name="sites" /> },
   { id: 'design', label: 'CAD Lab', href: '/dashboard/cad', icon: <Icon name="design" /> },
@@ -44,7 +46,9 @@ const navItems: NavItem[] = [
 function activeNav(pathname: string): string {
   if (pathname === '/dashboard/cms' || pathname.startsWith('/dashboard/cms/')) return 'sites';
   if (pathname.startsWith('/leads')) return 'leads';
+  if (pathname.startsWith('/collaborate') || pathname.startsWith('/mail') || pathname.startsWith('/artifacts')) return 'work';
   if (pathname.startsWith('/projects')) return 'projects';
+  if (pathname.startsWith('/content')) return 'content';
   if (pathname.startsWith('/media')) return 'media';
   if (pathname.startsWith('/dashboard/cad')) return 'design';
   if (pathname.startsWith('/team')) return 'team';
@@ -55,9 +59,9 @@ export function AppShell({ children, title = 'Websites', section = 'Legendary OS
   const [mobileMoreOpen, setMobileMoreOpen] = useState(false);
   const active = useMemo(() => activeNav(window.location.pathname), []);
   const { user } = useSessionUser();
-  const initials = user ? userInitials(user) : '…';
-  const displayName = user?.displayName?.trim() || user?.email?.split('@')[0] || 'Account';
-  const accountLabel = user?.email || 'Signed in';
+  const initials = user ? userInitials(user) : 'L';
+  const displayName = user?.displayName?.trim() || user?.email?.split('@')[0] || 'Legendary';
+  const accountLabel = user?.email || 'Open workspace';
 
   const navigate = (href: string) => {
     if (href === window.location.pathname) return;
@@ -108,7 +112,7 @@ export function AppShell({ children, title = 'Websites', section = 'Legendary OS
           <div className="los-topbar-actions">
             <button className="los-agent-pill" type="button"><Icon name="sparkles" /><span>Ask Sam</span></button>
             <button className="los-icon-button" type="button" aria-label="Notifications"><Icon name="bell" /><i /></button>
-            <button className="los-top-avatar" type="button" aria-label="Account">{initials}</button>
+            <button className="los-top-avatar" type="button" aria-label="Workspace">{initials}</button>
           </div>
         </header>
 
@@ -131,6 +135,7 @@ export function AppShell({ children, title = 'Websites', section = 'Legendary OS
           <section className="los-mobile-sheet" onClick={(event) => event.stopPropagation()}>
             <div className="los-sheet-handle" />
             <div className="los-sheet-head"><strong>Legendary</strong><button onClick={() => setMobileMoreOpen(false)}>Done</button></div>
+            <button className="los-sheet-action" onClick={() => navigate('/media')}><Icon name="media" /><span><strong>Media</strong><small>Storage, imports, sources and media operations</small></span></button>
             <button className="los-sheet-action" onClick={() => navigate('/dashboard/cms')}><Icon name="sites" /><span><strong>Websites</strong><small>Pages, publishing, theme and site media</small></span></button>
             <button className="los-sheet-action" onClick={() => navigate('/dashboard/cad')}><Icon name="design" /><span><strong>CAD Lab</strong><small>Floor plans, takeoffs and project concepts</small></span></button>
             <button className="los-sheet-action" onClick={() => navigate('/team')}><Icon name="team" /><span><strong>Team</strong><small>Employees, roles and people operations</small></span></button>

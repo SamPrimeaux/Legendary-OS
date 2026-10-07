@@ -40,6 +40,7 @@ export class AssetService {
   ) {}
 
   list(filters: MediaAssetListFilters) { return this.store.listAssets(filters); }
+  count(filters: MediaAssetListFilters) { return this.store.countAssets(filters); }
   get(id: string, organizationId: string) { return this.store.getAsset(id, organizationId); }
   update(id: string, organizationId: string, patch: MediaAssetPatch) { return this.store.updateAsset(id, organizationId, patch); }
 

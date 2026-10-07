@@ -60,6 +60,7 @@ export type MediaAssetFilters = {
   source?: MediaSourceKind;
   query?: string;
   limit?: number;
+  offset?: number;
 };
 
 export type MediaAssetPatch = {
