@@ -14,6 +14,7 @@ test('Legendary consumes the shipped AgentSam CMS and Content Studio products', 
   assert.equal(deps['@inneranimalmedia/client-cms-editor'], '2.6.12');
   assert.equal(deps['@inneranimalmedia/agentsam-content'], '2.6.12');
   assert.equal(deps['@inneranimalmedia/agentsam-content-studio'], '2.6.12');
+  assert.equal(deps['@inneranimalmedia/agentsam-work'], '2.6.12');
 
   const cmsApp = read('frontend/src/cms/LegendaryCmsApp.tsx');
   assert.match(cmsApp, /CmsHubPage.*@inneranimalmedia\/ecommerce-cms-agentsam\/cms/s);
@@ -28,6 +29,16 @@ test('Legendary consumes the shipped AgentSam CMS and Content Studio products', 
   assert.match(contentRuntime, /usagesByAsset/);
   assert.match(contentRuntime, /nextOffset/);
   assert.doesNotMatch(contentRuntime, /InMemoryContentStore/, 'Legendary content must not fall back to an in-memory shadow library');
+
+  const workPage = read('frontend/src/work/LegendaryWorkPage.tsx');
+  const workApi = read('backend/src/work-api.ts');
+  assert.match(workPage, /@inneranimalmedia\/agentsam-work\/frontend/);
+  assert.match(workPage, /createHttpWorkHost/);
+  assert.match(workApi, /FROM media_assets/);
+  assert.match(workApi, /fixtureName: 'legendary-live'/);
+  assert.match(workApi, /tickets: \[\]/);
+  assert.match(workApi, /projects: \[\]/);
+  assert.doesNotMatch(workApi, /populatedWorkFixture|createFixtureWorkHost/);
 });
 
 test('packaged CMS compatibility endpoints project existing authorities only', () => {
@@ -54,8 +65,14 @@ test('public site renderer remains independent from authenticated packaged dashb
   const main = read('frontend/src/main.tsx');
   assert.match(main, /lazy\(\(\) => import\('\.\/cms\/LegendaryCmsApp'\)/);
   assert.match(main, /lazy\(\(\) => import\('\.\/content\/ContentStudioPage'\)/);
+  assert.match(main, /lazy\(\(\) => import\('\.\/work\/LegendaryWorkPage'\)/);
   assert.match(main, /<PublicCmsPage siteKey="site_contractors" route="\/" \/>/);
   assert.match(main, /<PublicCmsPage siteKey="site_scapes"/);
+
+  const gate = read('backend/src/identity/require-dashboard-session.ts');
+  for (const workspace of ['collaborate', 'mail', 'artifacts', 'projects']) {
+    assert.match(gate, new RegExp(workspace));
+  }
 
   const publicPage = read('frontend/src/site/PublicCmsPage.tsx');
   assert.doesNotMatch(publicPage, /ecommerce-cms-agentsam|agentsam-content-studio/,

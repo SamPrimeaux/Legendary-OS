@@ -34,6 +34,7 @@ const Icon = ({ name }: { name: 'home' | 'leads' | 'projects' | 'media' | 'sites
 const navItems: NavItem[] = [
   { id: 'home', label: 'Home', href: '/dashboard', icon: <Icon name="home" /> },
   { id: 'leads', label: 'Leads', href: '/leads', icon: <Icon name="leads" /> },
+  { id: 'work', label: 'Work', href: '/collaborate', icon: <Icon name="projects" /> },
   { id: 'projects', label: 'Projects', href: '/projects', icon: <Icon name="projects" /> },
   { id: 'content', label: 'Content', href: '/content', icon: <Icon name="media" /> },
   { id: 'media', label: 'Media', href: '/media', icon: <Icon name="media" /> },
@@ -45,6 +46,7 @@ const navItems: NavItem[] = [
 function activeNav(pathname: string): string {
   if (pathname === '/dashboard/cms' || pathname.startsWith('/dashboard/cms/')) return 'sites';
   if (pathname.startsWith('/leads')) return 'leads';
+  if (pathname.startsWith('/collaborate') || pathname.startsWith('/mail') || pathname.startsWith('/artifacts')) return 'work';
   if (pathname.startsWith('/projects')) return 'projects';
   if (pathname.startsWith('/content')) return 'content';
   if (pathname.startsWith('/media')) return 'media';

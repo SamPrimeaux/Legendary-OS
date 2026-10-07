@@ -33,6 +33,23 @@ The current CmsWorkspace remains the site-specific authoring surface after a hub
 
 The SDK promotion branch feat/cms-host-preview-20261007 adds a host-owned real-preview renderer to @inneranimalmedia/client-cms-editor. Once released, Legendary can move the authoring canvas behind the package without losing site parity.
 
+### AgentSam Work
+
+The published @inneranimalmedia/agentsam-work@2.6.12 product is mounted on its native work routes:
+
+- /collaborate — calendar and tickets
+- /projects — projects
+- /mail — mail
+- /artifacts — files/artifacts
+- /artifacts/tickets — ticket detail flow
+
+Legendary implements /api/work/snapshot as the host boundary. The snapshot is live and non-fixture:
+- artifacts are projected from the existing media_assets / R2 authority;
+- no populatedWorkFixture is used;
+- projects, tickets, mail and calendar currently return truthful empty collections until Legendary has canonical business authorities for them.
+
+The browser routes are included in the existing identity workspace gate, and the Work API reuses the same authenticated session / bridge boundary as CMS and Media.
+
 ### Content Studio
 
 /content mounts the published @inneranimalmedia/agentsam-content-studio.
@@ -51,7 +68,7 @@ Its ContentStore is LegendaryMediaContentStore, a thin adapter over the existing
 
 Do not present package availability as product integration without a real host authority.
 
-- @inneranimalmedia/agentsam-work: available, but current agentsam_tickets are implementation/remaster tickets and agentsam_project_context is agent runtime context. Neither is the Legendary customer/job/project authority.
+- Work business data beyond artifacts: the package is installed, but current agentsam_tickets are implementation/remaster tickets and agentsam_project_context is agent runtime context. Neither is used as the Legendary customer/job/project authority. Real projects/jobs, tickets/tasks, mail and calendar records remain empty until canonical domains exist.
 - Products/orders: no clean Legendary product/order domain authority exists yet.
 - Mailing/campaign execution: campaign intelligence packages exist, but Legendary does not yet have a canonical audience/message/delivery authority.
 - shared nav/workbench: evaluated but not mounted in this pass because the current Legendary shell has useful mobile behavior that must be preserved before replacement.

@@ -24,5 +24,5 @@ export async function requireDashboardSession(
 }
 
 export function isWorkspacePath(pathname: string): boolean {
-  return /^\/(dashboard|cms|media|leads|projects|team)(\/|$)/.test(pathname);
+  return /^\/(dashboard|cms|media|content|leads|projects|team|collaborate|mail|artifacts)(\/|$)/.test(pathname);
 }

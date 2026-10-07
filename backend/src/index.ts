@@ -1,6 +1,7 @@
 import { handleCmsApi } from './cms-api';
 import { handlePublicCmsApi } from './public-cms-api';
 import { handleMediaRequest } from './media';
+import { handleWorkApi } from './work-api.js';
 import { handleIdentityRequest } from './identity/handle-identity-request.js';
 import { requireDashboardSession } from './identity/require-dashboard-session.js';
 import type { WorkerEnv } from './env';
@@ -46,6 +47,16 @@ export default {
       } catch (error) {
         console.error('media_request_failed', error);
         return Response.json({ error: 'media_request_failed', message: error instanceof Error ? error.message : 'Unknown media error' }, { status: 400 });
+      }
+    }
+
+    if (url.pathname.startsWith('/api/work/')) {
+      try {
+        const response = await handleWorkApi(request, env);
+        if (response) return response;
+      } catch (error) {
+        console.error('work_request_failed', error);
+        return Response.json({ error: 'work_request_failed', message: error instanceof Error ? error.message : 'Unknown Work error' }, { status: 400 });
       }
     }
 
