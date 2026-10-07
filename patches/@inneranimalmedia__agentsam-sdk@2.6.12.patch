@@ -1,52 +1,105 @@
-diff --git a/package.json b/package.json
-index e51b671066ee91e4614ab767727611fbd1559fc6..0e85c7ff158ac65553bf839b0264d1899a6e04dd 100644
 --- a/package.json
 +++ b/package.json
-@@ -43,6 +43,7 @@
-     "./brand": "./packages/agentsam-brand/src/index.js",
-     "./progression": "./src/progression/index.js",
-     "./identity": "./packages/identity/src/index.js",
+@@ -45,0 +46 @@
 +    "./identity/contracts/routes": "./packages/identity/src/contracts/routes.js",
-     "./identity/providers": "./packages/identity/src/providers/index.js",
-     "./identity/providers/google": "./packages/identity/src/providers/google/index.js",
-     "./identity/providers/github": "./packages/identity/src/providers/github/index.js",
-diff --git a/packages/identity/src/oauth/iam-platform.js b/packages/identity/src/oauth/iam-platform.js
-index 6221ff4dca6786dfe0564c625f68975b9e3bdbe4..eb66831faa6b984f4df42e6f00edadcb6371f6c9 100644
 --- a/packages/identity/src/oauth/iam-platform.js
 +++ b/packages/identity/src/oauth/iam-platform.js
-@@ -53,7 +53,8 @@ export async function iamPlatformOAuthStart(request, env, adapter, identity) {
-       : {}),
-   });
- 
+@@ -56 +56,2 @@
 -  const redirectUri = `${url.origin}${IAM_PLATFORM_CALLBACK_PATH}`;
 +  const callbackPath = identity?.routeRegistry.resolve(identity.app.id, IDENTITY_ROUTE_IDS.OAUTH_CALLBACK) || IAM_PLATFORM_CALLBACK_PATH;
 +  const redirectUri = `${url.origin}${callbackPath}`;
-   const authUrl = getIamAuthUrl({
-     origin: creds.origin,
-     clientId: creds.clientId,
-@@ -91,7 +92,8 @@ export async function iamPlatformOAuthCallback(request, env, adapter, identity)
-     return Response.redirect(`${url.origin}${identity.routeRegistry.resolve(identity.app.id, IDENTITY_ROUTE_IDS.LOGIN)}?error=state_mismatch`, 302);
-   }
- 
+@@ -94 +95,2 @@
 -  const redirectUri = `${url.origin}${IAM_PLATFORM_CALLBACK_PATH}`;
 +  const callbackPath = identity.routeRegistry.resolve(identity.app.id, IDENTITY_ROUTE_IDS.OAUTH_CALLBACK) || IAM_PLATFORM_CALLBACK_PATH;
 +  const redirectUri = `${url.origin}${callbackPath}`;
-   const token = await exchangeIamCode({
-     origin: creds.origin,
-     clientId: creds.clientId,
-diff --git a/packages/identity/src/recovery/password-reset.js b/packages/identity/src/recovery/password-reset.js
-index a79461e1044fc8fa3d2bc6db813244aa706102a4..396de8c14b68f6a0d713bc69e812f9cacff73465 100644
 --- a/packages/identity/src/recovery/password-reset.js
 +++ b/packages/identity/src/recovery/password-reset.js
-@@ -7,8 +7,9 @@ const DEFAULT_TTL_SEC = 900;
- const DEFAULT_MAX_ATTEMPTS = 8;
- 
- function randomSixDigitCode() {
+@@ -10,2 +10,3 @@
 -  const buf = new Uint8Array(1);
 -  crypto.getRandomValues(buf);
 +  const buf = new Uint32Array(1);
 +  // Rejection sampling keeps all one million six-digit codes equally likely.
 +  do { crypto.getRandomValues(buf); } while (buf[0] >= 4294000000);
-   return String(buf[0] % 1000000).padStart(6, '0');
- }
- 
+@@ -45,4 +45,0 @@
+-  function isOAuthOnlyUser(user) {
+-    return !user || user.password_hash === 'oauth' || !user.password_hash;
+-  }
+-
+@@ -56 +53,4 @@
+-      if (isOAuthOnlyUser(user)) {
++      // A verified reset email is also a safe way for OAuth-created/passwordless
++      // accounts to establish their first local password. Only unknown accounts
++      // are intentionally treated as a no-op to avoid account enumeration.
++      if (!user) {
+@@ -116 +116 @@
+-      if (isOAuthOnlyUser(user)) {
++      if (!user) {
+--- a/packages/identity/src/server/worker-router.js
++++ b/packages/identity/src/server/worker-router.js
+@@ -5 +5 @@
+-import { hashPassword } from '../core/password-crypto.js';
++import { hashPassword, verifyPassword } from '../core/password-crypto.js';
+@@ -192,0 +193,5 @@
++        hasPassword: Boolean(
++          ctx.user.password_hash
++          && ctx.user.salt
++          && ctx.user.password_hash !== 'oauth'
++        ),
+@@ -194,0 +200,57 @@
++  }
++
++  if (path === '/api/auth/password' && method === 'POST') {
++    const ctx = await identity.sessionFromRequest(request);
++    if (!ctx) return jsonResponse({ ok: false, error: 'session_required' }, 401);
++
++    const body = await request.json().catch(() => ({}));
++    const password = String(body.password ?? body.new_password ?? body.newPassword ?? '');
++    const confirmPassword = String(
++      body.confirm_password
++      ?? body.confirmPassword
++      ?? body.confirm
++      ?? password
++    );
++
++    if (!password) {
++      return jsonResponse({ ok: false, error: 'password_required' }, 400);
++    }
++    if (password !== confirmPassword) {
++      return jsonResponse({ ok: false, error: 'passwords_do_not_match' }, 400);
++    }
++    if (password.length < 8) {
++      return jsonResponse({ ok: false, error: 'password_too_short' }, 400);
++    }
++
++    const hasPassword = Boolean(
++      ctx.user.password_hash
++      && ctx.user.salt
++      && ctx.user.password_hash !== 'oauth'
++    );
++    if (hasPassword) {
++      const currentPassword = String(body.current_password ?? body.currentPassword ?? '');
++      if (!currentPassword) {
++        return jsonResponse({ ok: false, error: 'current_password_required' }, 400);
++      }
++      const currentValid = await verifyPassword(
++        currentPassword,
++        ctx.user.salt,
++        ctx.user.password_hash,
++      );
++      if (!currentValid) {
++        return jsonResponse({ ok: false, error: 'current_password_invalid' }, 403);
++      }
++    }
++
++    const { saltHex, hashHex } = await hashPassword(password);
++    await adapter.updateUserPassword(ctx.user.id, hashHex, saltHex);
++    if (typeof adapter.logAuthEvent === 'function') {
++      await adapter.logAuthEvent({
++        userId: ctx.user.id,
++        eventType: hasPassword ? 'password_change' : 'password_enroll',
++        status: 'ok',
++        provider: 'email',
++        request,
++      });
++    }
++    return jsonResponse({ ok: true, hasPassword: true });

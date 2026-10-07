@@ -2,6 +2,7 @@ export type SessionUser = {
   id: string;
   email: string;
   displayName: string;
+  hasPassword?: boolean;
 };
 
 export function userInitials(user: Pick<SessionUser, 'displayName' | 'email'>): string {

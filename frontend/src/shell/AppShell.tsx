@@ -90,7 +90,7 @@ export function AppShell({ children, title = 'Websites', section = 'Legendary OS
             <span className="los-agent-icon"><Icon name="sparkles" /></span>
             <span><strong>Agent Sam</strong><small>Ask anything</small></span>
           </button>
-          <button className="los-user" type="button">
+          <button className="los-user" type="button" onClick={() => navigate('/account')}>
             <span className="los-avatar">{initials}</span>
             <span><strong>{displayName}</strong><small>{accountLabel}</small></span>
             <Icon name="more" />
@@ -112,7 +112,7 @@ export function AppShell({ children, title = 'Websites', section = 'Legendary OS
           <div className="los-topbar-actions">
             <button className="los-agent-pill" type="button"><Icon name="sparkles" /><span>Ask Sam</span></button>
             <button className="los-icon-button" type="button" aria-label="Notifications"><Icon name="bell" /><i /></button>
-            <button className="los-top-avatar" type="button" aria-label="Account">{initials}</button>
+            <button className="los-top-avatar" type="button" aria-label="Account" onClick={() => navigate('/account')}>{initials}</button>
           </div>
         </header>
 

@@ -9,6 +9,7 @@ import { PublicCmsPage } from './site/PublicCmsPage';
 const LegendaryCmsApp = lazy(() => import('./cms/LegendaryCmsApp').then(module => ({ default: module.LegendaryCmsApp })));
 const ContentStudioPage = lazy(() => import('./content/ContentStudioPage').then(module => ({ default: module.ContentStudioPage })));
 const LegendaryWorkPage = lazy(() => import('./work/LegendaryWorkPage').then(module => ({ default: module.LegendaryWorkPage })));
+const AccountPage = lazy(() => import('./account/AccountPage'));
 const MediaWorkspace = lazy(() => import('./media/pages/MediaWorkspace').then(module => ({ default: module.MediaWorkspace })));
 const MediaAssetPage = lazy(() => import('./media/pages/MediaAssetPage').then(module => ({ default: module.MediaAssetPage })));
 
@@ -84,6 +85,10 @@ function App() {
 
   if (path === '/dashboard/cad' || path.startsWith('/dashboard/cad/')) {
     return <CadWorkspace />;
+  }
+
+  if (path === '/account' || path === '/account/') {
+    return <AppShell title="Account" section="Legendary OS"><AccountPage /></AppShell>;
   }
 
   if (path === '/content' || path === '/content/') {
