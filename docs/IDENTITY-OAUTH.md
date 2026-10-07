@@ -26,4 +26,10 @@ Registered redirect URIs (IAM AS):
 - `https://legendary-os.meauxbility.workers.dev/api/oauth/iam/callback`
 - `http://localhost:8787/api/oauth/iam/callback` (local dev)
 
-Default Google/GitHub buttons route through IAM when only `IAM_CLIENT_*` are set.
+SDK 2.6.12 keeps providers explicit: Google/GitHub do not fall back to IAM. The portal is rendered from live credential readiness and offers **Continue with Inner Animal Media** when IAM is configured. Unconfigured Google/GitHub and backup-code controls are hidden.
+
+The app callback projection is `/api/oauth/iam/callback`, matching the live registration above. A tracked SDK patch makes IAM authorization and token exchange honor that projection instead of assuming `/api/oauth/inneranimalmedia/callback`.
+
+Local email/password signup and sessions use the Legendary D1 store. IAM-only accounts have no local password. Local email recovery additionally needs `RESEND_API_KEY` and a verified company support sender; recovery is withheld when that setup is absent. Never use a platform password in the local app password form or invent a shared demo password.
+
+Current source/resource map and portable installation requirements: [REPO-MAP-AND-IDENTITY-2026-10-07.md](REPO-MAP-AND-IDENTITY-2026-10-07.md).
