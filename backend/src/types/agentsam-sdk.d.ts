@@ -18,7 +18,7 @@ declare module '@inneranimalmedia/agentsam-sdk/identity/server/identity-service'
   };
 }
 
-declare module '@inneranimalmedia/agentsam-sdk/identity' {
+declare module '@inneranimalmedia/agentsam-sdk/identity/contracts/routes' {
   export function defineRouteProjection(input: { appId: string; routes: Record<string, string | { path: string; auth?: string }> }): unknown;
   export function createRouteRegistry(projections: unknown[]): {
     resolve(appId: string, routeId: string): string | null;

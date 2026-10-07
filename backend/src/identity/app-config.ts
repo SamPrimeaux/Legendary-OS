@@ -1,4 +1,4 @@
-import { createRouteRegistry, defineRouteProjection } from '@inneranimalmedia/agentsam-sdk/identity';
+import { createRouteRegistry, defineRouteProjection } from '@inneranimalmedia/agentsam-sdk/identity/contracts/routes';
 import { createCloudflareD1Adapter } from '@inneranimalmedia/agentsam-sdk/identity/adapters/cloudflare-d1';
 import { createIdentityService } from '@inneranimalmedia/agentsam-sdk/identity/server/identity-service';
 import type { WorkerEnv } from '../env';
