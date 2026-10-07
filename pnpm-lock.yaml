@@ -6,6 +6,7 @@ settings:
 
 patchedDependencies:
   '@inneranimalmedia/agentsam-sdk@2.6.12': 5c775fc642609e2d93e700b928e6044bbb00172d612afa7ed6dd3f11adc93d64
+  '@inneranimalmedia/agentsam-work@2.6.12': 7bd768e02356a9c752785bd52afedf01c87d7e2690cb574192e669955d2cab9f
 
 importers:
 
@@ -41,7 +42,7 @@ importers:
         version: 2.6.12(react@19.2.8)
       '@inneranimalmedia/agentsam-work':
         specifier: 2.6.12
-        version: 2.6.12(lucide-react@0.510.0(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        version: 2.6.12(patch_hash=7bd768e02356a9c752785bd52afedf01c87d7e2690cb574192e669955d2cab9f)(lucide-react@0.510.0(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@inneranimalmedia/client-cms-editor':
         specifier: 2.6.12
         version: 2.6.12(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -2290,7 +2291,7 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@inneranimalmedia/agentsam-work@2.6.12(lucide-react@0.510.0(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+  '@inneranimalmedia/agentsam-work@2.6.12(patch_hash=7bd768e02356a9c752785bd52afedf01c87d7e2690cb574192e669955d2cab9f)(lucide-react@0.510.0(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
       lucide-react: 0.510.0(react@19.2.8)
       react: 19.2.8

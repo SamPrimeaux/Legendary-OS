@@ -1,0 +1,1405 @@
+diff --git a/README.md b/README.md
+index 37615522b8bdea3d26ad3c7fa1e50f729b8b4130..1e87288683ea51d03ca1a5ea8973698ea507431a 100644
+--- a/README.md
++++ b/README.md
+@@ -10,3 +10,12 @@ Portable AgentSam Work contracts and React product surfaces for projects, ticket
+ - `@inneranimalmedia/agentsam-work/fixtures` — deterministic fixture host
+ - `@inneranimalmedia/agentsam-work/frontend` — React product surface
+ - `@inneranimalmedia/agentsam-work/theme.css` — theme token styles
++
++## Host shell integration
++
++WorkProduct supports two presentation modes:
++
++- standalone (default): Work owns its own navigation shell for direct mounting.
++- embedded: the host application owns global navigation/topbar and Work renders only the selected product surface.
++
++Use presentation="embedded" when mounting Work inside an existing application shell. Use the exported --agentsam-work-* CSS variables to map Work into the host design system. Embedded mode intentionally does not render a second sidebar, topbar, right rail, mobile nav, or drawer.
+diff --git a/dist/frontend/WorkProduct.d.ts b/dist/frontend/WorkProduct.d.ts
+index de2acb8d4836d02fd26bcff7dbd079fb04364f45..118504a84e8dd6972c1fdb1052291feeb925d35c 100644
+--- a/dist/frontend/WorkProduct.d.ts
++++ b/dist/frontend/WorkProduct.d.ts
+@@ -1,8 +1,10 @@
+ import type { WorkHost, WorkNavigate, WorkSurfaceId } from "../contracts/index";
+-export declare function WorkProduct({ host, surface, onNavigate, projectId, ticketId, }: {
++import { type WorkShellPresentation } from "./WorkShell";
++export declare function WorkProduct({ host, surface, onNavigate, projectId, ticketId, presentation, }: {
+     host: WorkHost;
+     surface: WorkSurfaceId;
+     onNavigate: WorkNavigate;
+     projectId?: string;
+     ticketId?: string;
++    presentation?: WorkShellPresentation;
+ }): import("react").JSX.Element;
+diff --git a/dist/frontend/WorkShell.d.ts b/dist/frontend/WorkShell.d.ts
+index 7db992682c4439a27bca49e8526763be022a8ea5..b4222072be4810959269b707e9651e354f151493 100644
+--- a/dist/frontend/WorkShell.d.ts
++++ b/dist/frontend/WorkShell.d.ts
+@@ -1,12 +1,14 @@
+ import { type ReactNode } from "react";
+ import type { WorkNavItem, WorkNavigate, WorkSurfaceId } from "../contracts/index";
+-export declare function WorkShell({ nav, surface, onNavigate, children, trailing, rightRail, }: {
++export type WorkShellPresentation = "standalone" | "embedded";
++export declare function WorkShell({ nav, surface, onNavigate, children, trailing, rightRail, presentation, }: {
+     nav: WorkNavItem[];
+     surface: WorkSurfaceId;
+     onNavigate: WorkNavigate;
+     children: ReactNode;
+     trailing?: ReactNode;
+     rightRail?: boolean;
++    presentation?: WorkShellPresentation;
+ }): import("react").JSX.Element;
+ export declare function WorkSearch({ value, onChange, placeholder, }: {
+     value: string;
+diff --git a/dist/frontend/index.js b/dist/frontend/index.js
+index d0abc819e277f982c918a3de4c7aaee253df00b3..e0c3523852d1fad5e7503093d965f364c6545949 100644
+--- a/dist/frontend/index.js
++++ b/dist/frontend/index.js
+@@ -173,24 +173,19 @@ function WorkShell({
+   onNavigate,
+   children,
+   trailing,
+-  rightRail = false
++  rightRail = false,
++  presentation = "standalone"
+ }) {
+   const [drawerOpen, setDrawerOpen] = useState(false);
+   const current = activeNavId(surface);
+-  return /* @__PURE__ */ jsxs("div", { className: "agentsam-work agentsam-work-shell", "data-right-rail": rightRail, children: [
++  if (presentation === "embedded") {
++    return /* @__PURE__ */ jsx("div", { className: "agentsam-work agentsam-work-shell", "data-presentation": "embedded", "data-right-rail": "false", children: /* @__PURE__ */ jsx("section", { className: "agentsam-work-stage", children: /* @__PURE__ */ jsx("div", { className: "agentsam-work-stage__body", children }) }) });
++  }
++  return /* @__PURE__ */ jsxs("div", { className: "agentsam-work agentsam-work-shell", "data-presentation": "standalone", "data-right-rail": rightRail, children: [
+     /* @__PURE__ */ jsx("aside", { className: "agentsam-work-mini-nav", children: /* @__PURE__ */ jsx(MiniNav, { nav, surface, onNavigate }) }),
+     /* @__PURE__ */ jsxs("section", { className: "agentsam-work-stage", children: [
+       /* @__PURE__ */ jsxs("header", { className: "agentsam-work-stage__topbar", children: [
+-        /* @__PURE__ */ jsx(
+-          "button",
+-          {
+-            type: "button",
+-            className: "agentsam-work-stage__mobile-menu",
+-            onClick: () => setDrawerOpen(true),
+-            "aria-label": "Open Work navigation",
+-            children: /* @__PURE__ */ jsx(Menu, { size: 18 })
+-          }
+-        ),
++        /* @__PURE__ */ jsx("button", { type: "button", className: "agentsam-work-stage__mobile-menu", onClick: () => setDrawerOpen(true), "aria-label": "Open Work navigation", children: /* @__PURE__ */ jsx(Menu, { size: 18 }) }),
+         /* @__PURE__ */ jsx("span", { className: "agentsam-work-stage__muted", children: "Work" }),
+         /* @__PURE__ */ jsx("span", { className: "agentsam-work-stage__muted", children: "/" }),
+         /* @__PURE__ */ jsx("span", { className: "agentsam-work-stage__crumb", children: shellTitle(surface) }),
+@@ -206,38 +201,13 @@ function WorkShell({
+       { id: "mail", label: "Mail", href: "/mail", icon: Mail },
+       { id: "projects", label: "Projects", href: "/projects", icon: FolderKanban },
+       { id: "artifacts", label: "Files", href: "/artifacts", icon: Archive }
+-    ].map((item) => /* @__PURE__ */ jsxs(
+-      "button",
+-      {
+-        type: "button",
+-        "data-active": current === item.id,
+-        onClick: () => onNavigate(navHref(item, surface)),
+-        children: [
+-          /* @__PURE__ */ jsx(item.icon, { size: 17 }),
+-          item.label
+-        ]
+-      },
+-      item.id
+-    )) }),
++    ].map((item) => /* @__PURE__ */ jsxs("button", { type: "button", "data-active": current === item.id, onClick: () => onNavigate(navHref(item, surface)), children: [
++      /* @__PURE__ */ jsx(item.icon, { size: 17 }),
++      item.label
++    ] }, item.id)) }),
+     drawerOpen ? /* @__PURE__ */ jsxs(Fragment, { children: [
+-      /* @__PURE__ */ jsx(
+-        "button",
+-        {
+-          type: "button",
+-          className: "agentsam-work-drawer-backdrop",
+-          onClick: () => setDrawerOpen(false),
+-          "aria-label": "Close Work navigation"
+-        }
+-      ),
+-      /* @__PURE__ */ jsx("aside", { className: "agentsam-work-drawer", children: /* @__PURE__ */ jsx(
+-        MiniNav,
+-        {
+-          nav,
+-          surface,
+-          onNavigate,
+-          onClose: () => setDrawerOpen(false)
+-        }
+-      ) })
++      /* @__PURE__ */ jsx("button", { type: "button", className: "agentsam-work-drawer-backdrop", onClick: () => setDrawerOpen(false), "aria-label": "Close Work navigation" }),
++      /* @__PURE__ */ jsx("aside", { className: "agentsam-work-drawer", children: /* @__PURE__ */ jsx(MiniNav, { nav, surface, onNavigate, onClose: () => setDrawerOpen(false) }) })
+     ] }) : null
+   ] });
+ }
+@@ -260,7 +230,7 @@ function WorkSearch({
+ }
+ 
+ // src/frontend/WorkProduct.tsx
+-import { useEffect, useMemo as useMemo6, useState as useState8 } from "react";
++import { useEffect, useMemo as useMemo6, useState as useState7 } from "react";
+ 
+ // src/frontend/surfaces/CalendarSurface.tsx
+ import { ChevronLeft, ChevronRight, RefreshCw } from "lucide-react";
+@@ -951,382 +921,151 @@ function ArtifactsSurface({ artifacts }) {
+ }
+ 
+ // src/frontend/surfaces/ProjectsSurface.tsx
+-import { Camera, MoreHorizontal, Plus as Plus2, Search as Search3 } from "lucide-react";
++import { Search as Search3 } from "lucide-react";
+ import { useMemo as useMemo5, useState as useState6 } from "react";
+ import { jsx as jsx6, jsxs as jsxs6 } from "react/jsx-runtime";
+ function ProjectsSurface({
+   projects,
+   onNavigate
+ }) {
+-  const [tab, setTab] = useState6("mine");
++  const [tab, setTab] = useState6("active");
+   const [query, setQuery] = useState6("");
+   const visible = useMemo5(() => {
+-    const q = query.toLowerCase();
++    const q = query.trim().toLowerCase();
+     return projects.filter((project) => {
+-      if (q && !project.name.toLowerCase().includes(q)) return false;
++      if (q && !(project.name + " " + (project.projectType || "")).toLowerCase().includes(q)) return false;
+       if (tab === "archived") return project.status === "complete";
+-      if (tab === "starred" || tab === "shared" || tab === "recent") {
+-        return false;
+-      }
+-      return true;
++      return project.status !== "complete";
+     });
+   }, [projects, query, tab]);
+-  return /* @__PURE__ */ jsxs6("div", { style: { maxWidth: 1080, margin: "0 auto", padding: "28px 24px 72px" }, children: [
+-    /* @__PURE__ */ jsxs6("div", { style: { display: "flex", alignItems: "center", gap: 10 }, children: [
+-      /* @__PURE__ */ jsx6("h1", { style: { margin: 0, fontSize: 28, letterSpacing: "-.03em" }, children: "Projects" }),
+-      /* @__PURE__ */ jsx6("div", { style: { flex: 1 } }),
+-      /* @__PURE__ */ jsxs6(
+-        "label",
+-        {
+-          style: {
+-            width: 38,
+-            height: 38,
+-            display: "grid",
+-            placeItems: "center",
+-            borderRadius: "50%",
+-            border: "1px solid var(--agentsam-work-border)",
+-            cursor: "pointer"
+-          },
+-          children: [
+-            /* @__PURE__ */ jsx6(Search3, { size: 17 }),
+-            /* @__PURE__ */ jsx6(
+-              "input",
+-              {
+-                value: query,
+-                onChange: (event) => setQuery(event.target.value),
+-                style: { position: "absolute", opacity: 0, pointerEvents: "none" },
+-                "aria-label": "Search projects"
+-              }
+-            )
+-          ]
+-        }
+-      ),
+-      /* @__PURE__ */ jsx6(
+-        "button",
+-        {
+-          type: "button",
+-          className: "agentsam-work-toolbar-button",
+-          disabled: true,
+-          title: "Create project is not available on hosted yet",
+-          "aria-label": "New project unavailable",
+-          style: { width: 38, height: 38, padding: 0, borderRadius: "50%", opacity: 0.45 },
+-          children: /* @__PURE__ */ jsx6(Plus2, { size: 18 })
+-        }
+-      )
++  return /* @__PURE__ */ jsxs6("div", { className: "agentsam-work-page agentsam-work-projects", children: [
++    /* @__PURE__ */ jsxs6("div", { className: "agentsam-work-page__header", children: [
++      /* @__PURE__ */ jsxs6("div", { children: [
++        /* @__PURE__ */ jsx6("p", { className: "agentsam-work-page__eyebrow", children: "Work" }),
++        /* @__PURE__ */ jsx6("h1", { className: "agentsam-work-page__title", children: "Projects" }),
++        /* @__PURE__ */ jsx6("p", { className: "agentsam-work-page__description", children: "Active work, progress and project context from the connected Work host." })
++      ] }),
++      /* @__PURE__ */ jsxs6("label", { className: "agentsam-work-project-search", children: [
++        /* @__PURE__ */ jsx6(Search3, { size: 16 }),
++        /* @__PURE__ */ jsx6(
++          "input",
++          {
++            value: query,
++            onChange: (event) => setQuery(event.target.value),
++            placeholder: "Search projects",
++            "aria-label": "Search projects"
++          }
++        )
++      ] })
+     ] }),
+-    /* @__PURE__ */ jsx6("div", { style: { display: "flex", gap: 8, marginTop: 18, flexWrap: "wrap" }, children: [
+-      ["mine", "My Projects", true],
+-      ["recent", "Recent", false],
+-      ["shared", "Shared", false],
+-      ["archived", "Archived", true],
+-      ["starred", "Starred", false]
+-    ].map(([id, label, enabled]) => /* @__PURE__ */ jsx6(
+-      "button",
+-      {
+-        type: "button",
+-        className: "agentsam-work-toolbar-button",
+-        "data-primary": tab === id,
+-        disabled: !enabled,
+-        title: enabled ? void 0 : "Not wired yet",
+-        onClick: () => enabled && setTab(id),
+-        children: label
+-      },
+-      id
+-    )) }),
+-    /* @__PURE__ */ jsxs6(
+-      "div",
+-      {
+-        style: {
+-          marginTop: 18,
+-          display: "grid",
+-          gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+-          gap: 14
+-        },
+-        children: [
+-          !visible.length ? /* @__PURE__ */ jsxs6("div", { className: "agentsam-work-empty", style: { gridColumn: "1 / -1", padding: "36px 12px" }, children: [
+-            /* @__PURE__ */ jsx6("strong", { style: { display: "block", fontSize: 16 }, children: tab === "mine" ? "No projects yet" : `No ${tab} projects` }),
+-            /* @__PURE__ */ jsx6("p", { style: { margin: "8px 0 0", color: "var(--agentsam-work-muted)", fontSize: 13, lineHeight: 1.55 }, children: tab === "mine" ? "Real account and CMS site projects from /api/work/snapshot appear here. Sample gallery cards are never shown in production." : "This filter has no matching account-owned records." })
+-          ] }) : null,
+-          visible.map((project) => /* @__PURE__ */ jsxs6(
+-            "article",
+-            {
+-              className: "agentsam-work-card",
+-              style: {
+-                overflow: "hidden",
+-                minHeight: 280,
+-                borderTop: "3px solid " + project.accent,
+-                background: "color-mix(in srgb, var(--agentsam-work-panel) 88%, " + project.accent + " 12%)"
+-              },
+-              children: [
+-                /* @__PURE__ */ jsxs6(
+-                  "div",
+-                  {
+-                    style: {
+-                      position: "relative",
+-                      height: 145,
+-                      display: "grid",
+-                      placeItems: "center",
+-                      background: project.coverImageUrl ? `center / cover no-repeat url(${JSON.stringify(project.coverImageUrl)})` : "color-mix(in srgb, var(--agentsam-work-panel-subtle) 85%, " + project.accent + " 15%)"
+-                    },
+-                    children: [
+-                      !project.coverImageUrl ? /* @__PURE__ */ jsx6(Camera, { size: 20, color: "var(--agentsam-work-muted)" }) : null,
+-                      /* @__PURE__ */ jsx6(
+-                        "button",
+-                        {
+-                          type: "button",
+-                          style: {
+-                            position: "absolute",
+-                            top: 8,
+-                            right: 8,
+-                            width: 28,
+-                            height: 28,
+-                            display: "grid",
+-                            placeItems: "center",
+-                            border: 0,
+-                            borderRadius: 8,
+-                            background: "rgb(0 0 0 / 55%)",
+-                            color: "white"
+-                          },
+-                          "aria-label": "More actions for " + project.name,
+-                          children: /* @__PURE__ */ jsx6(MoreHorizontal, { size: 16 })
+-                        }
+-                      )
+-                    ]
+-                  }
+-                ),
+-                /* @__PURE__ */ jsxs6(
+-                  "button",
+-                  {
+-                    type: "button",
+-                    onClick: () => onNavigate("/projects/" + encodeURIComponent(project.id)),
+-                    style: {
+-                      width: "100%",
+-                      minHeight: 132,
+-                      display: "block",
+-                      padding: 14,
+-                      border: 0,
+-                      background: "transparent",
+-                      textAlign: "left",
+-                      cursor: "pointer"
+-                    },
+-                    children: [
+-                      /* @__PURE__ */ jsx6("h2", { style: { margin: 0, fontSize: 13 }, children: project.name }),
+-                      /* @__PURE__ */ jsx6("div", { style: { marginTop: 6, color: "var(--agentsam-work-muted)", fontSize: 10 }, children: project.projectType || "project" }),
+-                      /* @__PURE__ */ jsx6("div", { style: { marginTop: 18, height: 3, borderRadius: 99, background: "var(--agentsam-work-border)" }, children: /* @__PURE__ */ jsx6(
+-                        "span",
+-                        {
+-                          style: {
+-                            display: "block",
+-                            width: Math.max(2, project.progress) + "%",
+-                            height: "100%",
+-                            borderRadius: 99,
+-                            background: project.accent
+-                          }
+-                        }
+-                      ) }),
+-                      /* @__PURE__ */ jsxs6("div", { style: { marginTop: 8, display: "flex", alignItems: "center", gap: 8 }, children: [
+-                        /* @__PURE__ */ jsx6(
+-                          "span",
+-                          {
+-                            style: {
+-                              width: 24,
+-                              height: 24,
+-                              display: "grid",
+-                              placeItems: "center",
+-                              borderRadius: "50%",
+-                              background: project.accent,
+-                              color: "white",
+-                              fontSize: 8,
+-                              fontWeight: 700
+-                            },
+-                            children: project.initials
+-                          }
+-                        ),
+-                        /* @__PURE__ */ jsx6("div", { style: { flex: 1 } }),
+-                        /* @__PURE__ */ jsx6("span", { style: { color: "var(--agentsam-work-success)", fontSize: 9, textTransform: "capitalize" }, children: project.status === "active" ? "In Development" : project.status })
+-                      ] })
+-                    ]
+-                  }
+-                )
+-              ]
+-            },
+-            project.id
+-          ))
+-        ]
+-      }
+-    )
++    /* @__PURE__ */ jsxs6("div", { className: "agentsam-work-tabs", role: "tablist", "aria-label": "Project views", children: [
++      /* @__PURE__ */ jsx6("button", { type: "button", role: "tab", "aria-selected": tab === "active", "data-active": tab === "active", onClick: () => setTab("active"), children: "Active" }),
++      /* @__PURE__ */ jsx6("button", { type: "button", role: "tab", "aria-selected": tab === "archived", "data-active": tab === "archived", onClick: () => setTab("archived"), children: "Archived" })
++    ] }),
++    !visible.length ? /* @__PURE__ */ jsxs6("div", { className: "agentsam-work-empty agentsam-work-projects__empty", children: [
++      /* @__PURE__ */ jsx6("strong", { children: tab === "active" ? "No active projects yet" : "No archived projects" }),
++      /* @__PURE__ */ jsx6("p", { children: tab === "active" ? "Projects will appear here when the connected Work host returns project records." : "Completed projects will appear here when they are available from the Work host." })
++    ] }) : /* @__PURE__ */ jsx6("div", { className: "agentsam-work-project-grid", children: visible.map((project) => /* @__PURE__ */ jsxs6("button", { type: "button", className: "agentsam-work-project-card", onClick: () => onNavigate("/projects/" + encodeURIComponent(project.id)), children: [
++      /* @__PURE__ */ jsxs6("div", { className: "agentsam-work-project-card__top", children: [
++        /* @__PURE__ */ jsx6("span", { className: "agentsam-work-project-card__initials", style: { background: project.accent }, children: project.initials }),
++        /* @__PURE__ */ jsx6("span", { className: "agentsam-work-project-card__status", children: project.status })
++      ] }),
++      /* @__PURE__ */ jsx6("h2", { children: project.name }),
++      /* @__PURE__ */ jsx6("p", { children: project.description || project.projectType || "Project" }),
++      /* @__PURE__ */ jsx6("div", { className: "agentsam-work-project-card__progress", children: /* @__PURE__ */ jsx6("span", { style: { width: Math.max(2, project.progress) + "%", background: project.accent } }) }),
++      /* @__PURE__ */ jsxs6("div", { className: "agentsam-work-project-card__meta", children: [
++        /* @__PURE__ */ jsxs6("span", { children: [
++          project.progress,
++          "% complete"
++        ] }),
++        /* @__PURE__ */ jsxs6("span", { children: [
++          project.openTasks,
++          " open tasks"
++        ] })
++      ] })
++    ] }, project.id)) })
+   ] });
+ }
+ 
+ // src/frontend/surfaces/ProjectDetailSurface.tsx
+-import { CalendarDays as CalendarDays2, ChevronDown, ExternalLink, Folder as Folder2, GitBranch, MoreHorizontal as MoreHorizontal2, RefreshCw as RefreshCw2, Send as Send2, Star as Star3, Timer, Users as Users2 } from "lucide-react";
+-import { useState as useState7 } from "react";
++import { Archive as Archive3, CalendarDays as CalendarDays2, CheckSquare as CheckSquare2, GitBranch, Timer } from "lucide-react";
+ import { jsx as jsx7, jsxs as jsxs7 } from "react/jsx-runtime";
+ function ProjectDetailSurface({
+   project,
+   onNavigate
+ }) {
+-  const [prompt, setPrompt] = useState7("");
+-  return /* @__PURE__ */ jsxs7("div", { style: { height: "100%", display: "grid", gridTemplateColumns: "minmax(0, 1fr) 320px", minWidth: 820 }, children: [
+-    /* @__PURE__ */ jsxs7("main", { style: { minWidth: 0, overflowY: "auto", padding: "28px 34px 72px" }, children: [
+-      /* @__PURE__ */ jsx7(
+-        "button",
+-        {
+-          type: "button",
+-          onClick: () => onNavigate("/projects"),
+-          style: { border: 0, background: "transparent", color: "var(--agentsam-work-muted)", fontSize: 10, cursor: "pointer" },
+-          children: "\u2190 All projects"
+-        }
+-      ),
+-      /* @__PURE__ */ jsxs7("div", { style: { display: "flex", alignItems: "center", gap: 10, marginTop: 18 }, children: [
+-        /* @__PURE__ */ jsx7("h1", { style: { margin: 0, minWidth: 0, flex: 1, fontSize: 28, letterSpacing: "-.03em" }, children: project.name }),
+-        /* @__PURE__ */ jsx7(RefreshCw2, { size: 15, color: "var(--agentsam-work-muted)" }),
+-        /* @__PURE__ */ jsx7(MoreHorizontal2, { size: 17, color: "var(--agentsam-work-muted)" }),
+-        /* @__PURE__ */ jsx7(Star3, { size: 16, color: "var(--agentsam-work-muted)" })
++  return /* @__PURE__ */ jsxs7("div", { className: "agentsam-work-page agentsam-work-project-detail", children: [
++    /* @__PURE__ */ jsx7("button", { type: "button", className: "agentsam-work-back", onClick: () => onNavigate("/projects"), children: "\u2190 Projects" }),
++    /* @__PURE__ */ jsxs7("div", { className: "agentsam-work-page__header agentsam-work-project-detail__header", children: [
++      /* @__PURE__ */ jsxs7("div", { children: [
++        /* @__PURE__ */ jsx7("p", { className: "agentsam-work-page__eyebrow", children: project.projectType || "Project" }),
++        /* @__PURE__ */ jsx7("h1", { className: "agentsam-work-page__title", children: project.name }),
++        /* @__PURE__ */ jsx7("p", { className: "agentsam-work-page__description", children: project.description || "Project context, progress and connected work." })
+       ] }),
+-      /* @__PURE__ */ jsxs7(
+-        "div",
+-        {
+-          className: "agentsam-work-card",
+-          style: {
+-            marginTop: 20,
+-            padding: 14,
+-            background: "var(--agentsam-work-panel-subtle)"
+-          },
+-          children: [
+-            /* @__PURE__ */ jsx7("div", { style: { fontSize: 12 }, children: "How can I help you today?" }),
+-            /* @__PURE__ */ jsx7(
+-              "textarea",
+-              {
+-                value: prompt,
+-                onChange: (event) => setPrompt(event.target.value),
+-                rows: 3,
+-                placeholder: "Ask AgentSam about this project\u2026",
+-                style: {
+-                  width: "100%",
+-                  resize: "vertical",
+-                  marginTop: 8,
+-                  border: 0,
+-                  outline: 0,
+-                  background: "transparent",
+-                  color: "var(--agentsam-work-text)"
+-                }
+-              }
+-            ),
+-            /* @__PURE__ */ jsx7("div", { style: { display: "flex", justifyContent: "flex-end" }, children: /* @__PURE__ */ jsx7("button", { type: "button", className: "agentsam-work-toolbar-button", "data-primary": "true", "aria-label": "Send", children: /* @__PURE__ */ jsx7(Send2, { size: 14 }) }) })
+-          ]
+-        }
+-      ),
+-      /* @__PURE__ */ jsx7("div", { style: { marginTop: 34, color: "var(--agentsam-work-muted)", fontSize: 11 }, children: "No chats in this project yet. Start one above \u2014 AgentSam opens full-screen with this project linked." })
++      /* @__PURE__ */ jsx7("span", { className: "agentsam-work-project-detail__status", children: project.status })
+     ] }),
+-    /* @__PURE__ */ jsxs7("aside", { style: { minHeight: 0, overflowY: "auto", borderLeft: "1px solid var(--agentsam-work-border)", background: "var(--agentsam-work-panel-subtle)" }, children: [
+-      /* @__PURE__ */ jsxs7("section", { style: { padding: 18, borderBottom: "1px solid var(--agentsam-work-border)" }, children: [
+-        /* @__PURE__ */ jsxs7("div", { style: { display: "flex", alignItems: "center", gap: 8 }, children: [
+-          /* @__PURE__ */ jsx7("strong", { style: { fontSize: 12 }, children: "Quick stats" }),
+-          /* @__PURE__ */ jsx7(ChevronDown, { size: 13 }),
+-          /* @__PURE__ */ jsx7("div", { style: { flex: 1 } }),
+-          /* @__PURE__ */ jsx7(RefreshCw2, { size: 13 }),
+-          /* @__PURE__ */ jsx7(ExternalLink, { size: 13 })
+-        ] }),
+-        /* @__PURE__ */ jsx7("div", { style: { marginTop: 14, color: "var(--agentsam-work-muted)", fontSize: 9, textTransform: "uppercase" }, children: "This week" }),
+-        /* @__PURE__ */ jsx7("div", { style: { marginTop: 6, fontSize: 12, fontWeight: 600 }, children: "Project insights" }),
+-        /* @__PURE__ */ jsxs7("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginTop: 14 }, children: [
+-          /* @__PURE__ */ jsx7("button", { className: "agentsam-work-toolbar-button", "data-primary": "true", type: "button", children: "Week" }),
+-          /* @__PURE__ */ jsx7("button", { className: "agentsam-work-toolbar-button", type: "button", children: "Month" })
+-        ] }),
+-        /* @__PURE__ */ jsxs7("div", { style: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 6, marginTop: 10 }, children: [
+-          /* @__PURE__ */ jsx7("button", { className: "agentsam-work-toolbar-button", "data-primary": "true", type: "button", children: "Time" }),
+-          /* @__PURE__ */ jsx7("button", { className: "agentsam-work-toolbar-button", type: "button", children: "Cost" }),
+-          /* @__PURE__ */ jsx7("button", { className: "agentsam-work-toolbar-button", type: "button", children: "Progress" })
+-        ] }),
+-        /* @__PURE__ */ jsxs7("div", { style: { display: "flex", alignItems: "center", gap: 8, marginTop: 12 }, children: [
+-          /* @__PURE__ */ jsxs7("button", { className: "agentsam-work-toolbar-button", type: "button", children: [
+-            /* @__PURE__ */ jsx7(Timer, { size: 14 }),
+-            " Start"
+-          ] }),
+-          /* @__PURE__ */ jsx7("div", { style: { flex: 1 } }),
+-          /* @__PURE__ */ jsx7("span", { style: { color: "var(--agentsam-work-muted)", fontSize: 10 }, children: "Today" }),
+-          /* @__PURE__ */ jsxs7("strong", { style: { fontSize: 11 }, children: [
+-            project.trackedMinutes,
+-            "m"
+-          ] })
+-        ] }),
+-        /* @__PURE__ */ jsx7(
+-          "div",
+-          {
+-            style: {
+-              width: 86,
+-              height: 86,
+-              margin: "12px auto 0",
+-              borderRadius: "50%",
+-              background: "conic-gradient(var(--agentsam-work-success) 0 78%, var(--agentsam-work-border) 78% 100%)",
+-              display: "grid",
+-              placeItems: "center"
+-            },
+-            children: /* @__PURE__ */ jsx7("span", { style: { width: 52, height: 52, borderRadius: "50%", background: "var(--agentsam-work-panel-subtle)" } })
+-          }
+-        ),
+-        /* @__PURE__ */ jsxs7("div", { style: { display: "grid", gap: 8, marginTop: 12, fontSize: 10 }, children: [
+-          /* @__PURE__ */ jsxs7("div", { style: { display: "flex" }, children: [
+-            /* @__PURE__ */ jsx7("span", { children: "Tracked today" }),
+-            /* @__PURE__ */ jsxs7("span", { style: { marginLeft: "auto" }, children: [
+-              project.trackedMinutes,
+-              "m"
+-            ] })
+-          ] }),
+-          /* @__PURE__ */ jsxs7("div", { style: { display: "flex" }, children: [
+-            /* @__PURE__ */ jsx7("span", { children: "Open tasks" }),
+-            /* @__PURE__ */ jsx7("span", { style: { marginLeft: "auto" }, children: project.openTasks })
+-          ] }),
+-          /* @__PURE__ */ jsxs7("div", { style: { display: "flex" }, children: [
+-            /* @__PURE__ */ jsx7("span", { children: "Progress" }),
+-            /* @__PURE__ */ jsxs7("span", { style: { marginLeft: "auto" }, children: [
++    /* @__PURE__ */ jsxs7("div", { className: "agentsam-work-project-detail__layout", children: [
++      /* @__PURE__ */ jsxs7("main", { className: "agentsam-work-project-detail__main", children: [
++        /* @__PURE__ */ jsxs7("section", { className: "agentsam-work-card agentsam-work-project-overview", children: [
++          /* @__PURE__ */ jsxs7("div", { className: "agentsam-work-section-heading", children: [
++            /* @__PURE__ */ jsxs7("div", { children: [
++              /* @__PURE__ */ jsx7("p", { className: "agentsam-work-page__eyebrow", children: "Progress" }),
++              /* @__PURE__ */ jsx7("h2", { children: "Project overview" })
++            ] }),
++            /* @__PURE__ */ jsxs7("strong", { children: [
+               project.progress,
+               "%"
+             ] })
++          ] }),
++          /* @__PURE__ */ jsx7("div", { className: "agentsam-work-project-card__progress", children: /* @__PURE__ */ jsx7("span", { style: { width: Math.max(2, project.progress) + "%", background: project.accent } }) }),
++          /* @__PURE__ */ jsxs7("div", { className: "agentsam-work-stat-grid", children: [
++            /* @__PURE__ */ jsxs7("div", { children: [
++              /* @__PURE__ */ jsx7(CheckSquare2, { size: 16 }),
++              /* @__PURE__ */ jsxs7("span", { children: [
++                /* @__PURE__ */ jsx7("strong", { children: project.openTasks }),
++                /* @__PURE__ */ jsx7("small", { children: "Open tasks" })
++              ] })
++            ] }),
++            /* @__PURE__ */ jsxs7("div", { children: [
++              /* @__PURE__ */ jsx7(Timer, { size: 16 }),
++              /* @__PURE__ */ jsxs7("span", { children: [
++                /* @__PURE__ */ jsx7("strong", { children: project.trackedMinutes }),
++                /* @__PURE__ */ jsx7("small", { children: "Tracked minutes" })
++              ] })
++            ] }),
++            /* @__PURE__ */ jsxs7("div", { children: [
++              /* @__PURE__ */ jsx7(GitBranch, { size: 16 }),
++              /* @__PURE__ */ jsxs7("span", { children: [
++                /* @__PURE__ */ jsx7("strong", { children: project.githubRepo ? "Linked" : "Not linked" }),
++                /* @__PURE__ */ jsx7("small", { children: "Repository" })
++              ] })
++            ] })
+           ] })
+         ] }),
+-        /* @__PURE__ */ jsxs7("div", { style: { display: "flex", gap: 8, marginTop: 14 }, children: [
+-          /* @__PURE__ */ jsxs7("button", { className: "agentsam-work-toolbar-button", type: "button", children: [
+-            /* @__PURE__ */ jsx7(Users2, { size: 13 }),
+-            " Tasks"
+-          ] }),
+-          /* @__PURE__ */ jsxs7("button", { className: "agentsam-work-toolbar-button", type: "button", children: [
+-            /* @__PURE__ */ jsx7(CalendarDays2, { size: 13 }),
+-            " Calendar"
+-          ] }),
+-          /* @__PURE__ */ jsxs7("button", { className: "agentsam-work-toolbar-button", type: "button", children: [
+-            /* @__PURE__ */ jsx7(ExternalLink, { size: 13 }),
+-            " Collaborate"
++        project.githubRepo ? /* @__PURE__ */ jsxs7("section", { className: "agentsam-work-card agentsam-work-project-repo", children: [
++          /* @__PURE__ */ jsx7(GitBranch, { size: 18 }),
++          /* @__PURE__ */ jsxs7("div", { children: [
++            /* @__PURE__ */ jsx7("strong", { children: "Repository" }),
++            /* @__PURE__ */ jsx7("p", { children: project.githubRepo })
+           ] })
+-        ] })
++        ] }) : null
+       ] }),
+-      /* @__PURE__ */ jsxs7("section", { style: { padding: 18, borderBottom: "1px solid var(--agentsam-work-border)" }, children: [
+-        /* @__PURE__ */ jsxs7("div", { style: { display: "flex", alignItems: "center", gap: 8 }, children: [
+-          /* @__PURE__ */ jsx7("strong", { style: { fontSize: 12 }, children: "Codebase index" }),
+-          /* @__PURE__ */ jsx7(ChevronDown, { size: 13 }),
+-          /* @__PURE__ */ jsx7("div", { style: { flex: 1 } }),
+-          /* @__PURE__ */ jsx7(GitBranch, { size: 14 }),
+-          /* @__PURE__ */ jsx7(RefreshCw2, { size: 13 })
++      /* @__PURE__ */ jsxs7("aside", { className: "agentsam-work-card agentsam-work-project-detail__rail", children: [
++        /* @__PURE__ */ jsx7("p", { className: "agentsam-work-page__eyebrow", children: "Workspace" }),
++        /* @__PURE__ */ jsx7("h2", { children: "Open related work" }),
++        /* @__PURE__ */ jsxs7("button", { type: "button", onClick: () => onNavigate("/collaborate?seg=tickets"), children: [
++          /* @__PURE__ */ jsx7(CheckSquare2, { size: 16 }),
++          /* @__PURE__ */ jsx7("span", { children: "Tickets" })
++        ] }),
++        /* @__PURE__ */ jsxs7("button", { type: "button", onClick: () => onNavigate("/collaborate"), children: [
++          /* @__PURE__ */ jsx7(CalendarDays2, { size: 16 }),
++          /* @__PURE__ */ jsx7("span", { children: "Calendar" })
+         ] }),
+-        /* @__PURE__ */ jsx7("p", { style: { color: "var(--agentsam-work-muted)", fontSize: 10, lineHeight: 1.5 }, children: project.githubRepo ? "Repository linked and ready for indexing." : "Connect a GitHub repository to index and search this project's code." }),
+-        /* @__PURE__ */ jsxs7("button", { className: "agentsam-work-toolbar-button", type: "button", children: [
+-          /* @__PURE__ */ jsx7(GitBranch, { size: 13 }),
+-          " ",
+-          project.githubRepo ? project.githubRepo : "Connect GitHub repo"
++        /* @__PURE__ */ jsxs7("button", { type: "button", onClick: () => onNavigate("/artifacts"), children: [
++          /* @__PURE__ */ jsx7(Archive3, { size: 16 }),
++          /* @__PURE__ */ jsx7("span", { children: "Artifacts" })
+         ] })
+-      ] }),
+-      [
+-        ["Brand assets", Folder2],
+-        ["Cover", Folder2],
+-        ["Memory", Folder2]
+-      ].map(([label, Icon]) => /* @__PURE__ */ jsxs7("section", { style: { padding: 18, borderBottom: "1px solid var(--agentsam-work-border)", display: "flex", alignItems: "center", gap: 8 }, children: [
+-        /* @__PURE__ */ jsx7("strong", { style: { fontSize: 12 }, children: label }),
+-        /* @__PURE__ */ jsx7(ChevronDown, { size: 13 }),
+-        /* @__PURE__ */ jsx7("div", { style: { flex: 1 } }),
+-        /* @__PURE__ */ jsx7(Icon, { size: 14 }),
+-        /* @__PURE__ */ jsx7(ExternalLink, { size: 13 })
+-      ] }, String(label)))
++      ] })
+     ] })
+   ] });
+ }
+@@ -1337,7 +1076,7 @@ import {
+   CheckCircle2,
+   Link2,
+   Play,
+-  RefreshCw as RefreshCw3
++  RefreshCw as RefreshCw2
+ } from "lucide-react";
+ import { jsx as jsx8, jsxs as jsxs8 } from "react/jsx-runtime";
+ function prettyStatus(status) {
+@@ -1402,7 +1141,7 @@ function TicketDetailSurface({
+         "Close with proof"
+       ] }),
+       /* @__PURE__ */ jsxs8("button", { type: "button", className: "agentsam-work-toolbar-button", children: [
+-        /* @__PURE__ */ jsx8(RefreshCw3, { size: 14 }),
++        /* @__PURE__ */ jsx8(RefreshCw2, { size: 14 }),
+         "Refresh"
+       ] })
+     ] }),
+@@ -1476,10 +1215,11 @@ function WorkProduct({
+   surface,
+   onNavigate,
+   projectId,
+-  ticketId
++  ticketId,
++  presentation = "standalone"
+ }) {
+-  const [snapshot, setSnapshot] = useState8(null);
+-  const [loadError, setLoadError] = useState8(null);
++  const [snapshot, setSnapshot] = useState7(null);
++  const [loadError, setLoadError] = useState7(null);
+   useEffect(() => {
+     let cancelled = false;
+     setLoadError(null);
+@@ -1512,7 +1252,7 @@ function WorkProduct({
+     );
+   }
+   const rightRail = surface === "calendar" || surface === "tickets" || surface === "mail" || surface === "artifacts" || surface === "artifact-tickets";
+-  const authHint = loadError === "unauthorized" ? "Sign in to load account-owned projects and artifacts from /api/work/snapshot." : loadError ? `Work snapshot unavailable (${loadError}). Showing an empty live shell \u2014 not sample fixture data.` : null;
++  const authHint = loadError === "unauthorized" ? "The Work host rejected this snapshot request. Check the host access or session configuration." : loadError ? "Work snapshot unavailable (" + loadError + "). Showing an empty live surface \u2014 not sample fixture data." : null;
+   return /* @__PURE__ */ jsxs9(
+     WorkShell,
+     {
+@@ -1520,6 +1260,7 @@ function WorkProduct({
+       surface,
+       onNavigate,
+       rightRail,
++      presentation,
+       children: [
+         authHint ? /* @__PURE__ */ jsx9(
+           "div",
+diff --git a/dist/frontend/theme.css b/dist/frontend/theme.css
+index 92d70a61330fb241014cef993ccc55537256e494..195d09761b584a642cc33ac597225198006cb6f5 100644
+--- a/dist/frontend/theme.css
++++ b/dist/frontend/theme.css
+@@ -348,3 +348,77 @@
+     box-shadow: 10px 0 34px rgb(0 0 0 / 18%);
+   }
+ }
++
++/* Host-shell integration --------------------------------------------------- */
++.agentsam-work-shell[data-presentation="embedded"] {
++  display: block;
++  height: auto;
++  min-height: 100%;
++  overflow: visible;
++  background: transparent;
++}
++
++.agentsam-work-shell[data-presentation="embedded"] .agentsam-work-stage {
++  min-height: 100%;
++  overflow: visible;
++  background: transparent;
++}
++
++.agentsam-work-shell[data-presentation="embedded"] .agentsam-work-stage__body {
++  height: auto;
++  min-height: 100%;
++  overflow: visible;
++}
++
++/* Shared Work page grammar ------------------------------------------------ */
++.agentsam-work-page { width: min(1180px, 100%); margin: 0 auto; padding: clamp(22px, 4vw, 42px); }
++.agentsam-work-page__header { display: flex; align-items: flex-end; gap: 24px; justify-content: space-between; }
++.agentsam-work-page__eyebrow { margin: 0 0 7px; color: var(--agentsam-work-accent); font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
++.agentsam-work-page__title { margin: 0; color: var(--agentsam-work-text); font-size: clamp(28px, 4vw, 40px); line-height: 1; letter-spacing: -.04em; }
++.agentsam-work-page__description { max-width: 650px; margin: 10px 0 0; color: var(--agentsam-work-muted); font-size: 13px; line-height: 1.55; }
++.agentsam-work-project-search { width: min(280px, 100%); min-height: 38px; display: flex; align-items: center; gap: 8px; padding: 0 11px; border: 1px solid var(--agentsam-work-border); border-radius: 10px; background: var(--agentsam-work-panel); color: var(--agentsam-work-muted); }
++.agentsam-work-project-search input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--agentsam-work-text); }
++.agentsam-work-tabs { display: flex; gap: 6px; margin-top: 22px; padding-bottom: 14px; border-bottom: 1px solid var(--agentsam-work-border); }
++.agentsam-work-tabs button { min-height: 34px; padding: 0 12px; border: 0; border-radius: 9px; background: transparent; color: var(--agentsam-work-muted); cursor: pointer; }
++.agentsam-work-tabs button[data-active="true"] { background: var(--agentsam-work-accent-soft); color: var(--agentsam-work-accent); font-weight: 700; }
++.agentsam-work-projects__empty { margin-top: 22px; padding: clamp(42px, 8vw, 76px) 22px; border: 1px dashed var(--agentsam-work-border); border-radius: var(--agentsam-work-radius); background: color-mix(in srgb, var(--agentsam-work-panel) 72%, transparent); }
++.agentsam-work-projects__empty strong { display: block; font-size: 16px; }
++.agentsam-work-projects__empty p { max-width: 520px; margin: 8px auto 0; color: var(--agentsam-work-muted); font-size: 12px; line-height: 1.55; }
++.agentsam-work-project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 22px; }
++.agentsam-work-project-card { min-width: 0; min-height: 190px; padding: 18px; border: 1px solid var(--agentsam-work-border); border-radius: var(--agentsam-work-radius); background: var(--agentsam-work-panel); text-align: left; box-shadow: 0 1px 2px rgb(20 25 22 / 4%); cursor: pointer; transition: border-color .16s ease, box-shadow .16s ease, transform .16s ease; }
++.agentsam-work-project-card:hover { transform: translateY(-1px); border-color: color-mix(in srgb, var(--agentsam-work-accent) 35%, var(--agentsam-work-border)); box-shadow: 0 8px 26px rgb(20 25 22 / 7%); }
++.agentsam-work-project-card__top, .agentsam-work-project-card__meta, .agentsam-work-section-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
++.agentsam-work-project-card__initials { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 9px; color: white; font-size: 9px; font-weight: 800; }
++.agentsam-work-project-card__status, .agentsam-work-project-detail__status { color: var(--agentsam-work-success); font-size: 10px; font-weight: 700; text-transform: capitalize; }
++.agentsam-work-project-card h2 { margin: 22px 0 0; font-size: 16px; letter-spacing: -.02em; }
++.agentsam-work-project-card > p { min-height: 36px; margin: 7px 0 0; color: var(--agentsam-work-muted); font-size: 11px; line-height: 1.5; }
++.agentsam-work-project-card__progress { height: 5px; overflow: hidden; margin-top: 22px; border-radius: 99px; background: var(--agentsam-work-border); }
++.agentsam-work-project-card__progress span { display: block; height: 100%; border-radius: inherit; }
++.agentsam-work-project-card__meta { margin-top: 9px; color: var(--agentsam-work-muted); font-size: 10px; }
++.agentsam-work-back { margin-bottom: 18px; padding: 0; border: 0; background: transparent; color: var(--agentsam-work-muted); font-size: 11px; cursor: pointer; }
++.agentsam-work-project-detail__header { align-items: center; }
++.agentsam-work-project-detail__status { padding: 7px 10px; border-radius: 999px; background: color-mix(in srgb, var(--agentsam-work-success) 10%, transparent); }
++.agentsam-work-project-detail__layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(230px, 300px); gap: 18px; margin-top: 24px; }
++.agentsam-work-project-detail__main { min-width: 0; display: grid; align-content: start; gap: 14px; }
++.agentsam-work-project-overview, .agentsam-work-project-repo, .agentsam-work-project-detail__rail { padding: 20px; }
++.agentsam-work-section-heading h2, .agentsam-work-project-detail__rail h2 { margin: 0; font-size: 16px; letter-spacing: -.02em; }
++.agentsam-work-section-heading > strong { font-size: 20px; }
++.agentsam-work-stat-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 18px; }
++.agentsam-work-stat-grid > div { min-width: 0; display: flex; align-items: center; gap: 9px; padding: 12px; border-radius: 10px; background: var(--agentsam-work-panel-subtle); }
++.agentsam-work-stat-grid span { min-width: 0; display: flex; flex-direction: column; }
++.agentsam-work-stat-grid strong { font-size: 12px; }
++.agentsam-work-stat-grid small { margin-top: 2px; color: var(--agentsam-work-muted); font-size: 9px; }
++.agentsam-work-project-repo { display: flex; gap: 12px; align-items: center; }
++.agentsam-work-project-repo p { margin: 3px 0 0; color: var(--agentsam-work-muted); font-size: 11px; }
++.agentsam-work-project-detail__rail { align-self: start; }
++.agentsam-work-project-detail__rail button { width: 100%; min-height: 38px; display: flex; align-items: center; gap: 9px; margin-top: 8px; padding: 0 10px; border: 1px solid var(--agentsam-work-border); border-radius: 9px; background: var(--agentsam-work-panel); cursor: pointer; }
++.agentsam-work-project-detail__rail button:hover { background: var(--agentsam-work-panel-subtle); }
++
++@media (max-width: 760px) {
++  .agentsam-work-page { padding: 18px 14px 84px; }
++  .agentsam-work-page__header { align-items: stretch; flex-direction: column; gap: 16px; }
++  .agentsam-work-project-search { width: 100%; }
++  .agentsam-work-project-detail__layout { grid-template-columns: 1fr; }
++  .agentsam-work-project-detail__rail { order: -1; }
++  .agentsam-work-stat-grid { grid-template-columns: 1fr; }
++}
+diff --git a/dist/index.js b/dist/index.js
+index 8694776eb2fdbab7f78d08ed58d73a8bcb67ba3a..af4732b1d1d45fbe78c86d9e17ad8b7358cf8183 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -533,24 +533,19 @@ function WorkShell({
+   onNavigate,
+   children,
+   trailing,
+-  rightRail = false
++  rightRail = false,
++  presentation = "standalone"
+ }) {
+   const [drawerOpen, setDrawerOpen] = useState(false);
+   const current = activeNavId(surface);
+-  return /* @__PURE__ */ jsxs("div", { className: "agentsam-work agentsam-work-shell", "data-right-rail": rightRail, children: [
++  if (presentation === "embedded") {
++    return /* @__PURE__ */ jsx("div", { className: "agentsam-work agentsam-work-shell", "data-presentation": "embedded", "data-right-rail": "false", children: /* @__PURE__ */ jsx("section", { className: "agentsam-work-stage", children: /* @__PURE__ */ jsx("div", { className: "agentsam-work-stage__body", children }) }) });
++  }
++  return /* @__PURE__ */ jsxs("div", { className: "agentsam-work agentsam-work-shell", "data-presentation": "standalone", "data-right-rail": rightRail, children: [
+     /* @__PURE__ */ jsx("aside", { className: "agentsam-work-mini-nav", children: /* @__PURE__ */ jsx(MiniNav, { nav, surface, onNavigate }) }),
+     /* @__PURE__ */ jsxs("section", { className: "agentsam-work-stage", children: [
+       /* @__PURE__ */ jsxs("header", { className: "agentsam-work-stage__topbar", children: [
+-        /* @__PURE__ */ jsx(
+-          "button",
+-          {
+-            type: "button",
+-            className: "agentsam-work-stage__mobile-menu",
+-            onClick: () => setDrawerOpen(true),
+-            "aria-label": "Open Work navigation",
+-            children: /* @__PURE__ */ jsx(Menu, { size: 18 })
+-          }
+-        ),
++        /* @__PURE__ */ jsx("button", { type: "button", className: "agentsam-work-stage__mobile-menu", onClick: () => setDrawerOpen(true), "aria-label": "Open Work navigation", children: /* @__PURE__ */ jsx(Menu, { size: 18 }) }),
+         /* @__PURE__ */ jsx("span", { className: "agentsam-work-stage__muted", children: "Work" }),
+         /* @__PURE__ */ jsx("span", { className: "agentsam-work-stage__muted", children: "/" }),
+         /* @__PURE__ */ jsx("span", { className: "agentsam-work-stage__crumb", children: shellTitle(surface) }),
+@@ -566,38 +561,13 @@ function WorkShell({
+       { id: "mail", label: "Mail", href: "/mail", icon: Mail },
+       { id: "projects", label: "Projects", href: "/projects", icon: FolderKanban },
+       { id: "artifacts", label: "Files", href: "/artifacts", icon: Archive }
+-    ].map((item) => /* @__PURE__ */ jsxs(
+-      "button",
+-      {
+-        type: "button",
+-        "data-active": current === item.id,
+-        onClick: () => onNavigate(navHref(item, surface)),
+-        children: [
+-          /* @__PURE__ */ jsx(item.icon, { size: 17 }),
+-          item.label
+-        ]
+-      },
+-      item.id
+-    )) }),
++    ].map((item) => /* @__PURE__ */ jsxs("button", { type: "button", "data-active": current === item.id, onClick: () => onNavigate(navHref(item, surface)), children: [
++      /* @__PURE__ */ jsx(item.icon, { size: 17 }),
++      item.label
++    ] }, item.id)) }),
+     drawerOpen ? /* @__PURE__ */ jsxs(Fragment, { children: [
+-      /* @__PURE__ */ jsx(
+-        "button",
+-        {
+-          type: "button",
+-          className: "agentsam-work-drawer-backdrop",
+-          onClick: () => setDrawerOpen(false),
+-          "aria-label": "Close Work navigation"
+-        }
+-      ),
+-      /* @__PURE__ */ jsx("aside", { className: "agentsam-work-drawer", children: /* @__PURE__ */ jsx(
+-        MiniNav,
+-        {
+-          nav,
+-          surface,
+-          onNavigate,
+-          onClose: () => setDrawerOpen(false)
+-        }
+-      ) })
++      /* @__PURE__ */ jsx("button", { type: "button", className: "agentsam-work-drawer-backdrop", onClick: () => setDrawerOpen(false), "aria-label": "Close Work navigation" }),
++      /* @__PURE__ */ jsx("aside", { className: "agentsam-work-drawer", children: /* @__PURE__ */ jsx(MiniNav, { nav, surface, onNavigate, onClose: () => setDrawerOpen(false) }) })
+     ] }) : null
+   ] });
+ }
+@@ -620,7 +590,7 @@ function WorkSearch({
+ }
+ 
+ // src/frontend/WorkProduct.tsx
+-import { useEffect, useMemo as useMemo6, useState as useState8 } from "react";
++import { useEffect, useMemo as useMemo6, useState as useState7 } from "react";
+ 
+ // src/frontend/surfaces/CalendarSurface.tsx
+ import { ChevronLeft, ChevronRight, RefreshCw } from "lucide-react";
+@@ -1311,382 +1281,151 @@ function ArtifactsSurface({ artifacts }) {
+ }
+ 
+ // src/frontend/surfaces/ProjectsSurface.tsx
+-import { Camera, MoreHorizontal, Plus as Plus2, Search as Search3 } from "lucide-react";
++import { Search as Search3 } from "lucide-react";
+ import { useMemo as useMemo5, useState as useState6 } from "react";
+ import { jsx as jsx6, jsxs as jsxs6 } from "react/jsx-runtime";
+ function ProjectsSurface({
+   projects,
+   onNavigate
+ }) {
+-  const [tab, setTab] = useState6("mine");
++  const [tab, setTab] = useState6("active");
+   const [query, setQuery] = useState6("");
+   const visible = useMemo5(() => {
+-    const q = query.toLowerCase();
++    const q = query.trim().toLowerCase();
+     return projects.filter((project) => {
+-      if (q && !project.name.toLowerCase().includes(q)) return false;
++      if (q && !(project.name + " " + (project.projectType || "")).toLowerCase().includes(q)) return false;
+       if (tab === "archived") return project.status === "complete";
+-      if (tab === "starred" || tab === "shared" || tab === "recent") {
+-        return false;
+-      }
+-      return true;
++      return project.status !== "complete";
+     });
+   }, [projects, query, tab]);
+-  return /* @__PURE__ */ jsxs6("div", { style: { maxWidth: 1080, margin: "0 auto", padding: "28px 24px 72px" }, children: [
+-    /* @__PURE__ */ jsxs6("div", { style: { display: "flex", alignItems: "center", gap: 10 }, children: [
+-      /* @__PURE__ */ jsx6("h1", { style: { margin: 0, fontSize: 28, letterSpacing: "-.03em" }, children: "Projects" }),
+-      /* @__PURE__ */ jsx6("div", { style: { flex: 1 } }),
+-      /* @__PURE__ */ jsxs6(
+-        "label",
+-        {
+-          style: {
+-            width: 38,
+-            height: 38,
+-            display: "grid",
+-            placeItems: "center",
+-            borderRadius: "50%",
+-            border: "1px solid var(--agentsam-work-border)",
+-            cursor: "pointer"
+-          },
+-          children: [
+-            /* @__PURE__ */ jsx6(Search3, { size: 17 }),
+-            /* @__PURE__ */ jsx6(
+-              "input",
+-              {
+-                value: query,
+-                onChange: (event) => setQuery(event.target.value),
+-                style: { position: "absolute", opacity: 0, pointerEvents: "none" },
+-                "aria-label": "Search projects"
+-              }
+-            )
+-          ]
+-        }
+-      ),
+-      /* @__PURE__ */ jsx6(
+-        "button",
+-        {
+-          type: "button",
+-          className: "agentsam-work-toolbar-button",
+-          disabled: true,
+-          title: "Create project is not available on hosted yet",
+-          "aria-label": "New project unavailable",
+-          style: { width: 38, height: 38, padding: 0, borderRadius: "50%", opacity: 0.45 },
+-          children: /* @__PURE__ */ jsx6(Plus2, { size: 18 })
+-        }
+-      )
++  return /* @__PURE__ */ jsxs6("div", { className: "agentsam-work-page agentsam-work-projects", children: [
++    /* @__PURE__ */ jsxs6("div", { className: "agentsam-work-page__header", children: [
++      /* @__PURE__ */ jsxs6("div", { children: [
++        /* @__PURE__ */ jsx6("p", { className: "agentsam-work-page__eyebrow", children: "Work" }),
++        /* @__PURE__ */ jsx6("h1", { className: "agentsam-work-page__title", children: "Projects" }),
++        /* @__PURE__ */ jsx6("p", { className: "agentsam-work-page__description", children: "Active work, progress and project context from the connected Work host." })
++      ] }),
++      /* @__PURE__ */ jsxs6("label", { className: "agentsam-work-project-search", children: [
++        /* @__PURE__ */ jsx6(Search3, { size: 16 }),
++        /* @__PURE__ */ jsx6(
++          "input",
++          {
++            value: query,
++            onChange: (event) => setQuery(event.target.value),
++            placeholder: "Search projects",
++            "aria-label": "Search projects"
++          }
++        )
++      ] })
+     ] }),
+-    /* @__PURE__ */ jsx6("div", { style: { display: "flex", gap: 8, marginTop: 18, flexWrap: "wrap" }, children: [
+-      ["mine", "My Projects", true],
+-      ["recent", "Recent", false],
+-      ["shared", "Shared", false],
+-      ["archived", "Archived", true],
+-      ["starred", "Starred", false]
+-    ].map(([id, label, enabled]) => /* @__PURE__ */ jsx6(
+-      "button",
+-      {
+-        type: "button",
+-        className: "agentsam-work-toolbar-button",
+-        "data-primary": tab === id,
+-        disabled: !enabled,
+-        title: enabled ? void 0 : "Not wired yet",
+-        onClick: () => enabled && setTab(id),
+-        children: label
+-      },
+-      id
+-    )) }),
+-    /* @__PURE__ */ jsxs6(
+-      "div",
+-      {
+-        style: {
+-          marginTop: 18,
+-          display: "grid",
+-          gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+-          gap: 14
+-        },
+-        children: [
+-          !visible.length ? /* @__PURE__ */ jsxs6("div", { className: "agentsam-work-empty", style: { gridColumn: "1 / -1", padding: "36px 12px" }, children: [
+-            /* @__PURE__ */ jsx6("strong", { style: { display: "block", fontSize: 16 }, children: tab === "mine" ? "No projects yet" : `No ${tab} projects` }),
+-            /* @__PURE__ */ jsx6("p", { style: { margin: "8px 0 0", color: "var(--agentsam-work-muted)", fontSize: 13, lineHeight: 1.55 }, children: tab === "mine" ? "Real account and CMS site projects from /api/work/snapshot appear here. Sample gallery cards are never shown in production." : "This filter has no matching account-owned records." })
+-          ] }) : null,
+-          visible.map((project) => /* @__PURE__ */ jsxs6(
+-            "article",
+-            {
+-              className: "agentsam-work-card",
+-              style: {
+-                overflow: "hidden",
+-                minHeight: 280,
+-                borderTop: "3px solid " + project.accent,
+-                background: "color-mix(in srgb, var(--agentsam-work-panel) 88%, " + project.accent + " 12%)"
+-              },
+-              children: [
+-                /* @__PURE__ */ jsxs6(
+-                  "div",
+-                  {
+-                    style: {
+-                      position: "relative",
+-                      height: 145,
+-                      display: "grid",
+-                      placeItems: "center",
+-                      background: project.coverImageUrl ? `center / cover no-repeat url(${JSON.stringify(project.coverImageUrl)})` : "color-mix(in srgb, var(--agentsam-work-panel-subtle) 85%, " + project.accent + " 15%)"
+-                    },
+-                    children: [
+-                      !project.coverImageUrl ? /* @__PURE__ */ jsx6(Camera, { size: 20, color: "var(--agentsam-work-muted)" }) : null,
+-                      /* @__PURE__ */ jsx6(
+-                        "button",
+-                        {
+-                          type: "button",
+-                          style: {
+-                            position: "absolute",
+-                            top: 8,
+-                            right: 8,
+-                            width: 28,
+-                            height: 28,
+-                            display: "grid",
+-                            placeItems: "center",
+-                            border: 0,
+-                            borderRadius: 8,
+-                            background: "rgb(0 0 0 / 55%)",
+-                            color: "white"
+-                          },
+-                          "aria-label": "More actions for " + project.name,
+-                          children: /* @__PURE__ */ jsx6(MoreHorizontal, { size: 16 })
+-                        }
+-                      )
+-                    ]
+-                  }
+-                ),
+-                /* @__PURE__ */ jsxs6(
+-                  "button",
+-                  {
+-                    type: "button",
+-                    onClick: () => onNavigate("/projects/" + encodeURIComponent(project.id)),
+-                    style: {
+-                      width: "100%",
+-                      minHeight: 132,
+-                      display: "block",
+-                      padding: 14,
+-                      border: 0,
+-                      background: "transparent",
+-                      textAlign: "left",
+-                      cursor: "pointer"
+-                    },
+-                    children: [
+-                      /* @__PURE__ */ jsx6("h2", { style: { margin: 0, fontSize: 13 }, children: project.name }),
+-                      /* @__PURE__ */ jsx6("div", { style: { marginTop: 6, color: "var(--agentsam-work-muted)", fontSize: 10 }, children: project.projectType || "project" }),
+-                      /* @__PURE__ */ jsx6("div", { style: { marginTop: 18, height: 3, borderRadius: 99, background: "var(--agentsam-work-border)" }, children: /* @__PURE__ */ jsx6(
+-                        "span",
+-                        {
+-                          style: {
+-                            display: "block",
+-                            width: Math.max(2, project.progress) + "%",
+-                            height: "100%",
+-                            borderRadius: 99,
+-                            background: project.accent
+-                          }
+-                        }
+-                      ) }),
+-                      /* @__PURE__ */ jsxs6("div", { style: { marginTop: 8, display: "flex", alignItems: "center", gap: 8 }, children: [
+-                        /* @__PURE__ */ jsx6(
+-                          "span",
+-                          {
+-                            style: {
+-                              width: 24,
+-                              height: 24,
+-                              display: "grid",
+-                              placeItems: "center",
+-                              borderRadius: "50%",
+-                              background: project.accent,
+-                              color: "white",
+-                              fontSize: 8,
+-                              fontWeight: 700
+-                            },
+-                            children: project.initials
+-                          }
+-                        ),
+-                        /* @__PURE__ */ jsx6("div", { style: { flex: 1 } }),
+-                        /* @__PURE__ */ jsx6("span", { style: { color: "var(--agentsam-work-success)", fontSize: 9, textTransform: "capitalize" }, children: project.status === "active" ? "In Development" : project.status })
+-                      ] })
+-                    ]
+-                  }
+-                )
+-              ]
+-            },
+-            project.id
+-          ))
+-        ]
+-      }
+-    )
++    /* @__PURE__ */ jsxs6("div", { className: "agentsam-work-tabs", role: "tablist", "aria-label": "Project views", children: [
++      /* @__PURE__ */ jsx6("button", { type: "button", role: "tab", "aria-selected": tab === "active", "data-active": tab === "active", onClick: () => setTab("active"), children: "Active" }),
++      /* @__PURE__ */ jsx6("button", { type: "button", role: "tab", "aria-selected": tab === "archived", "data-active": tab === "archived", onClick: () => setTab("archived"), children: "Archived" })
++    ] }),
++    !visible.length ? /* @__PURE__ */ jsxs6("div", { className: "agentsam-work-empty agentsam-work-projects__empty", children: [
++      /* @__PURE__ */ jsx6("strong", { children: tab === "active" ? "No active projects yet" : "No archived projects" }),
++      /* @__PURE__ */ jsx6("p", { children: tab === "active" ? "Projects will appear here when the connected Work host returns project records." : "Completed projects will appear here when they are available from the Work host." })
++    ] }) : /* @__PURE__ */ jsx6("div", { className: "agentsam-work-project-grid", children: visible.map((project) => /* @__PURE__ */ jsxs6("button", { type: "button", className: "agentsam-work-project-card", onClick: () => onNavigate("/projects/" + encodeURIComponent(project.id)), children: [
++      /* @__PURE__ */ jsxs6("div", { className: "agentsam-work-project-card__top", children: [
++        /* @__PURE__ */ jsx6("span", { className: "agentsam-work-project-card__initials", style: { background: project.accent }, children: project.initials }),
++        /* @__PURE__ */ jsx6("span", { className: "agentsam-work-project-card__status", children: project.status })
++      ] }),
++      /* @__PURE__ */ jsx6("h2", { children: project.name }),
++      /* @__PURE__ */ jsx6("p", { children: project.description || project.projectType || "Project" }),
++      /* @__PURE__ */ jsx6("div", { className: "agentsam-work-project-card__progress", children: /* @__PURE__ */ jsx6("span", { style: { width: Math.max(2, project.progress) + "%", background: project.accent } }) }),
++      /* @__PURE__ */ jsxs6("div", { className: "agentsam-work-project-card__meta", children: [
++        /* @__PURE__ */ jsxs6("span", { children: [
++          project.progress,
++          "% complete"
++        ] }),
++        /* @__PURE__ */ jsxs6("span", { children: [
++          project.openTasks,
++          " open tasks"
++        ] })
++      ] })
++    ] }, project.id)) })
+   ] });
+ }
+ 
+ // src/frontend/surfaces/ProjectDetailSurface.tsx
+-import { CalendarDays as CalendarDays2, ChevronDown, ExternalLink, Folder as Folder2, GitBranch, MoreHorizontal as MoreHorizontal2, RefreshCw as RefreshCw2, Send as Send2, Star as Star3, Timer, Users as Users2 } from "lucide-react";
+-import { useState as useState7 } from "react";
++import { Archive as Archive3, CalendarDays as CalendarDays2, CheckSquare as CheckSquare2, GitBranch, Timer } from "lucide-react";
+ import { jsx as jsx7, jsxs as jsxs7 } from "react/jsx-runtime";
+ function ProjectDetailSurface({
+   project,
+   onNavigate
+ }) {
+-  const [prompt, setPrompt] = useState7("");
+-  return /* @__PURE__ */ jsxs7("div", { style: { height: "100%", display: "grid", gridTemplateColumns: "minmax(0, 1fr) 320px", minWidth: 820 }, children: [
+-    /* @__PURE__ */ jsxs7("main", { style: { minWidth: 0, overflowY: "auto", padding: "28px 34px 72px" }, children: [
+-      /* @__PURE__ */ jsx7(
+-        "button",
+-        {
+-          type: "button",
+-          onClick: () => onNavigate("/projects"),
+-          style: { border: 0, background: "transparent", color: "var(--agentsam-work-muted)", fontSize: 10, cursor: "pointer" },
+-          children: "\u2190 All projects"
+-        }
+-      ),
+-      /* @__PURE__ */ jsxs7("div", { style: { display: "flex", alignItems: "center", gap: 10, marginTop: 18 }, children: [
+-        /* @__PURE__ */ jsx7("h1", { style: { margin: 0, minWidth: 0, flex: 1, fontSize: 28, letterSpacing: "-.03em" }, children: project.name }),
+-        /* @__PURE__ */ jsx7(RefreshCw2, { size: 15, color: "var(--agentsam-work-muted)" }),
+-        /* @__PURE__ */ jsx7(MoreHorizontal2, { size: 17, color: "var(--agentsam-work-muted)" }),
+-        /* @__PURE__ */ jsx7(Star3, { size: 16, color: "var(--agentsam-work-muted)" })
++  return /* @__PURE__ */ jsxs7("div", { className: "agentsam-work-page agentsam-work-project-detail", children: [
++    /* @__PURE__ */ jsx7("button", { type: "button", className: "agentsam-work-back", onClick: () => onNavigate("/projects"), children: "\u2190 Projects" }),
++    /* @__PURE__ */ jsxs7("div", { className: "agentsam-work-page__header agentsam-work-project-detail__header", children: [
++      /* @__PURE__ */ jsxs7("div", { children: [
++        /* @__PURE__ */ jsx7("p", { className: "agentsam-work-page__eyebrow", children: project.projectType || "Project" }),
++        /* @__PURE__ */ jsx7("h1", { className: "agentsam-work-page__title", children: project.name }),
++        /* @__PURE__ */ jsx7("p", { className: "agentsam-work-page__description", children: project.description || "Project context, progress and connected work." })
+       ] }),
+-      /* @__PURE__ */ jsxs7(
+-        "div",
+-        {
+-          className: "agentsam-work-card",
+-          style: {
+-            marginTop: 20,
+-            padding: 14,
+-            background: "var(--agentsam-work-panel-subtle)"
+-          },
+-          children: [
+-            /* @__PURE__ */ jsx7("div", { style: { fontSize: 12 }, children: "How can I help you today?" }),
+-            /* @__PURE__ */ jsx7(
+-              "textarea",
+-              {
+-                value: prompt,
+-                onChange: (event) => setPrompt(event.target.value),
+-                rows: 3,
+-                placeholder: "Ask AgentSam about this project\u2026",
+-                style: {
+-                  width: "100%",
+-                  resize: "vertical",
+-                  marginTop: 8,
+-                  border: 0,
+-                  outline: 0,
+-                  background: "transparent",
+-                  color: "var(--agentsam-work-text)"
+-                }
+-              }
+-            ),
+-            /* @__PURE__ */ jsx7("div", { style: { display: "flex", justifyContent: "flex-end" }, children: /* @__PURE__ */ jsx7("button", { type: "button", className: "agentsam-work-toolbar-button", "data-primary": "true", "aria-label": "Send", children: /* @__PURE__ */ jsx7(Send2, { size: 14 }) }) })
+-          ]
+-        }
+-      ),
+-      /* @__PURE__ */ jsx7("div", { style: { marginTop: 34, color: "var(--agentsam-work-muted)", fontSize: 11 }, children: "No chats in this project yet. Start one above \u2014 AgentSam opens full-screen with this project linked." })
++      /* @__PURE__ */ jsx7("span", { className: "agentsam-work-project-detail__status", children: project.status })
+     ] }),
+-    /* @__PURE__ */ jsxs7("aside", { style: { minHeight: 0, overflowY: "auto", borderLeft: "1px solid var(--agentsam-work-border)", background: "var(--agentsam-work-panel-subtle)" }, children: [
+-      /* @__PURE__ */ jsxs7("section", { style: { padding: 18, borderBottom: "1px solid var(--agentsam-work-border)" }, children: [
+-        /* @__PURE__ */ jsxs7("div", { style: { display: "flex", alignItems: "center", gap: 8 }, children: [
+-          /* @__PURE__ */ jsx7("strong", { style: { fontSize: 12 }, children: "Quick stats" }),
+-          /* @__PURE__ */ jsx7(ChevronDown, { size: 13 }),
+-          /* @__PURE__ */ jsx7("div", { style: { flex: 1 } }),
+-          /* @__PURE__ */ jsx7(RefreshCw2, { size: 13 }),
+-          /* @__PURE__ */ jsx7(ExternalLink, { size: 13 })
+-        ] }),
+-        /* @__PURE__ */ jsx7("div", { style: { marginTop: 14, color: "var(--agentsam-work-muted)", fontSize: 9, textTransform: "uppercase" }, children: "This week" }),
+-        /* @__PURE__ */ jsx7("div", { style: { marginTop: 6, fontSize: 12, fontWeight: 600 }, children: "Project insights" }),
+-        /* @__PURE__ */ jsxs7("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginTop: 14 }, children: [
+-          /* @__PURE__ */ jsx7("button", { className: "agentsam-work-toolbar-button", "data-primary": "true", type: "button", children: "Week" }),
+-          /* @__PURE__ */ jsx7("button", { className: "agentsam-work-toolbar-button", type: "button", children: "Month" })
+-        ] }),
+-        /* @__PURE__ */ jsxs7("div", { style: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 6, marginTop: 10 }, children: [
+-          /* @__PURE__ */ jsx7("button", { className: "agentsam-work-toolbar-button", "data-primary": "true", type: "button", children: "Time" }),
+-          /* @__PURE__ */ jsx7("button", { className: "agentsam-work-toolbar-button", type: "button", children: "Cost" }),
+-          /* @__PURE__ */ jsx7("button", { className: "agentsam-work-toolbar-button", type: "button", children: "Progress" })
+-        ] }),
+-        /* @__PURE__ */ jsxs7("div", { style: { display: "flex", alignItems: "center", gap: 8, marginTop: 12 }, children: [
+-          /* @__PURE__ */ jsxs7("button", { className: "agentsam-work-toolbar-button", type: "button", children: [
+-            /* @__PURE__ */ jsx7(Timer, { size: 14 }),
+-            " Start"
+-          ] }),
+-          /* @__PURE__ */ jsx7("div", { style: { flex: 1 } }),
+-          /* @__PURE__ */ jsx7("span", { style: { color: "var(--agentsam-work-muted)", fontSize: 10 }, children: "Today" }),
+-          /* @__PURE__ */ jsxs7("strong", { style: { fontSize: 11 }, children: [
+-            project.trackedMinutes,
+-            "m"
+-          ] })
+-        ] }),
+-        /* @__PURE__ */ jsx7(
+-          "div",
+-          {
+-            style: {
+-              width: 86,
+-              height: 86,
+-              margin: "12px auto 0",
+-              borderRadius: "50%",
+-              background: "conic-gradient(var(--agentsam-work-success) 0 78%, var(--agentsam-work-border) 78% 100%)",
+-              display: "grid",
+-              placeItems: "center"
+-            },
+-            children: /* @__PURE__ */ jsx7("span", { style: { width: 52, height: 52, borderRadius: "50%", background: "var(--agentsam-work-panel-subtle)" } })
+-          }
+-        ),
+-        /* @__PURE__ */ jsxs7("div", { style: { display: "grid", gap: 8, marginTop: 12, fontSize: 10 }, children: [
+-          /* @__PURE__ */ jsxs7("div", { style: { display: "flex" }, children: [
+-            /* @__PURE__ */ jsx7("span", { children: "Tracked today" }),
+-            /* @__PURE__ */ jsxs7("span", { style: { marginLeft: "auto" }, children: [
+-              project.trackedMinutes,
+-              "m"
+-            ] })
+-          ] }),
+-          /* @__PURE__ */ jsxs7("div", { style: { display: "flex" }, children: [
+-            /* @__PURE__ */ jsx7("span", { children: "Open tasks" }),
+-            /* @__PURE__ */ jsx7("span", { style: { marginLeft: "auto" }, children: project.openTasks })
+-          ] }),
+-          /* @__PURE__ */ jsxs7("div", { style: { display: "flex" }, children: [
+-            /* @__PURE__ */ jsx7("span", { children: "Progress" }),
+-            /* @__PURE__ */ jsxs7("span", { style: { marginLeft: "auto" }, children: [
++    /* @__PURE__ */ jsxs7("div", { className: "agentsam-work-project-detail__layout", children: [
++      /* @__PURE__ */ jsxs7("main", { className: "agentsam-work-project-detail__main", children: [
++        /* @__PURE__ */ jsxs7("section", { className: "agentsam-work-card agentsam-work-project-overview", children: [
++          /* @__PURE__ */ jsxs7("div", { className: "agentsam-work-section-heading", children: [
++            /* @__PURE__ */ jsxs7("div", { children: [
++              /* @__PURE__ */ jsx7("p", { className: "agentsam-work-page__eyebrow", children: "Progress" }),
++              /* @__PURE__ */ jsx7("h2", { children: "Project overview" })
++            ] }),
++            /* @__PURE__ */ jsxs7("strong", { children: [
+               project.progress,
+               "%"
+             ] })
++          ] }),
++          /* @__PURE__ */ jsx7("div", { className: "agentsam-work-project-card__progress", children: /* @__PURE__ */ jsx7("span", { style: { width: Math.max(2, project.progress) + "%", background: project.accent } }) }),
++          /* @__PURE__ */ jsxs7("div", { className: "agentsam-work-stat-grid", children: [
++            /* @__PURE__ */ jsxs7("div", { children: [
++              /* @__PURE__ */ jsx7(CheckSquare2, { size: 16 }),
++              /* @__PURE__ */ jsxs7("span", { children: [
++                /* @__PURE__ */ jsx7("strong", { children: project.openTasks }),
++                /* @__PURE__ */ jsx7("small", { children: "Open tasks" })
++              ] })
++            ] }),
++            /* @__PURE__ */ jsxs7("div", { children: [
++              /* @__PURE__ */ jsx7(Timer, { size: 16 }),
++              /* @__PURE__ */ jsxs7("span", { children: [
++                /* @__PURE__ */ jsx7("strong", { children: project.trackedMinutes }),
++                /* @__PURE__ */ jsx7("small", { children: "Tracked minutes" })
++              ] })
++            ] }),
++            /* @__PURE__ */ jsxs7("div", { children: [
++              /* @__PURE__ */ jsx7(GitBranch, { size: 16 }),
++              /* @__PURE__ */ jsxs7("span", { children: [
++                /* @__PURE__ */ jsx7("strong", { children: project.githubRepo ? "Linked" : "Not linked" }),
++                /* @__PURE__ */ jsx7("small", { children: "Repository" })
++              ] })
++            ] })
+           ] })
+         ] }),
+-        /* @__PURE__ */ jsxs7("div", { style: { display: "flex", gap: 8, marginTop: 14 }, children: [
+-          /* @__PURE__ */ jsxs7("button", { className: "agentsam-work-toolbar-button", type: "button", children: [
+-            /* @__PURE__ */ jsx7(Users2, { size: 13 }),
+-            " Tasks"
+-          ] }),
+-          /* @__PURE__ */ jsxs7("button", { className: "agentsam-work-toolbar-button", type: "button", children: [
+-            /* @__PURE__ */ jsx7(CalendarDays2, { size: 13 }),
+-            " Calendar"
+-          ] }),
+-          /* @__PURE__ */ jsxs7("button", { className: "agentsam-work-toolbar-button", type: "button", children: [
+-            /* @__PURE__ */ jsx7(ExternalLink, { size: 13 }),
+-            " Collaborate"
++        project.githubRepo ? /* @__PURE__ */ jsxs7("section", { className: "agentsam-work-card agentsam-work-project-repo", children: [
++          /* @__PURE__ */ jsx7(GitBranch, { size: 18 }),
++          /* @__PURE__ */ jsxs7("div", { children: [
++            /* @__PURE__ */ jsx7("strong", { children: "Repository" }),
++            /* @__PURE__ */ jsx7("p", { children: project.githubRepo })
+           ] })
+-        ] })
++        ] }) : null
+       ] }),
+-      /* @__PURE__ */ jsxs7("section", { style: { padding: 18, borderBottom: "1px solid var(--agentsam-work-border)" }, children: [
+-        /* @__PURE__ */ jsxs7("div", { style: { display: "flex", alignItems: "center", gap: 8 }, children: [
+-          /* @__PURE__ */ jsx7("strong", { style: { fontSize: 12 }, children: "Codebase index" }),
+-          /* @__PURE__ */ jsx7(ChevronDown, { size: 13 }),
+-          /* @__PURE__ */ jsx7("div", { style: { flex: 1 } }),
+-          /* @__PURE__ */ jsx7(GitBranch, { size: 14 }),
+-          /* @__PURE__ */ jsx7(RefreshCw2, { size: 13 })
++      /* @__PURE__ */ jsxs7("aside", { className: "agentsam-work-card agentsam-work-project-detail__rail", children: [
++        /* @__PURE__ */ jsx7("p", { className: "agentsam-work-page__eyebrow", children: "Workspace" }),
++        /* @__PURE__ */ jsx7("h2", { children: "Open related work" }),
++        /* @__PURE__ */ jsxs7("button", { type: "button", onClick: () => onNavigate("/collaborate?seg=tickets"), children: [
++          /* @__PURE__ */ jsx7(CheckSquare2, { size: 16 }),
++          /* @__PURE__ */ jsx7("span", { children: "Tickets" })
++        ] }),
++        /* @__PURE__ */ jsxs7("button", { type: "button", onClick: () => onNavigate("/collaborate"), children: [
++          /* @__PURE__ */ jsx7(CalendarDays2, { size: 16 }),
++          /* @__PURE__ */ jsx7("span", { children: "Calendar" })
+         ] }),
+-        /* @__PURE__ */ jsx7("p", { style: { color: "var(--agentsam-work-muted)", fontSize: 10, lineHeight: 1.5 }, children: project.githubRepo ? "Repository linked and ready for indexing." : "Connect a GitHub repository to index and search this project's code." }),
+-        /* @__PURE__ */ jsxs7("button", { className: "agentsam-work-toolbar-button", type: "button", children: [
+-          /* @__PURE__ */ jsx7(GitBranch, { size: 13 }),
+-          " ",
+-          project.githubRepo ? project.githubRepo : "Connect GitHub repo"
++        /* @__PURE__ */ jsxs7("button", { type: "button", onClick: () => onNavigate("/artifacts"), children: [
++          /* @__PURE__ */ jsx7(Archive3, { size: 16 }),
++          /* @__PURE__ */ jsx7("span", { children: "Artifacts" })
+         ] })
+-      ] }),
+-      [
+-        ["Brand assets", Folder2],
+-        ["Cover", Folder2],
+-        ["Memory", Folder2]
+-      ].map(([label, Icon]) => /* @__PURE__ */ jsxs7("section", { style: { padding: 18, borderBottom: "1px solid var(--agentsam-work-border)", display: "flex", alignItems: "center", gap: 8 }, children: [
+-        /* @__PURE__ */ jsx7("strong", { style: { fontSize: 12 }, children: label }),
+-        /* @__PURE__ */ jsx7(ChevronDown, { size: 13 }),
+-        /* @__PURE__ */ jsx7("div", { style: { flex: 1 } }),
+-        /* @__PURE__ */ jsx7(Icon, { size: 14 }),
+-        /* @__PURE__ */ jsx7(ExternalLink, { size: 13 })
+-      ] }, String(label)))
++      ] })
+     ] })
+   ] });
+ }
+@@ -1697,7 +1436,7 @@ import {
+   CheckCircle2,
+   Link2,
+   Play,
+-  RefreshCw as RefreshCw3
++  RefreshCw as RefreshCw2
+ } from "lucide-react";
+ import { jsx as jsx8, jsxs as jsxs8 } from "react/jsx-runtime";
+ function prettyStatus(status) {
+@@ -1762,7 +1501,7 @@ function TicketDetailSurface({
+         "Close with proof"
+       ] }),
+       /* @__PURE__ */ jsxs8("button", { type: "button", className: "agentsam-work-toolbar-button", children: [
+-        /* @__PURE__ */ jsx8(RefreshCw3, { size: 14 }),
++        /* @__PURE__ */ jsx8(RefreshCw2, { size: 14 }),
+         "Refresh"
+       ] })
+     ] }),
+@@ -1836,10 +1575,11 @@ function WorkProduct({
+   surface,
+   onNavigate,
+   projectId,
+-  ticketId
++  ticketId,
++  presentation = "standalone"
+ }) {
+-  const [snapshot, setSnapshot] = useState8(null);
+-  const [loadError, setLoadError] = useState8(null);
++  const [snapshot, setSnapshot] = useState7(null);
++  const [loadError, setLoadError] = useState7(null);
+   useEffect(() => {
+     let cancelled = false;
+     setLoadError(null);
+@@ -1872,7 +1612,7 @@ function WorkProduct({
+     );
+   }
+   const rightRail = surface === "calendar" || surface === "tickets" || surface === "mail" || surface === "artifacts" || surface === "artifact-tickets";
+-  const authHint = loadError === "unauthorized" ? "Sign in to load account-owned projects and artifacts from /api/work/snapshot." : loadError ? `Work snapshot unavailable (${loadError}). Showing an empty live shell \u2014 not sample fixture data.` : null;
++  const authHint = loadError === "unauthorized" ? "The Work host rejected this snapshot request. Check the host access or session configuration." : loadError ? "Work snapshot unavailable (" + loadError + "). Showing an empty live surface \u2014 not sample fixture data." : null;
+   return /* @__PURE__ */ jsxs9(
+     WorkShell,
+     {
+@@ -1880,6 +1620,7 @@ function WorkProduct({
+       surface,
+       onNavigate,
+       rightRail,
++      presentation,
+       children: [
+         authHint ? /* @__PURE__ */ jsx9(
+           "div",

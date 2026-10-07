@@ -3,6 +3,8 @@ import { createHttpWorkHost } from '@inneranimalmedia/agentsam-work/client';
 import { WorkProduct } from '@inneranimalmedia/agentsam-work/frontend';
 import type { WorkSurfaceId } from '@inneranimalmedia/agentsam-work/contracts';
 import '@inneranimalmedia/agentsam-work/theme.css';
+import { AppShell } from '../shell/AppShell';
+import './legendaryWork.css';
 
 const host = createHttpWorkHost();
 
@@ -51,18 +53,34 @@ function routeState(): {
   return { surface: 'projects' };
 }
 
+function pageTitle(surface: WorkSurfaceId) {
+  switch (surface) {
+    case 'calendar': return 'Work';
+    case 'tickets':
+    case 'artifact-tickets': return 'Tickets';
+    case 'mail': return 'Mail';
+    case 'artifacts': return 'Artifacts';
+    case 'project-detail': return 'Project';
+    case 'projects':
+    default: return 'Projects';
+  }
+}
+
 export function LegendaryWorkPage() {
   const state = routeState();
 
   return (
-    <div style={{ minHeight: '100dvh', height: '100dvh' }}>
-      <WorkProduct
-        host={host}
-        surface={state.surface}
-        projectId={state.projectId}
-        ticketId={state.ticketId}
-        onNavigate={(href) => window.location.assign(href)}
-      />
-    </div>
+    <AppShell title={pageTitle(state.surface)} section="Legendary OS">
+      <div className="legendary-work-surface">
+        <WorkProduct
+          host={host}
+          surface={state.surface}
+          projectId={state.projectId}
+          ticketId={state.ticketId}
+          presentation="embedded"
+          onNavigate={(href) => window.location.assign(href)}
+        />
+      </div>
+    </AppShell>
   );
 }

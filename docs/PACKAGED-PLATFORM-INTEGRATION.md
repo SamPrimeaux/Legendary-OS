@@ -35,7 +35,7 @@ The SDK promotion branch feat/cms-host-preview-20261007 adds a host-owned real-p
 
 ### AgentSam Work
 
-The published @inneranimalmedia/agentsam-work@2.6.12 product is mounted on its native work routes:
+The published @inneranimalmedia/agentsam-work@2.6.12 product is mounted on its native work routes. Legendary temporarily patches the installed 2.6.12 package with the exact upstream SDK #170 embedded-shell implementation until that package change is released:
 
 - /collaborate — calendar and tickets
 - /projects — projects
@@ -48,7 +48,7 @@ Legendary implements /api/work/snapshot as the host boundary. The snapshot is li
 - no populatedWorkFixture is used;
 - projects, tickets, mail and calendar currently return truthful empty collections until Legendary has canonical business authorities for them.
 
-The browser routes are included in the existing identity workspace gate, and the Work API reuses the same authenticated session / bridge boundary as CMS and Media.
+Work is mounted with presentation=embedded so Legendary keeps one global shell instead of nesting the package's standalone sidebar/topbar inside the host application. Work theme variables are mapped to Legendary's green shell tokens. Authentication is intentionally disabled for this buildout; the Work API, CMS and Media remain open while the reusable identity package is redesigned separately.
 
 ### Content Studio
 
@@ -71,7 +71,7 @@ Do not present package availability as product integration without a real host a
 - Work business data beyond artifacts: the package is installed, but current agentsam_tickets are implementation/remaster tickets and agentsam_project_context is agent runtime context. Neither is used as the Legendary customer/job/project authority. Real projects/jobs, tickets/tasks, mail and calendar records remain empty until canonical domains exist.
 - Products/orders: no clean Legendary product/order domain authority exists yet.
 - Mailing/campaign execution: campaign intelligence packages exist, but Legendary does not yet have a canonical audience/message/delivery authority.
-- shared nav/workbench: evaluated but not mounted in this pass because the current Legendary shell has useful mobile behavior that must be preserved before replacement.
+- shared nav/workbench: evaluated but not mounted in this pass because the current Legendary shell owns the global navigation/mobile experience. Reusable products must support embedded/host-owned chrome rather than forcing a second app shell.
 
 When those domains are introduced, add the business authority first, then mount the reusable product through an adapter. Do not create placeholder data and call it package proof.
 

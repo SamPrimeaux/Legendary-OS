@@ -34,6 +34,11 @@ test('Legendary consumes the shipped AgentSam CMS and Content Studio products', 
   const workApi = read('backend/src/work-api.ts');
   assert.match(workPage, /@inneranimalmedia\/agentsam-work\/frontend/);
   assert.match(workPage, /createHttpWorkHost/);
+  assert.match(workPage, /presentation="embedded"/);
+  assert.match(workPage, /<AppShell/);
+  const workTheme = read('frontend/src/work/legendaryWork.css');
+  assert.match(workTheme, /--agentsam-work-accent:\s*var\(--los-accent\)/);
+  assert.match(workTheme, /--agentsam-work-panel:\s*var\(--los-surface\)/);
   assert.match(workApi, /FROM media_assets/);
   assert.match(workApi, /fixtureName: 'legendary-live'/);
   assert.match(workApi, /tickets: \[\]/);
