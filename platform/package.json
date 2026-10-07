@@ -1,0 +1,30 @@
+{
+  "name": "platform",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "guard": "node tools/guard.mjs",
+    "validate": "node tools/los.mjs validate",
+    "parity": "node tools/los.mjs parity --deployment legendary-os",
+    "check:deployment": "node tools/los.mjs deployment-check --deployment legendary-os",
+    "schema-diff": "node tools/los.mjs schema-diff",
+    "live:capture": "node tools/los.mjs live-capture --deployment legendary-os",
+    "live:import": "node tools/los.mjs import-live --deployment legendary-os",
+    "build:demo": "node tools/los.mjs build-demo --deployment legendary-os",
+    "preview:demo": "node tools/los.mjs serve --deployment legendary-os --port 4390",
+    "seed:demo": "node tools/los.mjs seed-sql --deployment legendary-os",
+    "verify": "npm run guard && npm run validate && npm run typecheck && npm run check:deployment && npm run parity && npm run build:demo && npm run test:runtime",
+    "test:runtime": "node --disable-warning=ExperimentalWarning tests/runtime.test.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=22.18"
+  }
+}

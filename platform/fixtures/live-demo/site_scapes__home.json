@@ -1,0 +1,226 @@
+{
+  "site": {
+    "id": "site_scapes",
+    "organizationId": "legendary",
+    "brandId": "scapes",
+    "name": "Legendary Scapes",
+    "domain": "legendary-scapes.com",
+    "themeId": "theme_scapes"
+  },
+  "page": {
+    "id": "page_scapes_home",
+    "siteId": "site_scapes",
+    "title": "Home",
+    "route": "/",
+    "pageType": "home",
+    "status": "published",
+    "seo": {
+      "title": "Legendary Scapes",
+      "description": "Landscape design and outdoor living in Acadiana."
+    }
+  },
+  "sections": [
+    {
+      "id": "section_scapes_hero",
+      "type": "hero",
+      "name": "Hero",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 0,
+      "data": {
+        "eyebrow": "Landscape · Outdoor living",
+        "heading": "Outdoor spaces built to belong.",
+        "body": "Landscape design and construction for homes and businesses across greater Lafayette and beyond.",
+        "image": "/assets/legendary-scapes/images/23d6d31a2159580e3d3e.jpg",
+        "imageAlt": "Legendary Scapes outdoor project",
+        "ctaLabel": "Request a consultation",
+        "ctaHref": "/scapes/contact",
+        "secondaryLabel": "Explore services",
+        "secondaryHref": "/scapes/services-1",
+        "proof": [
+          "Design",
+          "Install",
+          "Hardscape",
+          "Drainage"
+        ]
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_scapes_home_services",
+      "type": "services",
+      "name": "Core Services",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 10,
+      "data": {
+        "eyebrow": "What we do",
+        "heading": "From the ground under it to the light around it.",
+        "body": "The service catalog is structured content so it can be revised once and reused wherever the brand needs it.",
+        "items": [
+          {
+            "title": "Landscape Installations",
+            "body": "Planting, sod, beds, and complete landscape installation."
+          },
+          {
+            "title": "Hardscapes",
+            "body": "Patios, walkways, retaining walls, and built outdoor features."
+          },
+          {
+            "title": "Drainage & Grade Work",
+            "body": "Shape water movement and site grades around the property."
+          },
+          {
+            "title": "Lighting & Irrigation",
+            "body": "Infrastructure that helps the finished landscape work day to day."
+          }
+        ]
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_scapes_home_gallery",
+      "type": "gallery",
+      "name": "Recent Work",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 20,
+      "data": {
+        "eyebrow": "Recent work",
+        "heading": "Landscapes made for real properties.",
+        "items": [
+          {
+            "title": "Outdoor Living",
+            "meta": "Acadiana",
+            "image": "/assets/legendary-scapes/images/ab3e2571004e5de6e22d.jpg"
+          },
+          {
+            "title": "Landscape Installation",
+            "meta": "Greater Lafayette",
+            "image": "/assets/legendary-scapes/images/e67b29fd746a66da5335.jpg"
+          },
+          {
+            "title": "Finished Detail",
+            "meta": "Legendary Scapes",
+            "image": "/assets/legendary-scapes/images/1de3e14321fac67846dd.jpg"
+          }
+        ],
+        "ctaLabel": "See recent projects",
+        "ctaHref": "/scapes/recent-projects"
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_scapes_home_cta",
+      "type": "cta",
+      "name": "Home CTA",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 30,
+      "data": {
+        "eyebrow": "Start outside",
+        "heading": "Let’s make the property work better.",
+        "body": "Tell us what you want to change, solve, or build outdoors.",
+        "ctaLabel": "Request a quote",
+        "ctaHref": "/scapes/contact",
+        "secondaryLabel": "337.210.1210",
+        "secondaryHref": "tel:+13372101210"
+      },
+      "blocks": []
+    }
+  ],
+  "theme": {
+    "id": "theme_scapes",
+    "name": "Scapes",
+    "tokens": {
+      "brand": "#23372b",
+      "surface": "#f4f1ea",
+      "radius": 18
+    },
+    "publishedAt": 1787381823934
+  },
+  "publishedAt": 1787381842353,
+  "sectionObjects": {
+    "section_scapes_hero": "cms/published/pages/site_scapes/page_scapes_home/1787381842353/sections/000-section_scapes_hero.json",
+    "section_scapes_home_services": "cms/published/pages/site_scapes/page_scapes_home/1787381842353/sections/010-section_scapes_home_services.json",
+    "section_scapes_home_gallery": "cms/published/pages/site_scapes/page_scapes_home/1787381842353/sections/020-section_scapes_home_gallery.json",
+    "section_scapes_home_cta": "cms/published/pages/site_scapes/page_scapes_home/1787381842353/sections/030-section_scapes_home_cta.json"
+  },
+  "globalCmsNav": {
+    "id": "global_nav_site_scapes",
+    "siteId": "site_scapes",
+    "brand": {
+      "mark": "L",
+      "name": "Legendary",
+      "sublabel": "Scapes",
+      "homeHref": "/scapes",
+      "logoAssetId": "asset_cab32855-1698-45eb-8d23-6fb55a741e6e",
+      "logoUrl": "/api/media/assets/asset_cab32855-1698-45eb-8d23-6fb55a741e6e/variant?width=480&height=480&fit=scale-down&format=webp&quality=92",
+      "logoAlt": "Legendary Scapes"
+    },
+    "header": {
+      "links": [
+        {
+          "label": "Home",
+          "href": "/scapes"
+        },
+        {
+          "label": "Services",
+          "href": "/scapes/services-1"
+        },
+        {
+          "label": "Recent projects",
+          "href": "/scapes/recent-projects"
+        },
+        {
+          "label": "Reviews",
+          "href": "/scapes/reviews"
+        },
+        {
+          "label": "About",
+          "href": "/scapes/about-us"
+        },
+        {
+          "label": "Contact",
+          "href": "/scapes/contact"
+        }
+      ],
+      "utilityLinks": [
+        {
+          "label": "Legendary OS",
+          "href": "/dashboard"
+        }
+      ],
+      "cta": {
+        "label": "Request a quote",
+        "href": "/scapes/contact"
+      }
+    },
+    "footer": {
+      "location": "Greater Lafayette, Louisiana",
+      "phone": "337.210.1210",
+      "phoneHref": "tel:+13372101210",
+      "links": [
+        {
+          "label": "Services",
+          "href": "/scapes/services-1"
+        },
+        {
+          "label": "Projects",
+          "href": "/scapes/recent-projects"
+        },
+        {
+          "label": "About",
+          "href": "/scapes/about-us"
+        },
+        {
+          "label": "Contact",
+          "href": "/scapes/contact"
+        }
+      ],
+      "note": "Built and managed with Legendary OS."
+    },
+    "updatedAt": 1787382570956,
+    "publishedAt": 1787382571431
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "site": {
+    "id": "site_scapes",
+    "organizationId": "legendary",
+    "brandId": "scapes",
+    "name": "Legendary Scapes",
+    "domain": "legendary-scapes.com",
+    "themeId": "theme_scapes"
+  },
+  "page": {
+    "id": "page_scapes_services",
+    "siteId": "site_scapes",
+    "title": "Services",
+    "route": "/services-1",
+    "pageType": "services",
+    "status": "published",
+    "seo": {
+      "title": "Landscape Services | Legendary Scapes",
+      "description": "Landscape design, installations, hardscapes, drainage, lighting, irrigation, and outdoor living."
+    }
+  },
+  "sections": [
+    {
+      "id": "section_scapes_services_hero",
+      "type": "hero",
+      "name": "Hero",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 0,
+      "data": {
+        "eyebrow": "Services",
+        "heading": "One landscape partner for the property around you.",
+        "body": "Design, installation, hardscape, drainage, lighting, irrigation, grading, and outdoor features can live in one organized service system.",
+        "image": "/assets/legendary-scapes/images/c2170871c185182f88ec.jpg",
+        "imageAlt": "Legendary Scapes landscape work",
+        "ctaLabel": "Request a consultation",
+        "ctaHref": "/scapes/contact"
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_scapes_services_catalog",
+      "type": "services",
+      "name": "Service Catalog",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 10,
+      "data": {
+        "eyebrow": "Capabilities",
+        "heading": "The work, organized clearly.",
+        "items": [
+          {
+            "title": "Landscape Design Services",
+            "body": "Plan planting, layout, materials, and the overall outdoor experience."
+          },
+          {
+            "title": "Landscaping Installations",
+            "body": "Install beds, planting, sod, and complete landscape packages."
+          },
+          {
+            "title": "Hardscapes",
+            "body": "Patios, walks, retaining walls, and durable outdoor surfaces."
+          },
+          {
+            "title": "Turf & Putting Greens",
+            "body": "Purpose-built turf and recreation surfaces."
+          },
+          {
+            "title": "Pools & Outdoor Living",
+            "body": "Coordinate major outdoor-living features into the property plan."
+          },
+          {
+            "title": "Landscape Lighting",
+            "body": "Extend use, safety, and presentation after dark."
+          },
+          {
+            "title": "Drainage & Grade Work",
+            "body": "Manage grade and water movement around the site."
+          },
+          {
+            "title": "Irrigation & Water Features",
+            "body": "Water systems that support both function and finished design."
+          },
+          {
+            "title": "Sod, Lawn & Fencing",
+            "body": "Complete the site with lawn installation and property-edge solutions."
+          }
+        ]
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_scapes_services_cta",
+      "type": "cta",
+      "name": "Services CTA",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 20,
+      "data": {
+        "eyebrow": "Not sure which service name fits?",
+        "heading": "Start with the problem or the outcome.",
+        "body": "Legendary Scapes can help turn that into the right scope.",
+        "ctaLabel": "Contact Legendary Scapes",
+        "ctaHref": "/scapes/contact"
+      },
+      "blocks": []
+    }
+  ],
+  "theme": {
+    "id": "theme_scapes",
+    "name": "Scapes",
+    "tokens": {
+      "brand": "#23372b",
+      "surface": "#f4f1ea",
+      "radius": 18
+    },
+    "publishedAt": 1787381823934
+  },
+  "publishedAt": 1787381845411,
+  "sectionObjects": {
+    "section_scapes_services_hero": "cms/published/pages/site_scapes/page_scapes_services/1787381845411/sections/000-section_scapes_services_hero.json",
+    "section_scapes_services_catalog": "cms/published/pages/site_scapes/page_scapes_services/1787381845411/sections/010-section_scapes_services_catalog.json",
+    "section_scapes_services_cta": "cms/published/pages/site_scapes/page_scapes_services/1787381845411/sections/020-section_scapes_services_cta.json"
+  },
+  "globalCmsNav": {
+    "id": "global_nav_site_scapes",
+    "siteId": "site_scapes",
+    "brand": {
+      "mark": "L",
+      "name": "Legendary",
+      "sublabel": "Scapes",
+      "homeHref": "/scapes",
+      "logoAssetId": "asset_cab32855-1698-45eb-8d23-6fb55a741e6e",
+      "logoUrl": "/api/media/assets/asset_cab32855-1698-45eb-8d23-6fb55a741e6e/variant?width=480&height=480&fit=scale-down&format=webp&quality=92",
+      "logoAlt": "Legendary Scapes"
+    },
+    "header": {
+      "links": [
+        {
+          "label": "Home",
+          "href": "/scapes"
+        },
+        {
+          "label": "Services",
+          "href": "/scapes/services-1"
+        },
+        {
+          "label": "Recent projects",
+          "href": "/scapes/recent-projects"
+        },
+        {
+          "label": "Reviews",
+          "href": "/scapes/reviews"
+        },
+        {
+          "label": "About",
+          "href": "/scapes/about-us"
+        },
+        {
+          "label": "Contact",
+          "href": "/scapes/contact"
+        }
+      ],
+      "utilityLinks": [
+        {
+          "label": "Legendary OS",
+          "href": "/dashboard"
+        }
+      ],
+      "cta": {
+        "label": "Request a quote",
+        "href": "/scapes/contact"
+      }
+    },
+    "footer": {
+      "location": "Greater Lafayette, Louisiana",
+      "phone": "337.210.1210",
+      "phoneHref": "tel:+13372101210",
+      "links": [
+        {
+          "label": "Services",
+          "href": "/scapes/services-1"
+        },
+        {
+          "label": "Projects",
+          "href": "/scapes/recent-projects"
+        },
+        {
+          "label": "About",
+          "href": "/scapes/about-us"
+        },
+        {
+          "label": "Contact",
+          "href": "/scapes/contact"
+        }
+      ],
+      "note": "Built and managed with Legendary OS."
+    },
+    "updatedAt": 1787382570956,
+    "publishedAt": 1787382571431
+  }
+}

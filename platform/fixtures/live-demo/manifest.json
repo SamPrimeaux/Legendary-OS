@@ -1,0 +1,83 @@
+{
+  "capturedAt": "2026-10-07T04:18:32.743Z",
+  "base": "https://legendary-os.meauxbility.workers.dev",
+  "entries": [
+    {
+      "siteKey": "site_contractors",
+      "route": "/",
+      "file": "fixtures/live-demo/site_contractors__home.json",
+      "bytes": 7967,
+      "sha256": "c813b1ade6a95bc83d6932a72c8c3d90980e924c4f2fc52d5a5c3ffe1b064dc4"
+    },
+    {
+      "siteKey": "site_contractors",
+      "route": "/theprocess",
+      "file": "fixtures/live-demo/site_contractors__theprocess.json",
+      "bytes": 3935,
+      "sha256": "e84d7c4a692bb2fa2f6ee42c449934e8b0b12e6040670749ef6e907b81c21f27"
+    },
+    {
+      "siteKey": "site_contractors",
+      "route": "/available-homes",
+      "file": "fixtures/live-demo/site_contractors__available-homes.json",
+      "bytes": 4693,
+      "sha256": "e666fd60f396f2f73b0c0ecc2058c30921ea165ab992588d7bcd5d6832e78be4"
+    },
+    {
+      "siteKey": "site_contractors",
+      "route": "/portfolio",
+      "file": "fixtures/live-demo/site_contractors__portfolio.json",
+      "bytes": 3758,
+      "sha256": "5186dd25c59ec2db9d1e3a589e1d6af486e2827074bcc223494f5ef5df6ab034"
+    },
+    {
+      "siteKey": "site_contractors",
+      "route": "/contact",
+      "file": "fixtures/live-demo/site_contractors__contact.json",
+      "bytes": 3393,
+      "sha256": "6a99772e62176bcd098efcdd950e8d02d036f4491b523a28fbd7d45dc92fe17c"
+    },
+    {
+      "siteKey": "site_scapes",
+      "route": "/",
+      "file": "fixtures/live-demo/site_scapes__home.json",
+      "bytes": 4751,
+      "sha256": "ffa3671be7e6ea7d2a6aac21f22d6cef620a200e9d2f666bf6958ce4eaa94f1f"
+    },
+    {
+      "siteKey": "site_scapes",
+      "route": "/services-1",
+      "file": "fixtures/live-demo/site_scapes__services-1.json",
+      "bytes": 4368,
+      "sha256": "38c54c25429bf2bf3f8dff94986f68dee227d2288710347848fde62d1f610583"
+    },
+    {
+      "siteKey": "site_scapes",
+      "route": "/recent-projects",
+      "file": "fixtures/live-demo/site_scapes__recent-projects.json",
+      "bytes": 3775,
+      "sha256": "f8c6d437648384948598729d779b450001c067e081b7fed10db71677e18dc47b"
+    },
+    {
+      "siteKey": "site_scapes",
+      "route": "/reviews",
+      "file": "fixtures/live-demo/site_scapes__reviews.json",
+      "bytes": 3645,
+      "sha256": "57adf7a3e962350caa340736f98b071dc2139ca7475791368a35fc0117da7d17"
+    },
+    {
+      "siteKey": "site_scapes",
+      "route": "/about-us",
+      "file": "fixtures/live-demo/site_scapes__about-us.json",
+      "bytes": 3749,
+      "sha256": "77e6c9b6019a7d89b6940d664633419a12f33491eabc59b3510cd8b50e223692"
+    },
+    {
+      "siteKey": "site_scapes",
+      "route": "/contact",
+      "file": "fixtures/live-demo/site_scapes__contact.json",
+      "bytes": 3640,
+      "sha256": "b6f779f9c6e0a033ab159e5cdf221cb9755d173a747350fc9dfab18542ee9e79"
+    }
+  ]
+}

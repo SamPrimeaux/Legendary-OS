@@ -1,0 +1,180 @@
+{
+  "site": {
+    "id": "site_contractors",
+    "organizationId": "legendary",
+    "brandId": "contractors",
+    "name": "Legendary Contractors",
+    "domain": "legendarycontractors.com",
+    "themeId": "theme_contractors"
+  },
+  "page": {
+    "id": "page_contractors_portfolio",
+    "siteId": "site_contractors",
+    "title": "Portfolio",
+    "route": "/portfolio",
+    "pageType": "portfolio",
+    "status": "published",
+    "seo": {
+      "title": "Portfolio | Legendary Contractors",
+      "description": "A selection of custom homes and residential work across Acadiana."
+    }
+  },
+  "sections": [
+    {
+      "id": "section_contractors_portfolio_hero",
+      "type": "hero",
+      "name": "Hero",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 0,
+      "data": {
+        "eyebrow": "Selected homes",
+        "heading": "Built across Acadiana. Designed around the people living there.",
+        "body": "A reusable project gallery for custom homes, Parade of Homes work, and finished residences.",
+        "image": "/assets/legendary-contractors/images/9332af4669e419989250.webp",
+        "imageAlt": "Legendary Contractors project",
+        "ctaLabel": "Start your project",
+        "ctaHref": "/contact",
+        "proof": [
+          "Custom homes",
+          "Parade homes",
+          "Residential"
+        ]
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_contractors_portfolio_gallery",
+      "type": "gallery",
+      "name": "Portfolio Gallery",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 10,
+      "data": {
+        "eyebrow": "Portfolio",
+        "heading": "A few places we have helped bring to life.",
+        "body": "The gallery is section data backed by the shared media library, not page-specific image plumbing.",
+        "items": [
+          {
+            "title": "109 Peaceful Hollow",
+            "meta": "Lafayette · Home for the Holidays",
+            "image": "/assets/legendary-contractors/images/41786cc5b6abdc461c3a.webp"
+          },
+          {
+            "title": "302 Abercrombie Way",
+            "meta": "Youngsville · Parade of Homes",
+            "image": "/assets/legendary-contractors/images/1fe422acb93ed5bb12e1.webp"
+          },
+          {
+            "title": "Queen Palm Circle",
+            "meta": "Broussard",
+            "image": "/assets/legendary-contractors/images/9332af4669e419989250.webp"
+          }
+        ]
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_contractors_portfolio_cta",
+      "type": "cta",
+      "name": "Portfolio CTA",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 20,
+      "data": {
+        "eyebrow": "Your home is next",
+        "heading": "Bring the idea. We will help shape the path.",
+        "body": "New construction and renovation both start with a conversation.",
+        "ctaLabel": "Contact Legendary",
+        "ctaHref": "/contact"
+      },
+      "blocks": []
+    }
+  ],
+  "theme": {
+    "id": "theme_contractors",
+    "name": "Contractors",
+    "tokens": {
+      "brand": "#111111",
+      "surface": "#f4f1ea",
+      "radius": 18
+    },
+    "publishedAt": 1787381821537
+  },
+  "publishedAt": 1787381836894,
+  "sectionObjects": {
+    "section_contractors_portfolio_hero": "cms/published/pages/site_contractors/page_contractors_portfolio/1787381836894/sections/000-section_contractors_portfolio_hero.json",
+    "section_contractors_portfolio_gallery": "cms/published/pages/site_contractors/page_contractors_portfolio/1787381836894/sections/010-section_contractors_portfolio_gallery.json",
+    "section_contractors_portfolio_cta": "cms/published/pages/site_contractors/page_contractors_portfolio/1787381836894/sections/020-section_contractors_portfolio_cta.json"
+  },
+  "globalCmsNav": {
+    "id": "global_nav_site_contractors",
+    "siteId": "site_contractors",
+    "brand": {
+      "mark": "L",
+      "name": "Legendary",
+      "sublabel": "Contractors",
+      "homeHref": "/"
+    },
+    "header": {
+      "links": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Process",
+          "href": "/theprocess"
+        },
+        {
+          "label": "Available homes",
+          "href": "/available-homes"
+        },
+        {
+          "label": "Portfolio",
+          "href": "/portfolio"
+        },
+        {
+          "label": "Contact",
+          "href": "/contact"
+        }
+      ],
+      "utilityLinks": [
+        {
+          "label": "Legendary OS",
+          "href": "/dashboard"
+        }
+      ],
+      "cta": {
+        "label": "Start a project",
+        "href": "/contact"
+      }
+    },
+    "footer": {
+      "location": "Lafayette, Louisiana",
+      "phone": "337.552.5207",
+      "phoneHref": "tel:+13375525207",
+      "links": [
+        {
+          "label": "Process",
+          "href": "/theprocess"
+        },
+        {
+          "label": "Available homes",
+          "href": "/available-homes"
+        },
+        {
+          "label": "Portfolio",
+          "href": "/portfolio"
+        },
+        {
+          "label": "Contact",
+          "href": "/contact"
+        }
+      ],
+      "note": "Built and managed with Legendary OS."
+    },
+    "updatedAt": 1787380612000,
+    "publishedAt": 1787381822778
+  }
+}

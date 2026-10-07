@@ -1,0 +1,188 @@
+{
+  "site": {
+    "id": "site_contractors",
+    "organizationId": "legendary",
+    "brandId": "contractors",
+    "name": "Legendary Contractors",
+    "domain": "legendarycontractors.com",
+    "themeId": "theme_contractors"
+  },
+  "page": {
+    "id": "page_contractors_process",
+    "siteId": "site_contractors",
+    "title": "Our Process",
+    "route": "/theprocess",
+    "pageType": "standard",
+    "status": "published",
+    "seo": {
+      "title": "Our Construction Process | Legendary Contractors",
+      "description": "From lot and design through selections, construction, and service after completion."
+    }
+  },
+  "sections": [
+    {
+      "id": "section_contractors_process_hero",
+      "type": "hero",
+      "name": "Hero",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 0,
+      "data": {
+        "eyebrow": "How we build",
+        "heading": "A clear path from dirt to done.",
+        "body": "Five straightforward stages keep the decisions, budget, construction, and handoff moving together.",
+        "image": "/assets/legendary-contractors/images/41786cc5b6abdc461c3a.webp",
+        "imageAlt": "Legendary Contractors custom home interior",
+        "ctaLabel": "Talk about your build",
+        "ctaHref": "/contact",
+        "proof": [
+          "Plan",
+          "Select",
+          "Build",
+          "Support"
+        ]
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_contractors_process_steps",
+      "type": "process",
+      "name": "Construction Process",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 10,
+      "data": {
+        "eyebrow": "Five stages",
+        "heading": "Know what comes next.",
+        "body": "The scaffold keeps each stage editable as the process evolves.",
+        "items": [
+          {
+            "title": "Land / Lot Acquisition",
+            "body": "Start with the property, feasibility, and the right path for the project."
+          },
+          {
+            "title": "Layout & Design",
+            "body": "Shape the plan around how you want to live, the site, and the budget."
+          },
+          {
+            "title": "Selections & Budget",
+            "body": "Make material and finish decisions with cost visibility before they become surprises."
+          },
+          {
+            "title": "Construction",
+            "body": "Coordinate field work, trades, inspections, decisions, and progress through completion."
+          },
+          {
+            "title": "Service Beyond Completion",
+            "body": "Close out the home and keep a clear path for warranty and follow-up."
+          }
+        ]
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_contractors_process_cta",
+      "type": "cta",
+      "name": "Start a Project",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 20,
+      "data": {
+        "eyebrow": "Ready when you are",
+        "heading": "Build with a process you can actually follow.",
+        "body": "Start with the lot, the idea, or the questions you have today.",
+        "ctaLabel": "Contact Legendary",
+        "ctaHref": "/contact",
+        "secondaryLabel": "337.552.5207",
+        "secondaryHref": "tel:+13375525207"
+      },
+      "blocks": []
+    }
+  ],
+  "theme": {
+    "id": "theme_contractors",
+    "name": "Contractors",
+    "tokens": {
+      "brand": "#111111",
+      "surface": "#f4f1ea",
+      "radius": 18
+    },
+    "publishedAt": 1787381821537
+  },
+  "publishedAt": 1787381831135,
+  "sectionObjects": {
+    "section_contractors_process_hero": "cms/published/pages/site_contractors/page_contractors_process/1787381831135/sections/000-section_contractors_process_hero.json",
+    "section_contractors_process_steps": "cms/published/pages/site_contractors/page_contractors_process/1787381831135/sections/010-section_contractors_process_steps.json",
+    "section_contractors_process_cta": "cms/published/pages/site_contractors/page_contractors_process/1787381831135/sections/020-section_contractors_process_cta.json"
+  },
+  "globalCmsNav": {
+    "id": "global_nav_site_contractors",
+    "siteId": "site_contractors",
+    "brand": {
+      "mark": "L",
+      "name": "Legendary",
+      "sublabel": "Contractors",
+      "homeHref": "/"
+    },
+    "header": {
+      "links": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Process",
+          "href": "/theprocess"
+        },
+        {
+          "label": "Available homes",
+          "href": "/available-homes"
+        },
+        {
+          "label": "Portfolio",
+          "href": "/portfolio"
+        },
+        {
+          "label": "Contact",
+          "href": "/contact"
+        }
+      ],
+      "utilityLinks": [
+        {
+          "label": "Legendary OS",
+          "href": "/dashboard"
+        }
+      ],
+      "cta": {
+        "label": "Start a project",
+        "href": "/contact"
+      }
+    },
+    "footer": {
+      "location": "Lafayette, Louisiana",
+      "phone": "337.552.5207",
+      "phoneHref": "tel:+13375525207",
+      "links": [
+        {
+          "label": "Process",
+          "href": "/theprocess"
+        },
+        {
+          "label": "Available homes",
+          "href": "/available-homes"
+        },
+        {
+          "label": "Portfolio",
+          "href": "/portfolio"
+        },
+        {
+          "label": "Contact",
+          "href": "/contact"
+        }
+      ],
+      "note": "Built and managed with Legendary OS."
+    },
+    "updatedAt": 1787380612000,
+    "publishedAt": 1787381822778
+  }
+}

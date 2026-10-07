@@ -1,0 +1,182 @@
+{
+  "site": {
+    "id": "site_scapes",
+    "organizationId": "legendary",
+    "brandId": "scapes",
+    "name": "Legendary Scapes",
+    "domain": "legendary-scapes.com",
+    "themeId": "theme_scapes"
+  },
+  "page": {
+    "id": "page_scapes_about",
+    "siteId": "site_scapes",
+    "title": "About Us",
+    "route": "/about-us",
+    "pageType": "standard",
+    "status": "published",
+    "seo": {
+      "title": "About Legendary Scapes",
+      "description": "Meet the team behind Legendary Scapes and its full-service landscape work."
+    }
+  },
+  "sections": [
+    {
+      "id": "section_scapes_about_hero",
+      "type": "hero",
+      "name": "Hero",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 0,
+      "data": {
+        "eyebrow": "About us",
+        "heading": "A landscape company built around practical experience.",
+        "body": "Legendary Scapes brings design, construction, horticulture, engineering thinking, and equipment experience together around one property.",
+        "image": "/assets/legendary-scapes/images/1141cba520f4e20dacaa.jpg",
+        "imageAlt": "Legendary Scapes team and work",
+        "ctaLabel": "See our services",
+        "ctaHref": "/scapes/services-1"
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_scapes_about_team",
+      "type": "services",
+      "name": "Team",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 10,
+      "data": {
+        "eyebrow": "The team",
+        "heading": "Different strengths, one finished property.",
+        "items": [
+          {
+            "title": "Blake Romero",
+            "body": "Founder with project-management, operations, and sales experience."
+          },
+          {
+            "title": "Bobby Vannoy",
+            "body": "Co-owner and engineering lead with a civil-engineering background."
+          },
+          {
+            "title": "Richard Buswell",
+            "body": "Horticulture, construction, heavy-equipment, dirt-work, and excavation experience."
+          },
+          {
+            "title": "Julie Buswell",
+            "body": "Leads maintenance operations and customer relationships."
+          }
+        ]
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_scapes_about_cta",
+      "type": "cta",
+      "name": "About CTA",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 20,
+      "data": {
+        "eyebrow": "Work with the team",
+        "heading": "Bring us the property and the goal.",
+        "body": "We’ll help organize the work it takes to get there.",
+        "ctaLabel": "Contact Legendary Scapes",
+        "ctaHref": "/scapes/contact"
+      },
+      "blocks": []
+    }
+  ],
+  "theme": {
+    "id": "theme_scapes",
+    "name": "Scapes",
+    "tokens": {
+      "brand": "#23372b",
+      "surface": "#f4f1ea",
+      "radius": 18
+    },
+    "publishedAt": 1787381823934
+  },
+  "publishedAt": 1787381853315,
+  "sectionObjects": {
+    "section_scapes_about_hero": "cms/published/pages/site_scapes/page_scapes_about/1787381853315/sections/000-section_scapes_about_hero.json",
+    "section_scapes_about_team": "cms/published/pages/site_scapes/page_scapes_about/1787381853315/sections/010-section_scapes_about_team.json",
+    "section_scapes_about_cta": "cms/published/pages/site_scapes/page_scapes_about/1787381853315/sections/020-section_scapes_about_cta.json"
+  },
+  "globalCmsNav": {
+    "id": "global_nav_site_scapes",
+    "siteId": "site_scapes",
+    "brand": {
+      "mark": "L",
+      "name": "Legendary",
+      "sublabel": "Scapes",
+      "homeHref": "/scapes",
+      "logoAssetId": "asset_cab32855-1698-45eb-8d23-6fb55a741e6e",
+      "logoUrl": "/api/media/assets/asset_cab32855-1698-45eb-8d23-6fb55a741e6e/variant?width=480&height=480&fit=scale-down&format=webp&quality=92",
+      "logoAlt": "Legendary Scapes"
+    },
+    "header": {
+      "links": [
+        {
+          "label": "Home",
+          "href": "/scapes"
+        },
+        {
+          "label": "Services",
+          "href": "/scapes/services-1"
+        },
+        {
+          "label": "Recent projects",
+          "href": "/scapes/recent-projects"
+        },
+        {
+          "label": "Reviews",
+          "href": "/scapes/reviews"
+        },
+        {
+          "label": "About",
+          "href": "/scapes/about-us"
+        },
+        {
+          "label": "Contact",
+          "href": "/scapes/contact"
+        }
+      ],
+      "utilityLinks": [
+        {
+          "label": "Legendary OS",
+          "href": "/dashboard"
+        }
+      ],
+      "cta": {
+        "label": "Request a quote",
+        "href": "/scapes/contact"
+      }
+    },
+    "footer": {
+      "location": "Greater Lafayette, Louisiana",
+      "phone": "337.210.1210",
+      "phoneHref": "tel:+13372101210",
+      "links": [
+        {
+          "label": "Services",
+          "href": "/scapes/services-1"
+        },
+        {
+          "label": "Projects",
+          "href": "/scapes/recent-projects"
+        },
+        {
+          "label": "About",
+          "href": "/scapes/about-us"
+        },
+        {
+          "label": "Contact",
+          "href": "/scapes/contact"
+        }
+      ],
+      "note": "Built and managed with Legendary OS."
+    },
+    "updatedAt": 1787382570956,
+    "publishedAt": 1787382571431
+  }
+}

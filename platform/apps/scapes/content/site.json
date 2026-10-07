@@ -1,0 +1,666 @@
+{
+  "schemaVersion": 1,
+  "globals": {
+    "header": {
+      "links": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Services",
+          "href": "/services"
+        },
+        {
+          "label": "Recent projects",
+          "href": "/projects"
+        },
+        {
+          "label": "Reviews",
+          "href": "/reviews"
+        },
+        {
+          "label": "About",
+          "href": "/about"
+        },
+        {
+          "label": "Contact",
+          "href": "/contact"
+        }
+      ],
+      "utility": [
+        {
+          "label": "Legendary OS",
+          "href": "/dashboard",
+          "root": true
+        }
+      ],
+      "cta": {
+        "label": "Request a quote",
+        "href": "/contact"
+      }
+    },
+    "footer": {
+      "links": [
+        {
+          "label": "Services",
+          "href": "/services"
+        },
+        {
+          "label": "Projects",
+          "href": "/projects"
+        },
+        {
+          "label": "About",
+          "href": "/about"
+        },
+        {
+          "label": "Contact",
+          "href": "/contact"
+        }
+      ],
+      "note": "Built and managed with Legendary OS."
+    }
+  },
+  "pages": [
+    {
+      "key": "home",
+      "route": "/",
+      "title": "Home",
+      "description": "Landscape design and outdoor living in Acadiana.",
+      "seo": {
+        "title": "Legendary Scapes",
+        "description": "Landscape design and outdoor living in Acadiana."
+      },
+      "template": "home",
+      "sections": [
+        {
+          "key": "hero",
+          "type": "hero",
+          "data": {
+            "eyebrow": "Landscape · Outdoor living",
+            "heading": "Outdoor spaces built to belong.",
+            "body": "Landscape design and construction for homes and businesses across greater Lafayette and beyond.",
+            "mediaKey": "/assets/legendary-scapes/images/23d6d31a2159580e3d3e.jpg",
+            "alt": "Legendary Scapes outdoor project",
+            "proof": [
+              "Design",
+              "Install",
+              "Hardscape",
+              "Drainage"
+            ],
+            "primaryCta": {
+              "label": "Request a consultation",
+              "href": "/contact"
+            },
+            "secondaryCta": {
+              "label": "Explore services",
+              "href": "/services"
+            },
+            "_legacy": {
+              "id": "section_scapes_hero",
+              "type": "hero",
+              "name": "Hero"
+            }
+          }
+        },
+        {
+          "key": "services",
+          "type": "card-grid",
+          "settings": {
+            "surface": "canvas"
+          },
+          "data": {
+            "eyebrow": "What we do",
+            "heading": "From the ground under it to the light around it.",
+            "intro": "The service catalog is structured content so it can be revised once and reused wherever the brand needs it.",
+            "layout": "cards",
+            "columns": "3",
+            "items": [
+              {
+                "title": "Landscape Installations",
+                "body": "Planting, sod, beds, and complete landscape installation."
+              },
+              {
+                "title": "Hardscapes",
+                "body": "Patios, walkways, retaining walls, and built outdoor features."
+              },
+              {
+                "title": "Drainage & Grade Work",
+                "body": "Shape water movement and site grades around the property."
+              },
+              {
+                "title": "Lighting & Irrigation",
+                "body": "Infrastructure that helps the finished landscape work day to day."
+              }
+            ],
+            "_legacy": {
+              "id": "section_scapes_home_services",
+              "type": "services",
+              "name": "Core Services"
+            }
+          }
+        },
+        {
+          "key": "gallery",
+          "type": "card-grid",
+          "settings": {
+            "surface": "paper"
+          },
+          "data": {
+            "eyebrow": "Recent work",
+            "heading": "Landscapes made for real properties.",
+            "layout": "cards",
+            "columns": "3",
+            "items": [
+              {
+                "title": "Outdoor Living",
+                "meta": "Acadiana",
+                "mediaKey": "/assets/legendary-scapes/images/ab3e2571004e5de6e22d.jpg"
+              },
+              {
+                "title": "Landscape Installation",
+                "meta": "Greater Lafayette",
+                "mediaKey": "/assets/legendary-scapes/images/e67b29fd746a66da5335.jpg"
+              },
+              {
+                "title": "Finished Detail",
+                "meta": "Legendary Scapes",
+                "mediaKey": "/assets/legendary-scapes/images/1de3e14321fac67846dd.jpg"
+              }
+            ],
+            "cta": {
+              "label": "See recent projects",
+              "href": "/projects"
+            },
+            "_legacy": {
+              "id": "section_scapes_home_gallery",
+              "type": "gallery",
+              "name": "Recent Work"
+            }
+          }
+        },
+        {
+          "key": "cta",
+          "type": "cta-banner",
+          "settings": {
+            "surface": "inverse"
+          },
+          "data": {
+            "eyebrow": "Start outside",
+            "heading": "Let’s make the property work better.",
+            "body": "Tell us what you want to change, solve, or build outdoors.",
+            "cta": {
+              "label": "Request a quote",
+              "href": "/contact"
+            },
+            "secondary": {
+              "label": "337.210.1210",
+              "href": "tel:+13372101210"
+            },
+            "_legacy": {
+              "id": "section_scapes_home_cta",
+              "type": "cta",
+              "name": "Home CTA"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "services",
+      "route": "/services",
+      "aliases": [
+        "/services-1"
+      ],
+      "title": "Services",
+      "description": "Landscape design, installations, hardscapes, drainage, lighting, irrigation, and outdoor living.",
+      "seo": {
+        "title": "Landscape Services | Legendary Scapes",
+        "description": "Landscape design, installations, hardscapes, drainage, lighting, irrigation, and outdoor living."
+      },
+      "template": "services",
+      "sections": [
+        {
+          "key": "hero",
+          "type": "hero",
+          "data": {
+            "eyebrow": "Services",
+            "heading": "One landscape partner for the property around you.",
+            "body": "Design, installation, hardscape, drainage, lighting, irrigation, grading, and outdoor features can live in one organized service system.",
+            "mediaKey": "/assets/legendary-scapes/images/c2170871c185182f88ec.jpg",
+            "alt": "Legendary Scapes landscape work",
+            "primaryCta": {
+              "label": "Request a consultation",
+              "href": "/contact"
+            },
+            "_legacy": {
+              "id": "section_scapes_services_hero",
+              "type": "hero",
+              "name": "Hero"
+            }
+          }
+        },
+        {
+          "key": "services",
+          "type": "card-grid",
+          "settings": {
+            "surface": "canvas"
+          },
+          "data": {
+            "eyebrow": "Capabilities",
+            "heading": "The work, organized clearly.",
+            "layout": "cards",
+            "columns": "3",
+            "items": [
+              {
+                "title": "Landscape Design Services",
+                "body": "Plan planting, layout, materials, and the overall outdoor experience."
+              },
+              {
+                "title": "Landscaping Installations",
+                "body": "Install beds, planting, sod, and complete landscape packages."
+              },
+              {
+                "title": "Hardscapes",
+                "body": "Patios, walks, retaining walls, and durable outdoor surfaces."
+              },
+              {
+                "title": "Turf & Putting Greens",
+                "body": "Purpose-built turf and recreation surfaces."
+              },
+              {
+                "title": "Pools & Outdoor Living",
+                "body": "Coordinate major outdoor-living features into the property plan."
+              },
+              {
+                "title": "Landscape Lighting",
+                "body": "Extend use, safety, and presentation after dark."
+              },
+              {
+                "title": "Drainage & Grade Work",
+                "body": "Manage grade and water movement around the site."
+              },
+              {
+                "title": "Irrigation & Water Features",
+                "body": "Water systems that support both function and finished design."
+              },
+              {
+                "title": "Sod, Lawn & Fencing",
+                "body": "Complete the site with lawn installation and property-edge solutions."
+              }
+            ],
+            "_legacy": {
+              "id": "section_scapes_services_catalog",
+              "type": "services",
+              "name": "Service Catalog"
+            }
+          }
+        },
+        {
+          "key": "cta",
+          "type": "cta-banner",
+          "settings": {
+            "surface": "inverse"
+          },
+          "data": {
+            "eyebrow": "Not sure which service name fits?",
+            "heading": "Start with the problem or the outcome.",
+            "body": "Legendary Scapes can help turn that into the right scope.",
+            "cta": {
+              "label": "Contact Legendary Scapes",
+              "href": "/contact"
+            },
+            "_legacy": {
+              "id": "section_scapes_services_cta",
+              "type": "cta",
+              "name": "Services CTA"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "projects",
+      "route": "/projects",
+      "aliases": [
+        "/recent-projects"
+      ],
+      "title": "Recent Projects",
+      "description": "Recent landscape and outdoor living work from Legendary Scapes.",
+      "seo": {
+        "title": "Recent Projects | Legendary Scapes",
+        "description": "Recent landscape and outdoor living work from Legendary Scapes."
+      },
+      "template": "portfolio",
+      "sections": [
+        {
+          "key": "hero",
+          "type": "hero",
+          "data": {
+            "eyebrow": "Recent projects",
+            "heading": "See the work in the ground, not just on a service list.",
+            "body": "This page is now a real CMS gallery scaffold ready for project names, locations, captions, and future case-study pages.",
+            "mediaKey": "/assets/legendary-scapes/images/ab3e2571004e5de6e22d.jpg",
+            "alt": "Legendary Scapes recent project",
+            "primaryCta": {
+              "label": "Plan your property",
+              "href": "/contact"
+            },
+            "_legacy": {
+              "id": "section_scapes_projects_hero",
+              "type": "hero",
+              "name": "Hero"
+            }
+          }
+        },
+        {
+          "key": "gallery",
+          "type": "card-grid",
+          "settings": {
+            "surface": "canvas"
+          },
+          "data": {
+            "eyebrow": "Gallery",
+            "heading": "Recent Legendary Scapes work.",
+            "layout": "cards",
+            "columns": "3",
+            "items": [
+              {
+                "title": "Landscape Project 01",
+                "meta": "Greater Lafayette",
+                "mediaKey": "/assets/legendary-scapes/images/ab3e2571004e5de6e22d.jpg"
+              },
+              {
+                "title": "Landscape Project 02",
+                "meta": "Acadiana",
+                "mediaKey": "/assets/legendary-scapes/images/e67b29fd746a66da5335.jpg"
+              },
+              {
+                "title": "Landscape Project 03",
+                "meta": "Legendary Scapes",
+                "mediaKey": "/assets/legendary-scapes/images/49dd85bc5ce04fa97433.jpg"
+              }
+            ],
+            "_legacy": {
+              "id": "section_scapes_projects_gallery",
+              "type": "gallery",
+              "name": "Project Gallery"
+            }
+          }
+        },
+        {
+          "key": "cta",
+          "type": "cta-banner",
+          "settings": {
+            "surface": "inverse"
+          },
+          "data": {
+            "eyebrow": "Your property",
+            "heading": "Make the next project one worth showing.",
+            "body": "Start with a consultation and a clear picture of what the space needs to do.",
+            "cta": {
+              "label": "Request a quote",
+              "href": "/contact"
+            },
+            "_legacy": {
+              "id": "section_scapes_projects_cta",
+              "type": "cta",
+              "name": "Projects CTA"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "reviews",
+      "route": "/reviews",
+      "title": "Reviews",
+      "description": "Customer experience and service principles from Legendary Scapes.",
+      "seo": {
+        "title": "Reviews | Legendary Scapes",
+        "description": "Customer experience and service principles from Legendary Scapes."
+      },
+      "template": "standard",
+      "sections": [
+        {
+          "key": "hero",
+          "type": "hero",
+          "data": {
+            "eyebrow": "Reviews",
+            "heading": "The experience matters as much as the finished property.",
+            "body": "This page is scaffolded for approved customer reviews while keeping today’s claims grounded in how Legendary Scapes works.",
+            "mediaKey": "/assets/legendary-scapes/images/e5af9bb43c97dc4427ae.jpg",
+            "alt": "Legendary Scapes completed landscape",
+            "primaryCta": {
+              "label": "Talk with the team",
+              "href": "/contact"
+            },
+            "_legacy": {
+              "id": "section_scapes_reviews_hero",
+              "type": "hero",
+              "name": "Hero"
+            }
+          }
+        },
+        {
+          "key": "content",
+          "type": "text-split",
+          "settings": {
+            "surface": "canvas"
+          },
+          "data": {
+            "eyebrow": "What we aim to deliver",
+            "heading": "Clear work. Experienced people. A finished result you can live with.",
+            "body": "Approved testimonials can drop into this same section model without rebuilding the page.",
+            "points": [
+              "Licensed and insured operations",
+              "Experienced field and project team",
+              "A commitment to communication and satisfaction"
+            ],
+            "_legacy": {
+              "id": "section_scapes_reviews_content",
+              "type": "content",
+              "name": "Customer Experience"
+            }
+          }
+        },
+        {
+          "key": "cta",
+          "type": "cta-banner",
+          "settings": {
+            "surface": "inverse"
+          },
+          "data": {
+            "eyebrow": "Have a project in mind?",
+            "heading": "Create your own Legendary Scapes experience.",
+            "body": "Start with the property and what you want it to become.",
+            "cta": {
+              "label": "Request a consultation",
+              "href": "/contact"
+            },
+            "_legacy": {
+              "id": "section_scapes_reviews_cta",
+              "type": "cta",
+              "name": "Reviews CTA"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "about",
+      "route": "/about",
+      "aliases": [
+        "/about-us"
+      ],
+      "title": "About Us",
+      "description": "Meet the team behind Legendary Scapes and its full-service landscape work.",
+      "seo": {
+        "title": "About Legendary Scapes",
+        "description": "Meet the team behind Legendary Scapes and its full-service landscape work."
+      },
+      "template": "standard",
+      "sections": [
+        {
+          "key": "hero",
+          "type": "hero",
+          "data": {
+            "eyebrow": "About us",
+            "heading": "A landscape company built around practical experience.",
+            "body": "Legendary Scapes brings design, construction, horticulture, engineering thinking, and equipment experience together around one property.",
+            "mediaKey": "/assets/legendary-scapes/images/1141cba520f4e20dacaa.jpg",
+            "alt": "Legendary Scapes team and work",
+            "primaryCta": {
+              "label": "See our services",
+              "href": "/services"
+            },
+            "_legacy": {
+              "id": "section_scapes_about_hero",
+              "type": "hero",
+              "name": "Hero"
+            }
+          }
+        },
+        {
+          "key": "services",
+          "type": "card-grid",
+          "settings": {
+            "surface": "canvas"
+          },
+          "data": {
+            "eyebrow": "The team",
+            "heading": "Different strengths, one finished property.",
+            "layout": "cards",
+            "columns": "3",
+            "items": [
+              {
+                "title": "Blake Romero",
+                "body": "Founder with project-management, operations, and sales experience."
+              },
+              {
+                "title": "Bobby Vannoy",
+                "body": "Co-owner and engineering lead with a civil-engineering background."
+              },
+              {
+                "title": "Richard Buswell",
+                "body": "Horticulture, construction, heavy-equipment, dirt-work, and excavation experience."
+              },
+              {
+                "title": "Julie Buswell",
+                "body": "Leads maintenance operations and customer relationships."
+              }
+            ],
+            "_legacy": {
+              "id": "section_scapes_about_team",
+              "type": "services",
+              "name": "Team"
+            }
+          }
+        },
+        {
+          "key": "cta",
+          "type": "cta-banner",
+          "settings": {
+            "surface": "inverse"
+          },
+          "data": {
+            "eyebrow": "Work with the team",
+            "heading": "Bring us the property and the goal.",
+            "body": "We’ll help organize the work it takes to get there.",
+            "cta": {
+              "label": "Contact Legendary Scapes",
+              "href": "/contact"
+            },
+            "_legacy": {
+              "id": "section_scapes_about_cta",
+              "type": "cta",
+              "name": "About CTA"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "contact",
+      "route": "/contact",
+      "title": "Contact",
+      "description": "Request a landscape consultation or quote from Legendary Scapes.",
+      "seo": {
+        "title": "Contact Legendary Scapes",
+        "description": "Request a landscape consultation or quote from Legendary Scapes."
+      },
+      "template": "contact",
+      "sections": [
+        {
+          "key": "hero",
+          "type": "hero",
+          "data": {
+            "eyebrow": "Free quote",
+            "heading": "Tell us what you want to change outside.",
+            "body": "A drainage problem, a blank yard, a finished outdoor-living idea, or something in between is enough to start.",
+            "mediaKey": "/assets/legendary-scapes/images/86327549433314aa122c.jpg",
+            "alt": "Legendary Scapes outdoor landscape",
+            "primaryCta": {
+              "label": "Call 337.210.1210",
+              "href": "tel:+13372101210"
+            },
+            "_legacy": {
+              "id": "section_scapes_contact_hero",
+              "type": "hero",
+              "name": "Hero"
+            }
+          }
+        },
+        {
+          "key": "content",
+          "type": "text-split",
+          "settings": {
+            "surface": "canvas"
+          },
+          "data": {
+            "eyebrow": "Start with the basics",
+            "heading": "A useful quote starts with a useful conversation.",
+            "body": "Share the property, the problem, and the outcome you are hoping for.",
+            "points": [
+              "Landscape and outdoor-living projects",
+              "Drainage, grading, irrigation, and lighting",
+              "Maintenance and property improvement questions"
+            ],
+            "_legacy": {
+              "id": "section_scapes_contact_content",
+              "type": "content",
+              "name": "Contact Details"
+            }
+          }
+        },
+        {
+          "key": "cta",
+          "type": "cta-banner",
+          "settings": {
+            "surface": "inverse"
+          },
+          "data": {
+            "eyebrow": "Legendary Scapes",
+            "heading": "Let’s bring the outdoor vision to life.",
+            "body": "Call 337.210.1210 or use the intake flow as it comes online in Legendary OS.",
+            "cta": {
+              "label": "Call now",
+              "href": "tel:+13372101210"
+            },
+            "secondary": {
+              "label": "Back to Scapes",
+              "href": "/"
+            },
+            "_legacy": {
+              "id": "section_scapes_contact_cta",
+              "type": "cta",
+              "name": "Contact CTA"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "collections": {}
+}

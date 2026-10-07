@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "app": { "id": "contractors", "kind": "contracting" },
+  "site": { "key": "site_contractors" },
+  "organization": { "id": "legendary" },
+  "identity": { "provider": "inneranimalmedia" },
+  "theme": { "base": "home-services", "tokens": "brand/tokens.json" },
+  "brand": "brand/brand.json",
+  "features": ["cms", "media", "leads", "projects", "before-after", "overlays", "listings"],
+  "roles": ["owner", "admin", "editor", "crew", "viewer"],
+  "content": { "seed": "content/site.json" }
+}

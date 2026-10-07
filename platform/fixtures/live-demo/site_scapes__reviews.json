@@ -1,0 +1,170 @@
+{
+  "site": {
+    "id": "site_scapes",
+    "organizationId": "legendary",
+    "brandId": "scapes",
+    "name": "Legendary Scapes",
+    "domain": "legendary-scapes.com",
+    "themeId": "theme_scapes"
+  },
+  "page": {
+    "id": "page_scapes_reviews",
+    "siteId": "site_scapes",
+    "title": "Reviews",
+    "route": "/reviews",
+    "pageType": "standard",
+    "status": "published",
+    "seo": {
+      "title": "Reviews | Legendary Scapes",
+      "description": "Customer experience and service principles from Legendary Scapes."
+    }
+  },
+  "sections": [
+    {
+      "id": "section_scapes_reviews_hero",
+      "type": "hero",
+      "name": "Hero",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 0,
+      "data": {
+        "eyebrow": "Reviews",
+        "heading": "The experience matters as much as the finished property.",
+        "body": "This page is scaffolded for approved customer reviews while keeping today’s claims grounded in how Legendary Scapes works.",
+        "image": "/assets/legendary-scapes/images/e5af9bb43c97dc4427ae.jpg",
+        "imageAlt": "Legendary Scapes completed landscape",
+        "ctaLabel": "Talk with the team",
+        "ctaHref": "/scapes/contact"
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_scapes_reviews_content",
+      "type": "content",
+      "name": "Customer Experience",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 10,
+      "data": {
+        "eyebrow": "What we aim to deliver",
+        "heading": "Clear work. Experienced people. A finished result you can live with.",
+        "body": "Approved testimonials can drop into this same section model without rebuilding the page.",
+        "points": [
+          "Licensed and insured operations",
+          "Experienced field and project team",
+          "A commitment to communication and satisfaction"
+        ]
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_scapes_reviews_cta",
+      "type": "cta",
+      "name": "Reviews CTA",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 20,
+      "data": {
+        "eyebrow": "Have a project in mind?",
+        "heading": "Create your own Legendary Scapes experience.",
+        "body": "Start with the property and what you want it to become.",
+        "ctaLabel": "Request a consultation",
+        "ctaHref": "/scapes/contact"
+      },
+      "blocks": []
+    }
+  ],
+  "theme": {
+    "id": "theme_scapes",
+    "name": "Scapes",
+    "tokens": {
+      "brand": "#23372b",
+      "surface": "#f4f1ea",
+      "radius": 18
+    },
+    "publishedAt": 1787381823934
+  },
+  "publishedAt": 1787381850619,
+  "sectionObjects": {
+    "section_scapes_reviews_hero": "cms/published/pages/site_scapes/page_scapes_reviews/1787381850619/sections/000-section_scapes_reviews_hero.json",
+    "section_scapes_reviews_content": "cms/published/pages/site_scapes/page_scapes_reviews/1787381850619/sections/010-section_scapes_reviews_content.json",
+    "section_scapes_reviews_cta": "cms/published/pages/site_scapes/page_scapes_reviews/1787381850619/sections/020-section_scapes_reviews_cta.json"
+  },
+  "globalCmsNav": {
+    "id": "global_nav_site_scapes",
+    "siteId": "site_scapes",
+    "brand": {
+      "mark": "L",
+      "name": "Legendary",
+      "sublabel": "Scapes",
+      "homeHref": "/scapes",
+      "logoAssetId": "asset_cab32855-1698-45eb-8d23-6fb55a741e6e",
+      "logoUrl": "/api/media/assets/asset_cab32855-1698-45eb-8d23-6fb55a741e6e/variant?width=480&height=480&fit=scale-down&format=webp&quality=92",
+      "logoAlt": "Legendary Scapes"
+    },
+    "header": {
+      "links": [
+        {
+          "label": "Home",
+          "href": "/scapes"
+        },
+        {
+          "label": "Services",
+          "href": "/scapes/services-1"
+        },
+        {
+          "label": "Recent projects",
+          "href": "/scapes/recent-projects"
+        },
+        {
+          "label": "Reviews",
+          "href": "/scapes/reviews"
+        },
+        {
+          "label": "About",
+          "href": "/scapes/about-us"
+        },
+        {
+          "label": "Contact",
+          "href": "/scapes/contact"
+        }
+      ],
+      "utilityLinks": [
+        {
+          "label": "Legendary OS",
+          "href": "/dashboard"
+        }
+      ],
+      "cta": {
+        "label": "Request a quote",
+        "href": "/scapes/contact"
+      }
+    },
+    "footer": {
+      "location": "Greater Lafayette, Louisiana",
+      "phone": "337.210.1210",
+      "phoneHref": "tel:+13372101210",
+      "links": [
+        {
+          "label": "Services",
+          "href": "/scapes/services-1"
+        },
+        {
+          "label": "Projects",
+          "href": "/scapes/recent-projects"
+        },
+        {
+          "label": "About",
+          "href": "/scapes/about-us"
+        },
+        {
+          "label": "Contact",
+          "href": "/scapes/contact"
+        }
+      ],
+      "note": "Built and managed with Legendary OS."
+    },
+    "updatedAt": 1787382570956,
+    "publishedAt": 1787382571431
+  }
+}

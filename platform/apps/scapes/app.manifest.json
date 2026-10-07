@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "app": { "id": "scapes", "kind": "landscaping" },
+  "site": { "key": "site_scapes" },
+  "organization": { "id": "legendary" },
+  "identity": { "provider": "inneranimalmedia" },
+  "theme": { "base": "home-services", "tokens": "brand/tokens.json" },
+  "brand": "brand/brand.json",
+  "features": ["cms", "media", "leads", "projects", "before-after", "overlays"],
+  "roles": ["owner", "admin", "editor", "crew", "viewer"],
+  "content": { "seed": "content/site.json" }
+}

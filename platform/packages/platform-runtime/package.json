@@ -1,0 +1,9 @@
+{
+  "name": "@inneranimalmedia/platform-runtime",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "types": "./src/index.ts",
+  "dependencies": { "@inneranimalmedia/site-contracts": "*", "@inneranimalmedia/site-renderer": "*", "@inneranimalmedia/platform-protocol": "*" }
+}
