@@ -9,7 +9,7 @@
 import type { CmsRequestContext } from '../cms';
 import type { CmsD1Database } from '../cms/adapters/d1-store';
 import { resolveIdentitySession } from '../identity/resolve-identity-session.js';
-import { isBridgeKeyProvisioned, trimSecret, type MachineAuthEnv } from './machine-auth-env.js';
+import { trimSecret, type MachineAuthEnv } from './machine-auth-env.js';
 import { verifyBridgeKey } from './bridge-key-auth.js';
 
 export type CmsRouteAuthEnv = MachineAuthEnv & {
@@ -34,9 +34,8 @@ export async function rejectUnauthorizedCmsApi(
   if (verifyBridgeKey(request, env)) return null;
 
   if (cmsAuthMode(env) === 'bridge') {
-    const cfAccess = trimSecret(request.headers.get('Cf-Access-Authenticated-User-Email'));
-    if (cfAccess) return null;
-    if (!isBridgeKeyProvisioned(env)) return null;
+    // A missing secret is not a development bypass. An email header alone
+    // is also not proof of a verified Cloudflare Access identity.
     return Response.json({ ok: false, error: 'invalid_bridge_key' }, { status: 401 });
   }
 

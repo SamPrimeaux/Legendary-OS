@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { GlobalCmsFooter, GlobalCmsHeader, type GlobalCmsNavModel } from './GlobalCmsNav';
 import './publicCmsPage.css';
+import { scopeSectionLinks } from './siteLinks';
 
 export type SectionData = Record<string, unknown>;
 export type PublicSection = { id:string; type:string; name:string; visible?:boolean; sortOrder?:number; data:SectionData; blocks:Array<Record<string,unknown>> };
@@ -60,27 +61,29 @@ function CmsSection({ section }: { section: PublicSection }) {
   return <section className="lc-section lc-generic"><SectionHeading data={data}/></section>;
 }
 
-export function CmsPageRenderer({ model, embedded=false, selectedSectionId, onSectionSelect }: {
+export function CmsPageRenderer({ model, embedded=false, selectedSectionId, onSectionSelect, basePath }: {
   model: PublicPageModel;
   embedded?: boolean;
   selectedSectionId?: string;
   onSectionSelect?: (sectionId: string) => void;
+  basePath?: string;
 }) {
+  const siteBase = basePath ?? (model.site.brandId === 'scapes' ? '/scapes' : '');
   const tokens=model.theme?.tokens??{};
   const brand=String(tokens.brand??'#10110f');
   const surface=String(tokens.surface??'#f3f0e9');
   const themeStyle={'--site-brand':brand,'--site-surface':surface,'--ink':brand,'--paper':surface,'--muted':String(tokens.muted??'#77766f'),'--line':String(tokens.line??'rgba(16,17,15,.13)'),'--cream':String(tokens.secondarySurface??'#e8e2d5'),'--site-radius':`${Number(tokens.radius??18)}px`} as React.CSSProperties;
   return <main className={`public-site${embedded ? ' public-site--embedded' : ''}`} style={themeStyle}>
-    {model.globalCmsNav ? <GlobalCmsHeader nav={model.globalCmsNav}/> : null}
-    {model.sections.filter(section => section.visible !== false).map(section => <div key={section.id} className={`cms-render-section${selectedSectionId===section.id?' is-selected':''}`} onClick={embedded ? (event)=>{event.preventDefault();event.stopPropagation();onSectionSelect?.(section.id);} : undefined}><CmsSection section={section}/></div>)}
-    {model.globalCmsNav ? <GlobalCmsFooter nav={model.globalCmsNav}/> : null}
+    {model.globalCmsNav ? <GlobalCmsHeader nav={model.globalCmsNav} basePath={siteBase}/> : null}
+    {model.sections.filter(section => section.visible !== false).map(section => <div key={section.id} className={`cms-render-section${selectedSectionId===section.id?' is-selected':''}`} onClick={embedded ? (event)=>{event.preventDefault();event.stopPropagation();onSectionSelect?.(section.id);} : undefined}><CmsSection section={{ ...section, data: scopeSectionLinks(section.data, siteBase) }}/></div>)}
+    {model.globalCmsNav ? <GlobalCmsFooter nav={model.globalCmsNav} basePath={siteBase}/> : null}
   </main>;
 }
 
-export function PublicCmsPage({ siteKey, route='/' }:{ siteKey:string; route?:string }) {
+export function PublicCmsPage({ siteKey, route='/', basePath }:{ siteKey:string; route?:string; basePath?:string }) {
   const [page,setPage]=useState<PublicPageModel|null>(null); const [error,setError]=useState<string|null>(null);
   useEffect(()=>{ setPage(null); setError(null); fetch(`/api/public/sites/${encodeURIComponent(siteKey)}/page?route=${encodeURIComponent(route)}`).then(async r=>{ if(!r.ok) throw new Error(r.status===404?'This page has not been published yet.':'Could not load page.'); return r.json() as Promise<PublicPageModel>; }).then(data=>{setPage(data); if(data.page.seo.title) document.title=data.page.seo.title;}).catch((reason:Error)=>setError(reason.message)); },[route,siteKey]);
   if(error) return <main className="public-site public-site--state"><p className="public-kicker">Legendary OS · CMS</p><h1>{error}</h1><a href="/dashboard/cms">Open CMS</a></main>;
   if(!page) return <main className="public-site public-site--state"><p>Loading published site…</p></main>;
-  return <CmsPageRenderer model={page}/>;
+  return <CmsPageRenderer model={page} basePath={basePath}/>;
 }
