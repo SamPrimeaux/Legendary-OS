@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@inneranimalmedia/agentsam-sdk@2.6.12': d84ada8c054ff9298a1a070e5c30ac09e409a8d9c4a44133ebd4eb8996420318
+
 importers:
 
   .:
@@ -16,7 +19,7 @@ importers:
     dependencies:
       '@inneranimalmedia/agentsam-sdk':
         specifier: ^2.6.12
-        version: 2.6.12(supports-color@10.2.2)(zod@4.6.5)
+        version: 2.6.12(patch_hash=d84ada8c054ff9298a1a070e5c30ac09e409a8d9c4a44133ebd4eb8996420318)(supports-color@10.2.2)(zod@4.6.5)
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20250204.0
@@ -2177,7 +2180,7 @@ snapshots:
 
   '@inneranimalmedia/agentsam-errors@2.6.12': {}
 
-  '@inneranimalmedia/agentsam-sdk@2.6.12(supports-color@10.2.2)(zod@4.6.5)':
+  '@inneranimalmedia/agentsam-sdk@2.6.12(patch_hash=d84ada8c054ff9298a1a070e5c30ac09e409a8d9c4a44133ebd4eb8996420318)(supports-color@10.2.2)(zod@4.6.5)':
     dependencies:
       '@clack/prompts': 1.7.0
       '@grpc/grpc-js': 1.14.5
