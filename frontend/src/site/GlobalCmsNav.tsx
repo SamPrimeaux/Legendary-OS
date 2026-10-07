@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { siteHref } from './siteLinks';
 
 export type CmsNavLink = { label: string; href: string };
@@ -45,6 +45,14 @@ function Brand({ nav, footer = false, basePath = '' }: { nav: GlobalCmsNavModel;
 }
 
 export function GlobalCmsHeader({ nav, basePath = '' }: { nav: GlobalCmsNavModel; basePath?: string }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!menuOpen) return;
+    const close = (event: KeyboardEvent) => { if (event.key === 'Escape') { setMenuOpen(false); menuButton.current?.focus(); } };
+    document.addEventListener('keydown', close);
+    return () => document.removeEventListener('keydown', close);
+  }, [menuOpen]);
   return (
     <header className="lc-nav">
       <Brand nav={nav} basePath={basePath} />
@@ -52,9 +60,16 @@ export function GlobalCmsHeader({ nav, basePath = '' }: { nav: GlobalCmsNavModel
         {nav.header.links.map((link) => <a key={`${link.label}:${link.href}`} href={siteHref(link.href, basePath)}>{link.label}</a>)}
       </nav>
       <div className="lc-nav__actions">
+        <button ref={menuButton} className="lc-mobile-menu-button" type="button" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={menuOpen} aria-controls="legendary-mobile-menu" onClick={() => setMenuOpen(value => !value)}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">{menuOpen ? <path d="m6 6 12 12M6 18 18 6"/> : <path d="M4 7h16M4 12h16M4 17h16"/>}</svg>
+        </button>
         {(nav.header.utilityLinks || []).map((link) => <a className="lc-os-link" key={`${link.label}:${link.href}`} href={siteHref(link.href, basePath)}>{link.label}</a>)}
         {nav.header.cta ? <a className="lc-nav__cta" href={siteHref(nav.header.cta.href, basePath)}>{nav.header.cta.label}</a> : null}
       </div>
+      {menuOpen ? <nav id="legendary-mobile-menu" className="lc-mobile-menu" aria-label="Mobile site navigation">
+        {[...nav.header.links, ...(nav.header.utilityLinks || [])].map(link => <a key={`${link.label}:${link.href}`} href={siteHref(link.href, basePath)} onClick={() => setMenuOpen(false)}>{link.label}</a>)}
+        {nav.header.cta ? <a href={siteHref(nav.header.cta.href, basePath)} onClick={() => setMenuOpen(false)}>{nav.header.cta.label}</a> : null}
+      </nav> : null}
     </header>
   );
 }

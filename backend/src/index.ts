@@ -4,6 +4,7 @@ import { handleMediaRequest } from './media';
 import { handleIdentityRequest } from './identity/handle-identity-request.js';
 import { requireDashboardSession } from './identity/require-dashboard-session.js';
 import type { WorkerEnv } from './env';
+import { withPublicPageBootstrap } from './public-page-bootstrap';
 
 export type Env = WorkerEnv;
 
@@ -75,6 +76,6 @@ export default {
     const dashboardGate = await requireDashboardSession(request, env);
     if (dashboardGate) return dashboardGate;
 
-    return env.ASSETS.fetch(request);
+    return withPublicPageBootstrap(request, env);
   },
 };

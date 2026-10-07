@@ -1,5 +1,4 @@
-import { createCloudflareD1Adapter } from '@inneranimalmedia/agentsam-sdk/identity/adapters/cloudflare-d1';
-import { createIdentityService } from '@inneranimalmedia/agentsam-sdk/identity/server/identity-service';
+import { legendaryIdentity } from './app-config';
 import type { WorkerEnv } from '../env.js';
 
 export type IdentitySessionActor = {
@@ -16,8 +15,7 @@ export async function resolveIdentitySession(
   request: Request,
   env: Pick<WorkerEnv, 'DB'>,
 ): Promise<IdentitySessionActor | null> {
-  const adapter = createCloudflareD1Adapter(env.DB);
-  const identity = createIdentityService({ adapter });
+  const identity = legendaryIdentity(env);
   const ctx = await identity.sessionFromRequest(request);
   if (!ctx?.user?.id) return null;
   return {
