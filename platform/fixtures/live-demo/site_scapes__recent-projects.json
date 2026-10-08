@@ -1,0 +1,181 @@
+{
+  "site": {
+    "id": "site_scapes",
+    "organizationId": "legendary",
+    "brandId": "scapes",
+    "name": "Legendary Scapes",
+    "domain": "legendary-scapes.com",
+    "themeId": "theme_scapes"
+  },
+  "page": {
+    "id": "page_scapes_projects",
+    "siteId": "site_scapes",
+    "title": "Recent Projects",
+    "route": "/recent-projects",
+    "pageType": "portfolio",
+    "status": "published",
+    "seo": {
+      "title": "Recent Projects | Legendary Scapes",
+      "description": "Recent landscape and outdoor living work from Legendary Scapes."
+    }
+  },
+  "sections": [
+    {
+      "id": "section_scapes_projects_hero",
+      "type": "hero",
+      "name": "Hero",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 0,
+      "data": {
+        "eyebrow": "Recent projects",
+        "heading": "See the work in the ground, not just on a service list.",
+        "body": "This page is now a real CMS gallery scaffold ready for project names, locations, captions, and future case-study pages.",
+        "image": "/assets/legendary-scapes/images/ab3e2571004e5de6e22d.jpg",
+        "imageAlt": "Legendary Scapes recent project",
+        "ctaLabel": "Plan your property",
+        "ctaHref": "/scapes/contact"
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_scapes_projects_gallery",
+      "type": "gallery",
+      "name": "Project Gallery",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 10,
+      "data": {
+        "eyebrow": "Gallery",
+        "heading": "Recent Legendary Scapes work.",
+        "items": [
+          {
+            "title": "Landscape Project 01",
+            "meta": "Greater Lafayette",
+            "image": "/assets/legendary-scapes/images/ab3e2571004e5de6e22d.jpg"
+          },
+          {
+            "title": "Landscape Project 02",
+            "meta": "Acadiana",
+            "image": "/assets/legendary-scapes/images/e67b29fd746a66da5335.jpg"
+          },
+          {
+            "title": "Landscape Project 03",
+            "meta": "Legendary Scapes",
+            "image": "/assets/legendary-scapes/images/49dd85bc5ce04fa97433.jpg"
+          }
+        ]
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_scapes_projects_cta",
+      "type": "cta",
+      "name": "Projects CTA",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 20,
+      "data": {
+        "eyebrow": "Your property",
+        "heading": "Make the next project one worth showing.",
+        "body": "Start with a consultation and a clear picture of what the space needs to do.",
+        "ctaLabel": "Request a quote",
+        "ctaHref": "/scapes/contact"
+      },
+      "blocks": []
+    }
+  ],
+  "theme": {
+    "id": "theme_scapes",
+    "name": "Scapes",
+    "tokens": {
+      "brand": "#23372b",
+      "surface": "#f4f1ea",
+      "radius": 18
+    },
+    "publishedAt": 1787381823934
+  },
+  "publishedAt": 1787381848035,
+  "sectionObjects": {
+    "section_scapes_projects_hero": "cms/published/pages/site_scapes/page_scapes_projects/1787381848035/sections/000-section_scapes_projects_hero.json",
+    "section_scapes_projects_gallery": "cms/published/pages/site_scapes/page_scapes_projects/1787381848035/sections/010-section_scapes_projects_gallery.json",
+    "section_scapes_projects_cta": "cms/published/pages/site_scapes/page_scapes_projects/1787381848035/sections/020-section_scapes_projects_cta.json"
+  },
+  "globalCmsNav": {
+    "id": "global_nav_site_scapes",
+    "siteId": "site_scapes",
+    "brand": {
+      "mark": "L",
+      "name": "Legendary",
+      "sublabel": "Scapes",
+      "homeHref": "/scapes",
+      "logoAssetId": "asset_cab32855-1698-45eb-8d23-6fb55a741e6e",
+      "logoUrl": "/api/media/assets/asset_cab32855-1698-45eb-8d23-6fb55a741e6e/variant?width=480&height=480&fit=scale-down&format=webp&quality=92",
+      "logoAlt": "Legendary Scapes"
+    },
+    "header": {
+      "links": [
+        {
+          "label": "Home",
+          "href": "/scapes"
+        },
+        {
+          "label": "Services",
+          "href": "/scapes/services-1"
+        },
+        {
+          "label": "Recent projects",
+          "href": "/scapes/recent-projects"
+        },
+        {
+          "label": "Reviews",
+          "href": "/scapes/reviews"
+        },
+        {
+          "label": "About",
+          "href": "/scapes/about-us"
+        },
+        {
+          "label": "Contact",
+          "href": "/scapes/contact"
+        }
+      ],
+      "utilityLinks": [
+        {
+          "label": "Legendary OS",
+          "href": "/dashboard"
+        }
+      ],
+      "cta": {
+        "label": "Request a quote",
+        "href": "/scapes/contact"
+      }
+    },
+    "footer": {
+      "location": "Greater Lafayette, Louisiana",
+      "phone": "337.210.1210",
+      "phoneHref": "tel:+13372101210",
+      "links": [
+        {
+          "label": "Services",
+          "href": "/scapes/services-1"
+        },
+        {
+          "label": "Projects",
+          "href": "/scapes/recent-projects"
+        },
+        {
+          "label": "About",
+          "href": "/scapes/about-us"
+        },
+        {
+          "label": "Contact",
+          "href": "/scapes/contact"
+        }
+      ],
+      "note": "Built and managed with Legendary OS."
+    },
+    "updatedAt": 1787382570956,
+    "publishedAt": 1787382571431
+  }
+}

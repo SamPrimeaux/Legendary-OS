@@ -1,0 +1,16 @@
+{
+  "name": "Legendary Contractors",
+  "mark": "L",
+  "sublabel": "Contractors",
+  "contact": {
+    "phone": "337.552.5207",
+    "phoneHref": "tel:+13375525207",
+    "serviceArea": "Lafayette, Louisiana"
+  },
+  "legal": {
+    "copyright": "© Legendary Contractors"
+  },
+  "seo": {
+    "defaultDescription": "Custom homes and renovations in Acadiana with design, engineering, craft, and cost-conscious planning working together."
+  }
+}

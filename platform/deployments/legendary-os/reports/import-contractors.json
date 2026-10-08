@@ -1,0 +1,16 @@
+{
+  "app": "contractors",
+  "importedAt": "2026-10-07T04:18:32.845Z",
+  "pages": 5,
+  "sections": 20,
+  "linkRewrites": [
+    "/theprocess -> /process",
+    "/available-homes -> /available",
+    "#contact -> /contact"
+  ],
+  "externalLinksKept": [
+    "https://www.legendarycontractors.com/portfolio",
+    "https://www.legendarycontractors.com/available-homes"
+  ],
+  "unmappedFields": []
+}

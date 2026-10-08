@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "legendary-os",
+  "cloudflare": { "worker": "legendary-os", "d1": "legendary-os-cms", "r2": "legendary-os" },
+  "domains": ["legendary-os.meauxbility.workers.dev"],
+  "previewMediaBase": "https://legendary-os.meauxbility.workers.dev",
+  "sites": [
+    { "app": "contractors", "basePath": "/" },
+    { "app": "scapes", "basePath": "/scapes" }
+  ],
+  "parity": {
+    "liveBase": "https://legendary-os.meauxbility.workers.dev",
+    "sites": {
+      "contractors": { "routes": { "/": "/", "/theprocess": "/process", "/available-homes": "/available", "/portfolio": "/portfolio", "/contact": "/contact" } },
+      "scapes": { "routes": { "/": "/", "/services-1": "/services", "/recent-projects": "/projects", "/reviews": "/reviews", "/about-us": "/about", "/contact": "/contact" } }
+    }
+  }
+}

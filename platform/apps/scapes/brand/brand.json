@@ -1,0 +1,20 @@
+{
+  "name": "Legendary Scapes",
+  "mark": "L",
+  "sublabel": "Scapes",
+  "logo": {
+    "key": "/api/media/assets/asset_cab32855-1698-45eb-8d23-6fb55a741e6e/variant?width=480&height=480&fit=scale-down&format=webp&quality=92",
+    "alt": "Legendary Scapes"
+  },
+  "contact": {
+    "phone": "337.210.1210",
+    "phoneHref": "tel:+13372101210",
+    "serviceArea": "Greater Lafayette, Louisiana"
+  },
+  "legal": {
+    "copyright": "© Legendary Scapes"
+  },
+  "seo": {
+    "defaultDescription": "Landscape design and outdoor living in Acadiana."
+  }
+}

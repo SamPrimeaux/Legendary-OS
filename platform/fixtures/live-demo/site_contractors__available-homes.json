@@ -1,0 +1,206 @@
+{
+  "site": {
+    "id": "site_contractors",
+    "organizationId": "legendary",
+    "brandId": "contractors",
+    "name": "Legendary Contractors",
+    "domain": "legendarycontractors.com",
+    "themeId": "theme_contractors"
+  },
+  "page": {
+    "id": "page_contractors_available_homes",
+    "siteId": "site_contractors",
+    "title": "Available Homes",
+    "route": "/available-homes",
+    "pageType": "inventory",
+    "status": "published",
+    "seo": {
+      "title": "Available Homes | Legendary Contractors",
+      "description": "Explore current Legendary homes and lot opportunities in Acadiana."
+    }
+  },
+  "sections": [
+    {
+      "id": "section_contractors_available_hero",
+      "type": "hero",
+      "name": "Hero",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 0,
+      "data": {
+        "eyebrow": "Available now",
+        "heading": "A Legendary home without starting from zero.",
+        "body": "Explore current homes in Broussard and Youngsville, plus upcoming lot opportunities.",
+        "image": "/assets/legendary-contractors/images/29d857f01d4e9c6340e6.png",
+        "imageAlt": "Available Legendary home rendering",
+        "ctaLabel": "Ask about availability",
+        "ctaHref": "/contact",
+        "proof": [
+          "Broussard",
+          "Youngsville",
+          "Acadiana"
+        ]
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_contractors_available_listings",
+      "type": "listings",
+      "name": "Available Homes",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 10,
+      "data": {
+        "eyebrow": "Current inventory",
+        "heading": "Available Legendary listings.",
+        "body": "Each listing is a CMS item today and can graduate into a dedicated homes/inventory domain later.",
+        "items": [
+          {
+            "title": "110 Abercrombie Way",
+            "location": "Broussard, LA · Langlinais Estates",
+            "details": "2,609 living sq ft · 4 bed + office · 3 bath",
+            "status": "Available now",
+            "image": "/assets/legendary-contractors/images/9332af4669e419989250.webp"
+          },
+          {
+            "title": "201 Ivy Cottage Drive",
+            "location": "Youngsville, LA",
+            "details": "3,627 living sq ft · 4 bed + scullery · 4.5 bath",
+            "status": "Available now",
+            "image": "/assets/legendary-contractors/images/c17d3f3fe646359ae6d2.jpg"
+          },
+          {
+            "title": "207 Sabal Bend Drive",
+            "location": "Youngsville, LA",
+            "details": "3,338 living sq ft · 4 bed + study · 3 bath",
+            "status": "Available now",
+            "image": "/assets/legendary-contractors/images/29d857f01d4e9c6340e6.png"
+          }
+        ]
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_contractors_available_lots",
+      "type": "content",
+      "name": "Lot Availability",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 20,
+      "data": {
+        "eyebrow": "Start with the property",
+        "heading": "Need the lot before the home?",
+        "body": "Lot availability and acquisition guidance can live beside finished inventory without changing the page scaffold.",
+        "points": [
+          "Available lots and neighborhoods",
+          "Lot feasibility and planning",
+          "Design-build coordination from the start"
+        ]
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_contractors_available_cta",
+      "type": "cta",
+      "name": "Inventory CTA",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 30,
+      "data": {
+        "eyebrow": "See something that fits?",
+        "heading": "Ask what is available today.",
+        "body": "Availability changes. Talk with Legendary about a home, lot, or custom-build alternative.",
+        "ctaLabel": "Contact Legendary",
+        "ctaHref": "/contact"
+      },
+      "blocks": []
+    }
+  ],
+  "theme": {
+    "id": "theme_contractors",
+    "name": "Contractors",
+    "tokens": {
+      "brand": "#111111",
+      "surface": "#f4f1ea",
+      "radius": 18
+    },
+    "publishedAt": 1787381821537
+  },
+  "publishedAt": 1787381833864,
+  "sectionObjects": {
+    "section_contractors_available_hero": "cms/published/pages/site_contractors/page_contractors_available_homes/1787381833864/sections/000-section_contractors_available_hero.json",
+    "section_contractors_available_listings": "cms/published/pages/site_contractors/page_contractors_available_homes/1787381833864/sections/010-section_contractors_available_listings.json",
+    "section_contractors_available_lots": "cms/published/pages/site_contractors/page_contractors_available_homes/1787381833864/sections/020-section_contractors_available_lots.json",
+    "section_contractors_available_cta": "cms/published/pages/site_contractors/page_contractors_available_homes/1787381833864/sections/030-section_contractors_available_cta.json"
+  },
+  "globalCmsNav": {
+    "id": "global_nav_site_contractors",
+    "siteId": "site_contractors",
+    "brand": {
+      "mark": "L",
+      "name": "Legendary",
+      "sublabel": "Contractors",
+      "homeHref": "/"
+    },
+    "header": {
+      "links": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Process",
+          "href": "/theprocess"
+        },
+        {
+          "label": "Available homes",
+          "href": "/available-homes"
+        },
+        {
+          "label": "Portfolio",
+          "href": "/portfolio"
+        },
+        {
+          "label": "Contact",
+          "href": "/contact"
+        }
+      ],
+      "utilityLinks": [
+        {
+          "label": "Legendary OS",
+          "href": "/dashboard"
+        }
+      ],
+      "cta": {
+        "label": "Start a project",
+        "href": "/contact"
+      }
+    },
+    "footer": {
+      "location": "Lafayette, Louisiana",
+      "phone": "337.552.5207",
+      "phoneHref": "tel:+13375525207",
+      "links": [
+        {
+          "label": "Process",
+          "href": "/theprocess"
+        },
+        {
+          "label": "Available homes",
+          "href": "/available-homes"
+        },
+        {
+          "label": "Portfolio",
+          "href": "/portfolio"
+        },
+        {
+          "label": "Contact",
+          "href": "/contact"
+        }
+      ],
+      "note": "Built and managed with Legendary OS."
+    },
+    "updatedAt": 1787380612000,
+    "publishedAt": 1787381822778
+  }
+}

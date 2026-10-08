@@ -157,3 +157,12 @@ Full audit: `docs/D1-MIGRATIONS-AUDIT.md`
 - **Duplicate `vars` blocks in wrangler.jsonc** silently override — keep one `vars` object.
 - **SESSION_CACHE and CMS_CACHE** share the same KV namespace ID today — intentional until session volume warrants split.
 - **Live DB may contain legacy `agentsam_tickets` / `agentsam_tools` rows** from early imports — not in repo migrations; do not seed CPAS tenant IDs into them.
+
+---
+
+## Platform branch (`feat/platform-layout`)
+
+`platform/` is a self-contained refinement of this app (contracts, renderer, white-label site packs, parity
+tests). It does not deploy and does not touch the files above. **Before editing anything outside `platform/`
+on that branch, read `platform/AGENTS.md` and `platform/MIGRATION.md`.** Never apply the platform database
+baseline to the live D1 (`media_assets` collides).

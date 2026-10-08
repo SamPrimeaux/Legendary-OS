@@ -1,0 +1,306 @@
+{
+  "site": {
+    "id": "site_contractors",
+    "organizationId": "legendary",
+    "brandId": "contractors",
+    "name": "Legendary Contractors",
+    "domain": "legendarycontractors.com",
+    "themeId": "theme_contractors"
+  },
+  "page": {
+    "id": "page_contractors_home",
+    "siteId": "site_contractors",
+    "title": "Home",
+    "route": "/",
+    "pageType": "home",
+    "status": "published",
+    "seo": {
+      "title": "Legendary Contractors | Custom Homes in Lafayette, Louisiana",
+      "description": "Custom homes and renovations in Acadiana with design, engineering, craft, and cost-conscious planning working together."
+    }
+  },
+  "sections": [
+    {
+      "id": "section_contractors_hero",
+      "type": "hero",
+      "name": "Hero",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 0,
+      "data": {
+        "eyebrow": "Lafayette, Louisiana · Custom Home Builder",
+        "heading": "Homes with a point of view.",
+        "body": "Legendary Contractors brings design, engineering, craft, and cost-conscious planning into one clear build experience.",
+        "ctaLabel": "Start your build",
+        "ctaHref": "#contact",
+        "image": "/assets/legendary-contractors/images/41786cc5b6abdc461c3a.webp",
+        "imageAlt": "Custom kitchen by Legendary Contractors"
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_contractors_intro",
+      "type": "intro",
+      "name": "Why Legendary",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 10,
+      "data": {
+        "eyebrow": "Built differently",
+        "heading": "Your dream. Our priority. That’s Legendary.",
+        "body": "From the first lot conversation to the final walkthrough, the team keeps design, budget, and execution moving together.",
+        "points": [
+          "Design-build decisions made with the whole home in mind.",
+          "Southern Louisiana experience, materials, and construction realities.",
+          "Attention to detail without losing sight of budget or schedule."
+        ]
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_contractors_services",
+      "type": "services",
+      "name": "Services",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 20,
+      "data": {
+        "eyebrow": "What we build",
+        "heading": "One team from idea to home.",
+        "body": "Legendary keeps the important decisions connected instead of passing you between disconnected vendors.",
+        "items": [
+          {
+            "title": "New Home Construction",
+            "body": "Custom homes shaped around the way you live, your lot, your priorities, and a budget that stays visible through the process.",
+            "href": "#process"
+          },
+          {
+            "title": "Home Renovations",
+            "body": "Thoughtful updates and larger transformations planned with the same attention to structure, finish, function, and long-term value.",
+            "href": "#contact"
+          }
+        ]
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_contractors_gallery",
+      "type": "gallery",
+      "name": "Selected Work",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 30,
+      "data": {
+        "eyebrow": "Selected work",
+        "heading": "A better look at what Legendary builds.",
+        "body": "A small sample from the current portfolio, brought into the new media system and ready to manage from Legendary OS.",
+        "ctaLabel": "View current portfolio",
+        "ctaHref": "https://www.legendarycontractors.com/portfolio",
+        "items": [
+          {
+            "image": "/assets/legendary-contractors/images/41786cc5b6abdc461c3a.webp",
+            "alt": "Legendary Contractors custom kitchen",
+            "title": "Crafted interiors",
+            "meta": "Design + build"
+          },
+          {
+            "image": "/assets/legendary-contractors/images/9332af4669e419989250.webp",
+            "alt": "Legendary Contractors project",
+            "title": "Acadiana homes",
+            "meta": "Custom construction"
+          },
+          {
+            "image": "/assets/legendary-contractors/images/1fe422acb93ed5bb12e1.webp",
+            "alt": "Legendary Contractors project",
+            "title": "Details that last",
+            "meta": "Built with intent"
+          }
+        ]
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_contractors_process",
+      "type": "process",
+      "name": "Process",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 40,
+      "data": {
+        "eyebrow": "The process",
+        "heading": "Clear steps. Fewer surprises.",
+        "body": "A build should feel considered before construction starts. Legendary organizes the major decisions into a simple path from property to handoff.",
+        "items": [
+          {
+            "title": "Land or lot",
+            "body": "Start with your property, find the right lot, or evaluate what is possible before plans get too far ahead."
+          },
+          {
+            "title": "Layout and design",
+            "body": "Turn priorities, inspiration, and site constraints into a home that works as a whole."
+          },
+          {
+            "title": "Selections and budget",
+            "body": "Make finish and material decisions while cost implications are still useful—not after they become surprises."
+          },
+          {
+            "title": "Construction",
+            "body": "Coordinate trades, schedule, quality, and communication through the actual build."
+          },
+          {
+            "title": "Beyond completion",
+            "body": "Finish with walkthrough, warranty, and a team that remains accountable after move-in."
+          }
+        ]
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_contractors_listings",
+      "type": "listings",
+      "name": "Available Homes",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 50,
+      "data": {
+        "eyebrow": "Available now",
+        "heading": "Legendary homes without the full wait.",
+        "body": "Three current listings from the existing site, presented as a cleaner inventory experience.",
+        "ctaLabel": "See current listings",
+        "ctaHref": "https://www.legendarycontractors.com/available-homes",
+        "items": [
+          {
+            "title": "110 Abercrombie Way",
+            "location": "Broussard, LA · Langlinais Estates",
+            "details": "2,609 sq ft · 4 bed + office · 3 bath",
+            "status": "Available now",
+            "image": "/assets/legendary-contractors/images/9b975b44bbaf571d100e.webp"
+          },
+          {
+            "title": "201 Ivy Cottage Drive",
+            "location": "Youngsville, LA",
+            "details": "3,627 sq ft · 4 bed + scullery · 4.5 bath",
+            "status": "Available now",
+            "image": "/assets/legendary-contractors/images/c17d3f3fe646359ae6d2.jpg"
+          },
+          {
+            "title": "207 Sabal Bend Drive",
+            "location": "Youngsville, LA",
+            "details": "3,338 sq ft · 4 bed + study · 3 bath",
+            "status": "Available now",
+            "image": "/assets/legendary-contractors/images/29d857f01d4e9c6340e6.png"
+          }
+        ]
+      },
+      "blocks": []
+    },
+    {
+      "id": "section_contractors_cta",
+      "type": "cta",
+      "name": "Contact CTA",
+      "zone": "BODY",
+      "visible": true,
+      "sortOrder": 60,
+      "data": {
+        "eyebrow": "Start the conversation",
+        "heading": "Have a home in mind?",
+        "body": "New construction, renovation, or just figuring out the next move—talk with the Legendary team about what you want to build.",
+        "ctaLabel": "Call Legendary",
+        "ctaHref": "tel:+13375525207",
+        "secondaryLabel": "337.552.5207",
+        "secondaryHref": "tel:+13375525207"
+      },
+      "blocks": []
+    }
+  ],
+  "theme": {
+    "id": "theme_contractors",
+    "name": "Contractors",
+    "tokens": {
+      "brand": "#111111",
+      "surface": "#f4f1ea",
+      "radius": 18
+    },
+    "publishedAt": 1787381821537
+  },
+  "publishedAt": 1787381826666,
+  "sectionObjects": {
+    "section_contractors_hero": "cms/published/pages/site_contractors/page_contractors_home/1787381826666/sections/000-section_contractors_hero.json",
+    "section_contractors_intro": "cms/published/pages/site_contractors/page_contractors_home/1787381826666/sections/010-section_contractors_intro.json",
+    "section_contractors_services": "cms/published/pages/site_contractors/page_contractors_home/1787381826666/sections/020-section_contractors_services.json",
+    "section_contractors_gallery": "cms/published/pages/site_contractors/page_contractors_home/1787381826666/sections/030-section_contractors_gallery.json",
+    "section_contractors_process": "cms/published/pages/site_contractors/page_contractors_home/1787381826666/sections/040-section_contractors_process.json",
+    "section_contractors_listings": "cms/published/pages/site_contractors/page_contractors_home/1787381826666/sections/050-section_contractors_listings.json",
+    "section_contractors_cta": "cms/published/pages/site_contractors/page_contractors_home/1787381826666/sections/060-section_contractors_cta.json"
+  },
+  "globalCmsNav": {
+    "id": "global_nav_site_contractors",
+    "siteId": "site_contractors",
+    "brand": {
+      "mark": "L",
+      "name": "Legendary",
+      "sublabel": "Contractors",
+      "homeHref": "/"
+    },
+    "header": {
+      "links": [
+        {
+          "label": "Home",
+          "href": "/"
+        },
+        {
+          "label": "Process",
+          "href": "/theprocess"
+        },
+        {
+          "label": "Available homes",
+          "href": "/available-homes"
+        },
+        {
+          "label": "Portfolio",
+          "href": "/portfolio"
+        },
+        {
+          "label": "Contact",
+          "href": "/contact"
+        }
+      ],
+      "utilityLinks": [
+        {
+          "label": "Legendary OS",
+          "href": "/dashboard"
+        }
+      ],
+      "cta": {
+        "label": "Start a project",
+        "href": "/contact"
+      }
+    },
+    "footer": {
+      "location": "Lafayette, Louisiana",
+      "phone": "337.552.5207",
+      "phoneHref": "tel:+13375525207",
+      "links": [
+        {
+          "label": "Process",
+          "href": "/theprocess"
+        },
+        {
+          "label": "Available homes",
+          "href": "/available-homes"
+        },
+        {
+          "label": "Portfolio",
+          "href": "/portfolio"
+        },
+        {
+          "label": "Contact",
+          "href": "/contact"
+        }
+      ],
+      "note": "Built and managed with Legendary OS."
+    },
+    "updatedAt": 1787380612000,
+    "publishedAt": 1787381822778
+  }
+}
